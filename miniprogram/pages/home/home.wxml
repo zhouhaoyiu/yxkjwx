@@ -1,5 +1,5 @@
-<scroll-view class="box" scroll-y="true">
-    <view>
+<scroll-view class="page" scroll-y="true">
+    <view class="box">
         <t-input align="right" size="small" value="{{jobContent}}" data-inputfield="jobContent" onchange="setInputData" label="作业内容" placeholder="请输入作业内容" />
         <!-- <t-input size="small" value="{{jobGroupValue}}" label="作业段组" placeholder="请输入文字" /> -->
         <view class="pannel-item" bind:tap="onClickPicker" data-key="{{PICKER_KEY.JOB_GROUP}}">
@@ -19,7 +19,7 @@
             <!-- <view style="margin-left: 14px;">人</view> -->
         </view>
     </view>
-    <view>
+    <view class="box">
         <text class="workBefore">作业前</text>
         <t-divider></t-divider>
         <!-- 安全交底 完成/未完成  t-switch -->
@@ -69,7 +69,7 @@
             <t-textarea align="right" data-inputfield="otherInfo" onchange="setInputData" autosize value="{{otherInfo}}" label="其他补充措施" placeholder="请输入文字" />
         </view>
     </view>
-    <view>
+    <view class="box">
         <text class="workBefore" bindtap="logWorkIn">作业中</text>
         <t-divider></t-divider>
         <view style="display: flex;justify-content: space-between; align-items: center;padding:0 32rpx;">
@@ -91,76 +91,80 @@
             <view class="switch-text-right" data-textValue="true" data-valueName="isPause" bindtap="onClickSwitchText" style="color:{{isPause ? 'green' :'rgb(153,153,153)'}}">是</view>
         </view>
         <t-input align="right" wx:if="{{isPause}}" size="small" data-inputfield="pauseTime" onchange="setInputData" value="{{pauseTime}}" label="中断时长" placeholder="请输入文字" />
-    </view>
-    <view class="pannel-item" wx:if="{{isPause}}">
-        <view class="pannel-label">再次检测情况</view>
-        <view class="pannel-text {{reDetectionValue.length ? '' : 'empty'}}"></view>
-        <view class="switch-text-left" data-textValue="false" data-valueName="reDetectionValue" bindtap="onClickSwitchText" style="color:{{reDetectionValue ? 'rgb(153,153,153)':'red'}}">不合格</view>
-        <t-switch data-valueName="reDetectionValue" value="{{reDetectionValue}}" bindchange="onChangeSwitch" />
-        <view class="switch-text-right" data-textValue="true" data-valueName="reDetectionValue" bindtap="onClickSwitchText" style="color:{{reDetectionValue ? 'green' :'rgb(153,153,153)'}}">合格</view>
-    </view>
-    <view>
-        <!-- <view style="color: #999999;" class="pl-32 mt-20">现场气体检测情况</view> -->
-        <view class="pannel-item">
-            <view class="pannel-label">有限空间类型</view>
-            <view class="pannel-text {{confinedSpaceType.length ? '' : 'empty'}}"></view>
-            <view class="switch-text-left" data-textValue="false" data-valueName="confinedSpaceType" bindtap="onClickSwitchText" style="color:{{confinedSpaceType ? 'rgb(153,153,153)':'blue'}}">表井</view>
-            <t-switch value="{{confinedSpaceType}}" data-valueName="confinedSpaceType" bindchange="onChangeSwitch" />
-            <view class="switch-text-right" data-textValue="true" data-valueName="confinedSpaceType" bindtap="onClickSwitchText" style="color:{{confinedSpaceType ? 'blue' :'rgb(153,153,153)'}}">水表房</view>
+
+        <view class="pannel-item box" wx:if="{{isPause}}">
+            <view class="pannel-label">再次检测情况</view>
+            <view class="pannel-text {{reDetectionValue.length ? '' : 'empty'}}"></view>
+            <view class="switch-text-left" data-textValue="false" data-valueName="reDetectionValue" bindtap="onClickSwitchText" style="color:{{reDetectionValue ? 'rgb(153,153,153)':'red'}}">不合格</view>
+            <t-switch data-valueName="reDetectionValue" value="{{reDetectionValue}}" bindchange="onChangeSwitch" />
+            <view class="switch-text-right" data-textValue="true" data-valueName="reDetectionValue" bindtap="onClickSwitchText" style="color:{{reDetectionValue ? 'green' :'rgb(153,153,153)'}}">合格</view>
         </view>
-        <view class="position-list">
-            <view class="position-item" wx:for="{{positionList}}" wx:key="index">
-                <view style="color: #999999;" class="pl-32 mt-20">{{item.key}}</view>
-                <t-input align="right" size="small" value="{{item.CO}}" data-index="{{index}}" data-key="CO" onchange="setPositionData" label="CO(一氧化碳)" placeholder="请输入浓度">
-                    <view slot="suffix">
-                        ppm
-                    </view>
-                </t-input>
-                <t-input align="right" size="small" value="{{item.H2S}}" data-index="{{index}}" data-key="H2S" onchange="setPositionData" label="H2S(硫化氢)" placeholder="请输入浓度">
-                    <view slot="suffix">
-                        ppm
-                    </view>
-                </t-input>
-                <t-input align="right" size="small" value="{{item.O2}}" data-index="{{index}}" data-key="O2" onchange="setPositionData" label="O2(氧气)" placeholder="请输入浓度">
-                    <view slot="suffix">
-                        %
-                    </view>
-                </t-input>
-                <t-input align="right" size="small" value="{{item.combustibleGas}}" data-index="{{index}}" data-key="combustibleGas" onchange="setPositionData" label="可燃气体" placeholder="请输入浓度">
-                    <view slot="suffix">
-                        %
-                    </view>
-                </t-input>
-                <t-input align="right" size="small" value="{{item.detectionResult}}" data-index="{{index}}" data-key="detectionResult" onchange="setPositionData" label="检测结果" placeholder="请输入结果">
-                </t-input>
+
+        <view class="box">
+            <!-- <view style="color: #999999;" class="pl-32 mt-20">现场气体检测情况</view> -->
+            <view class="pannel-item">
+                <view class="pannel-label">有限空间类型</view>
+                <view class="pannel-text {{confinedSpaceType.length ? '' : 'empty'}}"></view>
+                <view class="switch-text-left" data-textValue="false" data-valueName="confinedSpaceType" bindtap="onClickSwitchText" style="color:{{confinedSpaceType ? 'rgb(153,153,153)':'blue'}}">表井</view>
+                <t-switch value="{{confinedSpaceType}}" data-valueName="confinedSpaceType" bindchange="onChangeSwitch" />
+                <view class="switch-text-right" data-textValue="true" data-valueName="confinedSpaceType" bindtap="onClickSwitchText" style="color:{{confinedSpaceType ? 'blue' :'rgb(153,153,153)'}}">水表房</view>
             </view>
-        </view>
-        <view class="wrapper pt-20">
-            <view class="main">
-                <!-- {{!imgArr.length}} -->
-                <!-- 点击上传前的页面 -->
-                <view class="content" wx:if="{{!imgArr.length}}" bindtap="handleUploadImg">
-                    <text class="plus">+</text>
-                </view>
-                <!-- 点击上传后的页面 -->
-                <view class="selectImgArr">
-                    <view class="selectImg" wx:if="{{imgArr.length}}" wx:for="{{imgArr}}" wx:key="index">
-                        <view class="deleteBox" data-index="{{index}}" bindtap="deleteImg">
-                            <view class="deleteBtn">x</view>
+            <view class="position-list">
+                <view class="position-item" wx:for="{{positionList}}" wx:key="index">
+                    <view style="color: #999999;" class="pl-32 mt-20">{{item.key}}</view>
+                    <t-input align="right" size="small" value="{{item.CO}}" data-index="{{index}}" data-key="CO" onchange="setPositionData" label="CO(一氧化碳)" placeholder="请输入浓度">
+                        <view slot="suffix">
+                            ppm
                         </view>
-                        <image class="img" data-index="{{index}}" src="{{imgArr[index]}}" bindtap="previewImg">
-                        </image>
+                    </t-input>
+                    <t-input align="right" size="small" value="{{item.H2S}}" data-index="{{index}}" data-key="H2S" onchange="setPositionData" label="H2S(硫化氢)" placeholder="请输入浓度">
+                        <view slot="suffix">
+                            ppm
+                        </view>
+                    </t-input>
+                    <t-input align="right" size="small" value="{{item.O2}}" data-index="{{index}}" data-key="O2" onchange="setPositionData" label="O2(氧气)" placeholder="请输入浓度">
+                        <view slot="suffix">
+                            %
+                        </view>
+                    </t-input>
+                    <t-input align="right" size="small" value="{{item.combustibleGas}}" data-index="{{index}}" data-key="combustibleGas" onchange="setPositionData" label="可燃气体" placeholder="请输入浓度">
+                        <view slot="suffix">
+                            %
+                        </view>
+                    </t-input>
+                    <t-input align="right" size="small" value="{{item.detectionResult}}" data-index="{{index}}" data-key="detectionResult" onchange="setPositionData" label="检测结果" placeholder="请输入结果">
+                    </t-input>
+                </view>
+            </view>
+            <view class="wrapper pt-20">
+                <view class="main">
+                    <!-- {{!imgArr.length}} -->
+                    <!-- 点击上传前的页面 -->
+                    <view class="content" wx:if="{{!imgArr.length}}" bindtap="handleUploadImg">
+                        <text class="plus">+</text>
+                    </view>
+                    <!-- 点击上传后的页面 -->
+                    <view class="selectImgArr">
+                        <view class="selectImg" wx:if="{{imgArr.length}}" wx:for="{{imgArr}}" wx:key="index">
+                            <view class="deleteBox" data-index="{{index}}" bindtap="deleteImg">
+                                <view class="deleteBtn">x</view>
+                            </view>
+                            <image class="img" data-index="{{index}}" src="{{imgArr[index]}}" bindtap="previewImg">
+                            </image>
+                        </view>
                     </view>
                 </view>
             </view>
         </view>
     </view>
-    <t-input align="right" size="small" value="{{inspector}}" data-inputfield="inspector" onchange="setInputData" label="检测员" placeholder="请输入检测员" />
-    <t-input align="right" size="small" value="{{recorder}}" data-inputfield="recorder" onchange="setInputData" label="记录员" placeholder="请输入记录员" />
+    <view class="box">
+        <t-input align="right" size="small" value="{{inspector}}" data-inputfield="inspector" onchange="setInputData" label="检测员" placeholder="请输入检测员" />
+        <t-input align="right" size="small" value="{{recorder}}" data-inputfield="recorder" onchange="setInputData" label="记录员" placeholder="请输入记录员" />
+    </view>
     <!-- <t-button t-class="external-class" theme="primary" variant="outline" block disabled="{{disabled}}">提交</t-button> -->
 
 
-    <view>
+    <view class="box">
         <text class="workBefore" bindtap="logWorkIn">作业结束</text>
         <t-divider></t-divider>
         <view style="display: flex;justify-content: space-between; align-items: center;padding:0 32rpx;">

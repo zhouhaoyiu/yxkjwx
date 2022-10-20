@@ -1,5 +1,5 @@
 <!--pages/list/list.wxml-->
-<scroll-view class="box" scroll-y="true">
+<scroll-view class="page" scroll-y="true">
     <h1>
         这是一个列表
     </h1>

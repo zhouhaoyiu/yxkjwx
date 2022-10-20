@@ -1,15 +1,22 @@
 /* pages/home/home.wxss */
-.box {
+//选择只属于.box的一级子元素，eg: div.box>div
+.page {
     padding: 16rpx;
     padding-bottom: 118px;
     box-sizing: border-box;
     height: max-content;
+    background: #e9e9e960;
+
+    .box {
+        background: white;
+        margin-bottom: 20rpx;
+    }
 
     .workBefore {
-        font-size: 30px;
+        font-size: 24px;
         font-weight: bold;
         color: rgb(153, 153, 153);
-        padding-left: 28rpx;
+        padding-left: 30rpx;
     }
 
     .pl-32 {
