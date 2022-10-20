@@ -1,0 +1,145 @@
+/* pages/home/home.wxss */
+.box {
+    padding: 16rpx;
+    padding-bottom: 118px;
+    box-sizing: border-box;
+    height: max-content;
+
+    .workBefore {
+        font-size: 30px;
+        font-weight: bold;
+        color: rgb(153, 153, 153);
+        padding-left: 28rpx;
+    }
+
+    .pl-32 {
+        padding-left: 32rpx;
+    }
+
+    .ml-32 {
+        margin-left: 32rpx;
+    }
+
+    .pt-20 {
+        padding-top: 20rpx;
+    }
+
+    .mt-20 {
+        margin-top: 20rpx;
+    }
+
+    .wrapper {
+        padding: 0 30rpx;
+        padding-top: 20rpx;
+
+        .text {
+            padding-top: 4px;
+            padding-bottom: 28rpx;
+        }
+
+        .main {
+            display: flex;
+            flex-direction: column;
+            background-color: #fff;
+        }
+
+        .content {
+            width: 80px;
+            height: 80px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #eee;
+            border: 1px dashed #ddd;
+            border-radius: 4px;
+        }
+
+        .selectImgArr {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .selectImg {
+            position: relative;
+            margin-right: 12rpx;
+            padding: 4rpx;
+            border: 1px solid #f3f3f3;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .selectImg .img {
+            width: 80px;
+            height: 80px;
+            border-radius: 4px;
+            overflow: hidden;
+            object-fit: contain;
+        }
+
+        .deleteBox {
+            position: absolute;
+            top: 4px;
+            left: 60px;
+            width: 16px;
+            height: 16px;
+            line-height: 14px;
+            text-align: center;
+            border-radius: 50%;
+            background-color: #a59f99;
+        }
+
+        .deleteBtn {
+            color: #fff;
+        }
+    }
+}
+
+.pannel-item {
+    display: flex;
+    align-items: center;
+    height: 96rpx;
+    padding: 0 12rpx;
+    // font-size: 32rpx;
+    // margin-bottom: 32rpx;
+    background-color: #fff;
+
+    .switch-text-left {
+        color: rgb(153, 153, 153);
+        font-weight: bold;
+        padding-right: 6px;
+    }
+
+    .switch-text-right {
+        color: rgb(153, 153, 153);
+        font-weight: bold;
+        padding-left: 6px;
+    }
+}
+
+.t-cell__title-text {
+    // padding: 0px;
+    font-size: 16px;
+}
+
+.pannel-item .last {
+    margin-bottom: -13rpx;
+}
+
+.pannel-label {
+    width: 200rpx;
+    padding-left: 20rpx;
+    // margin-right: 32rpx;
+}
+
+.pannel-text {
+    flex: 1;
+    color: #000;
+    opacity: 0.9;
+    text-align: right;
+}
+
+.pannel-text.empty {
+    opacity: 0.26;
+}
