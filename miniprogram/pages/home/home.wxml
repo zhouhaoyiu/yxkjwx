@@ -20,7 +20,7 @@
         </view>
     </view>
     <view class="box">
-        <text class="workBefore">作业前</text>
+        <view class="workBefore">作业前</view>
         <t-divider></t-divider>
         <!-- 安全交底 完成/未完成  t-switch -->
         <view class="pannel-item">
@@ -70,7 +70,7 @@
         </view>
     </view>
     <view class="box">
-        <text class="workBefore" bindtap="logWorkIn">作业中</text>
+        <view class="workBefore" bindtap="logWorkIn">作业中</view>
         <t-divider></t-divider>
         <view style="display: flex;justify-content: space-between; align-items: center;padding:0 32rpx;">
             <text>开始时间</text>
@@ -165,7 +165,7 @@
 
 
     <view class="box">
-        <text class="workBefore" bindtap="logWorkIn">作业结束</text>
+        <view class="workBefore" bindtap="logWorkIn">作业结束</view>
         <t-divider></t-divider>
         <view style="display: flex;justify-content: space-between; align-items: center;padding:0 32rpx;">
             <text>结束时间</text>
