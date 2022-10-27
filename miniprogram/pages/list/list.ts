@@ -92,7 +92,7 @@ Page({
     onReachBottom() {
         console.log("到底了");
         wx.request({
-            url: "http://localhost:8092/Job/test",
+            url: "http://zhouhaoyiu.oicp.vip/Job/test",
             success(res) {
                 console.log(res);
             },

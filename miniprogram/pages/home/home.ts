@@ -6,44 +6,44 @@ const width = wx.getSystemInfoSync().windowWidth;
 const wellPostion = [
     {
         key: "井口",
-        CO: "0",
-        H2S: "0",
-        O2: "20.9",
-        combustibleGas: "0",
+        CO: "",
+        H2S: "",
+        O2: "",
+        combustibleGas: "",
         detectionResult: "",
     },
     {
         key: "井中",
-        CO: "0",
-        H2S: "0",
-        O2: "20.9",
-        combustibleGas: "0",
+        CO: "",
+        H2S: "",
+        O2: "",
+        combustibleGas: "",
         detectionResult: "",
     },
     {
         key: "井底",
-        CO: "0",
-        H2S: "0",
-        O2: "20.9",
-        combustibleGas: "0",
+        CO: "",
+        H2S: "",
+        O2: "",
+        combustibleGas: "",
         detectionResult: "",
     },
 ] as Record<any, any>[];
 const roomPosition = [
     {
         key: "表房外",
-        CO: "0",
-        H2S: "0",
-        O2: "20.9",
-        combustibleGas: "0",
+        CO: "",
+        H2S: "",
+        O2: "",
+        combustibleGas: "",
         detectionResult: "",
     },
     {
         key: "表房内",
-        CO: "0",
-        H2S: "0",
-        O2: "20.9",
-        combustibleGas: "0",
+        CO: "",
+        H2S: "",
+        O2: "",
+        combustibleGas: "",
         detectionResult: "",
     },
 ] as Record<any, any>[];
@@ -59,6 +59,7 @@ Page({
         aqySignCanvas: undefined as unknown as WechatMiniprogram.Canvas,
         aqyHasDraw: false,
         aqyDrawOk: false,
+        aqyDrawShow: false,
         aqySrc: null,
         aqyBase64: null,
 
@@ -66,6 +67,7 @@ Page({
         xcfzrSignCanvas: undefined as unknown as WechatMiniprogram.Canvas,
         xcfzrHasDraw: false,
         xcfzrDrawOk: false, // 现场负责人签字完成
+        xcfzrDrawShow: false,
         xzfzrSrc: null,
         xcfzrBase64: null,
 
@@ -73,6 +75,7 @@ Page({
         jcySignCanvas: undefined as unknown as WechatMiniprogram.Canvas,
         jcyHasDraw: false,
         jcyDrawOk: false,
+        jcyDrawShow: false,
         jcySrc: null,
         jcyBase64: null,
 
@@ -80,6 +83,7 @@ Page({
         jlySignCanvas: undefined as unknown as WechatMiniprogram.Canvas,
         jlyHasDraw: false,
         jlyDrawOk: false,
+        jlyDrawShow: false,
         jlySrc: null,
         jlyBase64: null,
 
@@ -113,7 +117,7 @@ Page({
 
         latitude: 0, //首次加载维度
         longitude: 0, //首次加载的经度
-        jobPersonValue: 0, // 作业人员数量
+        jobPersonValue: 1, // 作业人员数量
 
         // 安全选项
         safetyDisclosureValue: true, // 安全交底
@@ -159,6 +163,16 @@ Page({
     },
     logWorkIn() {
         console.log(this.data);
+    },
+    openSign(e: any) {
+        const name = e.target.dataset.name
+        this.setData({
+            [`${name}DrawShow`]: true,
+            [`${name}HasDraw`]: false,
+            [`${name}DrawOk`]: false,
+            [`${name}Src`]: "",
+            [`${name}Base64`]: "",
+        })
     },
 
     changePostion(e: any) {
@@ -229,7 +243,7 @@ Page({
     },
 
     deleteImg(e: any) {
-        // const { imgPreview } = this.data
+        // const { imgPreview } = this.data        
         const index = e.target.dataset.index;
         const arrname = e.target.dataset.arrname;
         const { [`${arrname}ImgArr`]: imgArr } = this.data;
@@ -475,6 +489,8 @@ Page({
             [`${name}HasDraw`]: false,
             [`${name}Src`]: null,
             [`${name}DrawOk`]: false,
+            [`${name}Src`]: "",
+            [`${name}Base64`]: "",
         });
     },
 
@@ -506,6 +522,7 @@ Page({
             });
             this.setData({
                 [`${name}DrawOk`]: true,
+                [`${name}DrawShow`]: false,
             });
         }
 
@@ -514,10 +531,13 @@ Page({
             success: (res) => {
                 const fileManager = wx.getFileSystemManager();
                 const base64 = fileManager.readFileSync(res.tempFilePath, "base64");
+
                 this.setData({
                     [`${name}Src`]: res.tempFilePath,
                     [`${name}Base64`]: base64,
                 });
+                let canvasContext = this.data[`${name}SignContext`];
+                canvasContext.clearRect(0, 0, this.data.width, 250);
             },
         });
     },
@@ -565,12 +585,12 @@ Page({
             });
             return;
         }
-        if (!this.data.startTimeSecond) {
-            this.handleToast({
-                message: "请输入作业开始秒",
-            });
-            return;
-        }
+        // if (!this.data.startTimeSecond) {
+        //     this.handleToast({
+        //         message: "请输入作业开始秒",
+        //     });
+        //     return;
+        // }
         if (!this.data.endTimeHour) {
             this.handleToast({
                 message: "请输入作业结束小时",
@@ -583,12 +603,12 @@ Page({
             });
             return;
         }
-        if (!this.data.endTimeSecond) {
-            this.handleToast({
-                message: "请输入作业结束秒",
-            });
-            return;
-        }
+        // if (!this.data.endTimeSecond) {
+        //     this.handleToast({
+        //         message: "请输入作业结束秒",
+        //     });
+        //     return;
+        // }
         if (this.data.isInterrupt && !this.data.pauseTime) {
             this.handleToast({
                 message: "请输入中断时间",
@@ -693,12 +713,21 @@ Page({
             jly: this.data.jly,
             jlyBase64: this.data.jlyBase64,
         };
-        console.log(data);
-
+        const that = this
         wx.request({
-          url: "http://localhost:8092/Job/addJob",
-          method: "POST",
-          data: data,
+            url: "http://zhouhaoyiu.oicp.vip/Job/addJob",
+            method: "POST",
+            data: data,
+            success(res) {
+                that.handleToast({
+                    message: res.data,
+                });
+            },
+            fail(res) {
+                that.handleToast({
+                    message: res.data,
+                });
+            }
         });
     },
 

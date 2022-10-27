@@ -7,6 +7,9 @@
                 <view>
                     作业段组
                 </view>
+                <view>
+                    {{jobGroup}}
+                </view>
                 <view style="padding-right: 32rpx;" bindtap="jobGroupVisible">
                     <text style="color: #999;" wx:if="{{!jobGroupPick}}">点击选择</text>
                     <text style="color: #999;" wx:if="{{jobGroupPick}}">收起</text>
@@ -119,8 +122,8 @@
                 <text style="padding-right: 4rpx;color: #000;">时</text>
                 <input align="right" data-inputfield="startTimeMinute" onchange="setInputData" value="{{startTimeMinute}}" style="width: 30%;border-bottom: 1px solid silver;" type="number" />
                 <text style="padding-right: 4rpx;color: #000;">分</text>
-                <input align="right" data-inputfield="startTimeSecond" onchange="setInputData" value="{{startTimeSecond}}" style="width: 30%;border-bottom: 1px solid silver;" type="number" />
-                <text style="padding-right: 4rpx;color: #000;">秒</text>
+                <!-- <input align="right" data-inputfield="startTimeSecond" onchange="setInputData" value="{{startTimeSecond}}" style="width: 30%;border-bottom: 1px solid silver;" type="number" />
+                <text style="padding-right: 4rpx;color: #000;">秒</text> -->
             </view>
         </view>
         <view class="pannel-item">
@@ -164,19 +167,19 @@
             <view class="position-list">
                 <view class="position-item" wx:for="{{positionList}}" wx:key="index">
                     <view style="color: #999999;" class="pl-32 mt-20">{{item.key}}</view>
-                    <t-input align="right" size="small" value="{{item.CO}}" data-index="{{index}}" data-key="CO" onchange="setPositionData" label="CO(一氧化碳)" placeholder="请输入浓度">
+                    <t-input align="right" size="small" value="{{item.CO}}" data-index="{{index}}" data-key="CO" onchange="setPositionData" label="CO(一氧化碳)" placeholder="小于24">
                         <view slot="suffix">ppm</view>
                     </t-input>
-                    <t-input align="right" size="small" value="{{item.H2S}}" data-index="{{index}}" data-key="H2S" onchange="setPositionData" label="H2S(硫化氢)" placeholder="请输入浓度">
+                    <t-input align="right" size="small" value="{{item.H2S}}" data-index="{{index}}" data-key="H2S" onchange="setPositionData" label="H2S(硫化氢)" placeholder="小于10">
                         <view slot="suffix">ppm</view>
                     </t-input>
-                    <t-input align="right" size="small" value="{{item.O2}}" data-index="{{index}}" data-key="O2" onchange="setPositionData" label="O2(氧气)" placeholder="请输入浓度">
+                    <t-input align="right" size="small" value="{{item.O2}}" data-index="{{index}}" data-key="O2" onchange="setPositionData" label="O2(氧气)" placeholder="19.5~23">
                         <view slot="suffix">%</view>
                     </t-input>
-                    <t-input align="right" size="small" value="{{item.combustibleGas}}" data-index="{{index}}" data-key="combustibleGas" onchange="setPositionData" label="可燃气体" placeholder="请输入浓度">
+                    <t-input align="right" size="small" value="{{item.combustibleGas}}" data-index="{{index}}" data-key="combustibleGas" onchange="setPositionData" label="可燃气体" placeholder="小于等于0">
                         <view slot="suffix">%</view>
                     </t-input>
-                    <t-input align="right" size="small" value="{{item.detectionResult}}" data-index="{{index}}" data-key="detectionResult" onchange="setPositionData" label="检测结果" placeholder="请输入结果"></t-input>
+                    <!-- <t-input align="right" size="small" value="{{item.detectionResult}}" data-index="{{index}}" data-key="detectionResult" onchange="setPositionData" label="检测结果" placeholder="请输入结果"></t-input> -->
                 </view>
             </view>
             <view class="wrapper pt-20">
@@ -188,8 +191,8 @@
                     </view>
                     <view class="selectImgArr">
                         <view class="selectImg" wx:if="{{gasDetectionImgArr.length}}" wx:for="{{gasDetectionImgArr}}" wx:key="index">
-                            <view class="deleteBox" data-index="{{index}}" data-arrname="gasDetection" bindtap="deletegArrImg">
-                                <view class="deleteBtn">x</view>
+                            <view class="deleteBox" data-index="{{index}}" data-arrname="gasDetection" bindtap="deleteImg">
+                                <view data-arrname="gasDetection" class="deleteBtn">x</view>
                             </view>
                             <image class="img" data-index="{{index}}" src="{{gasDetectionImgArr[index]}}" data-arrname="gasDetection" bindtap="previewImg"></image>
                         </view>
@@ -203,8 +206,8 @@
                     </view>
                     <view class="selectImgArr">
                         <view class="selectImg" wx:if="{{signBoardImgArr.length}}" wx:for="{{signBoardImgArr}}" wx:key="index">
-                            <view class="deleteBox" data-index="{{index}}" data-arrname="signBoard" bindtap="deletegArrImg">
-                                <view class="deleteBtn">x</view>
+                            <view class="deleteBox" data-index="{{index}}" data-arrname="signBoard" bindtap="deleteImg">
+                                <view data-arrname="signBoard" class="deleteBtn">x</view>
                             </view>
                             <image class="img" data-index="{{index}}" src="{{signBoardImgArr[index]}}" data-arrname="signBoard" bindtap="previewImg"></image>
                         </view>
@@ -218,8 +221,8 @@
                     </view>
                     <view class="selectImgArr">
                         <view class="selectImg" wx:if="{{exhaustAirImgArr.length}}" wx:for="{{exhaustAirImgArr}}" wx:key="index">
-                            <view class="deleteBox" data-index="{{index}}" data-arrname="exhaustAir" bindtap="deletegArrImg">
-                                <view class="deleteBtn">x</view>
+                            <view class="deleteBox" data-index="{{index}}" data-arrname="exhaustAir" bindtap="deleteImg">
+                                <view data-arrname="exhaustAir" class="deleteBtn">x</view>
                             </view>
                             <image class="img" data-index="{{index}}" src="{{exhaustAirImgArr[index]}}" data-arrname="exhaustAir" bindtap="previewImg"></image>
                         </view>
@@ -239,8 +242,8 @@
                 <text style="padding-right: 4rpx;color: #000;">时</text>
                 <input align="right" data-inputfield="endTimeMinute" onchange="setInputData" value="{{endTimeMinute}}" style="width: 30%;border-bottom: 1px solid silver;" type="number" />
                 <text style="padding-right: 4rpx;color: #000;">分</text>
-                <input align="right" data-inputfield="endTimeSecond" onchange="setInputData" value="{{endTimeSecond}}" style="width: 30%;border-bottom: 1px solid silver;" type="number" />
-                <text style="padding-right: 4rpx;color: #000;">秒</text>
+                <!-- <input align="right" data-inputfield="endTimeSecond" onchange="setInputData" value="{{endTimeSecond}}" style="width: 30%;border-bottom: 1px solid silver;" type="number" />
+                <text style="padding-right: 4rpx;color: #000;">秒</text> -->
             </view>
         </view>
         <view class="pannel-item">
@@ -260,19 +263,25 @@
                     ×
                 </view>
                 <view style="color: green;" wx:if="{{aqyDrawOk}}">
-                    √
+                    <t-icon name="check" size="18" data-name="check" />
                 </view>
             </view>
         </t-input>
         <view style="display: flex;justify-content: center;align-items: center;">
-            <canvas style="width: 100%;height: 250px;" class="aqySign" data-name="aqy" type="2d" disable-scroll="true" bindtouchstart="touchstart" bindtouchmove="touchmove" canvas-id="aqySign"></canvas>
+            <canvas style="width: 100%;height: 250px;display:{{aqyDrawShow?'block':'none'}};" class="aqySign" data-name="aqy" type="2d" disable-scroll="true" bindtouchstart="touchstart" bindtouchmove="touchmove" canvas-id="aqySign"></canvas>
         </view>
-        <view style="display: flex;justify-content: space-between;padding: 0 20rpx;">
+        <view wx:if="{{aqyDrawShow}}" style="display: flex;justify-content: space-between;padding: 0 20rpx;">
             <t-button t-class="external-class" data-name="aqy" theme="danger" variant="outline" block size="small" bindtap="resign">
                 重新签字
             </t-button>
             <t-button t-class="external-class" data-name="aqy" theme="primary" variant="outline" block size="small" bindtap="signOk">
                 完成签字
+            </t-button>
+        </view>
+        <image wx:if="{{aqySrc}}" src="{{aqySrc}}" mode="" />
+        <view>
+            <t-button wx:if="{{!aqyDrawShow}}" t-class="external-class" data-name="aqy" theme="primary" variant="outline" block size="small" bindtap="openSign">
+                {{!aqyDrawOk?"开始签字":"重新签字"}}
             </t-button>
         </view>
         <t-input align="right" size="small" value="{{xcfzr}}" data-inputfield="xcfzr" onchange="setInputData" label="现场负责人" placeholder="请输入现场负责人">
@@ -281,14 +290,14 @@
                     ×
                 </view>
                 <view style="color: green;" wx:if="{{xcfzrDrawOk}}">
-                    √
+                    <t-icon name="check" size="18" data-name="check" />
                 </view>
             </view>
         </t-input>
         <view style="display: flex;justify-content: center;align-items: center;">
-            <canvas style="width: 100%;height: 250px;" class="xcfzrSign" data-name="xcfzr" type="2d" disable-scroll="true" bindtouchstart="touchstart" bindtouchmove="touchmove" canvas-id="xcfzrSign"></canvas>
+            <canvas style="width: 100%;height: 250px;display:{{xcfzrDrawShow?'block':'none'}};" class="xcfzrSign" data-name="xcfzr" type="2d" disable-scroll="true" bindtouchstart="touchstart" bindtouchmove="touchmove" canvas-id="xcfzrSign"></canvas>
         </view>
-        <view style="display: flex;justify-content: space-between;padding: 0 20rpx;">
+        <view wx:if="{{xcfzrDrawShow}}" style="display: flex;justify-content: space-between;padding: 0 20rpx;">
             <t-button t-class="external-class" data-name="xcfzr" theme="danger" variant="outline" block size="small" bindtap="resign">
                 重新签字
             </t-button>
@@ -296,26 +305,37 @@
                 完成签字
             </t-button>
         </view>
-
+        <image wx:if="{{xcfzrSrc}}" src="{{xcfzrSrc}}" mode="" />
+        <view>
+            <t-button wx:if="{{!xcfzrDrawShow}}" t-class="external-class" data-name="xcfzr" theme="primary" variant="outline" block size="small" bindtap="openSign">
+                {{!xcfzrDrawOk?"开始签字":"重新签字"}}
+            </t-button>
+        </view>
         <t-input align="right" size="small" value="{{jcy}}" data-inputfield="jcy" onchange="setInputData" label="检测员" placeholder="请输入检测员">
             <view slot="suffix" style="font-weight: bold;">
                 <view style="color: red;" wx:if="{{!jcyDrawOk}}">
                     ×
                 </view>
                 <view style="color: green;" wx:if="{{jcyDrawOk}}">
-                    √
+                    <t-icon name="check" size="18" data-name="check" />
                 </view>
             </view>
         </t-input>
         <view style="display: flex;justify-content: center;align-items: center;">
-            <canvas style="width: 100%;height: 250px;" class="jcySign" data-name="jcy" type="2d" disable-scroll="true" bindtouchstart="touchstart" bindtouchmove="touchmove" canvas-id="jcySign"></canvas>
+            <canvas style="width: 100%;height: 250px;display:{{jcyDrawShow?'block':'none'}};" class="jcySign" data-name="jcy" type="2d" disable-scroll="true" bindtouchstart="touchstart" bindtouchmove="touchmove" canvas-id="jcySign"></canvas>
         </view>
-        <view style="display: flex;justify-content: space-between;padding: 0 20rpx;">
+        <view wx:if="{{jcyDrawShow}}" style="display: flex;justify-content: space-between;padding: 0 20rpx;">
             <t-button t-class="external-class" data-name="jcy" theme="danger" variant="outline" block size="small" bindtap="resign">
                 重新签字
             </t-button>
             <t-button t-class="external-class" data-name="jcy" theme="primary" variant="outline" block size="small" bindtap="signOk">
                 完成签字
+            </t-button>
+        </view>
+        <image wx:if="{{jcySrc}}" src="{{jcySrc}}" mode="" />
+        <view>
+            <t-button wx:if="{{!jcyDrawShow}}" t-class="external-class" data-name="jcy" theme="primary" variant="outline" block size="small" bindtap="openSign">
+                {{!jcyDrawOk?"开始签字":"重新签字"}}
             </t-button>
         </view>
         <t-input align="right" size="small" value="{{jly}}" data-inputfield="jly" onchange="setInputData" label="记录员" placeholder="请输入记录员">
@@ -324,19 +344,25 @@
                     ×
                 </view>
                 <view style="color: green;" wx:if="{{jlyDrawOk}}">
-                    √
+                    <t-icon name="check" size="18" data-name="check" />
                 </view>
             </view>
         </t-input>
         <view style="display: flex;justify-content: center;align-items: center;">
-            <canvas style="width: 100%;height: 250px;" class="jlySign" data-name="jly" type="2d" disable-scroll="true" bindtouchstart="touchstart" bindtouchmove="touchmove" canvas-id="jlySign"></canvas>
+            <canvas style="width: 100%;height: 250px;display:{{jlyDrawShow?'block':'none'}};" id="jlySign" class="jlySign" data-name="jly" type="2d" disable-scroll="true" bindtouchstart="touchstart" bindtouchmove="touchmove" canvas-id="jlySign"></canvas>
         </view>
-        <view style="display: flex;justify-content: space-between;padding: 0 20rpx;padding-bottom: 30rpx;">
+        <view wx:if="{{jlyDrawShow}}" style="display: flex;justify-content: space-between;padding: 0 20rpx;padding-bottom: 30rpx;">
             <t-button t-class="external-class" data-name="jly" theme="danger" variant="outline" block size="small" bindtap="resign">
                 重新签字
             </t-button>
             <t-button t-class="external-class" data-name="jly" theme="primary" variant="outline" block size="small" bindtap="signOk">
                 完成签字
+            </t-button>
+        </view>
+        <image wx:if="{{jlySrc}}" src="{{jlySrc}}" mode="" />
+        <view>
+            <t-button wx:if="{{!jlyDrawShow}}" t-class="external-class" data-name="jly" theme="primary" variant="outline" block size="small" bindtap="openSign">
+                {{!jlyDrawOk?"开始签字":"重新签字"}}
             </t-button>
         </view>
     </view>

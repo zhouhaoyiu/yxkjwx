@@ -1,12 +1,13 @@
 /* pages/home/home.wxss */
 //选择只属于.box的一级子元素，eg: div.box>div
-canvas{
+canvas {
     display: flex;
     justify-content: center;
     border: 1px solid rgba(202, 202, 202, 0.164);
     border-radius: 10rpx;
     margin-bottom: 10rpx;
 }
+
 .page {
     padding: 16rpx;
     padding-bottom: 118px;
@@ -44,12 +45,14 @@ canvas{
         margin-top: 20rpx;
     }
 
-    .pb-20{
+    .pb-20 {
         padding-bottom: 20rpx;
     }
-    .t-checkbox-padding{
+
+    .t-checkbox-padding {
         width: 100%;
     }
+
     .t-checkbox {
         padding: 10rpx 0 10rpx 12rpx;
         width: 100%;
@@ -119,11 +122,11 @@ canvas{
 
         .deleteBox {
             position: absolute;
-            top: 4px;
+            top: 0rpx;
             left: 60px;
-            width: 16px;
-            height: 16px;
-            line-height: 14px;
+            width: 40rpx;
+            height: 40rpx;
+            line-height: 40rpx;
             text-align: center;
             border-radius: 50%;
             background-color: #a59f99;
