@@ -1,5 +1,12 @@
 /* pages/home/home.wxss */
 //选择只属于.box的一级子元素，eg: div.box>div
+canvas{
+    display: flex;
+    justify-content: center;
+    border: 1px solid rgba(202, 202, 202, 0.164);
+    border-radius: 10rpx;
+    margin-bottom: 10rpx;
+}
 .page {
     padding: 16rpx;
     padding-bottom: 118px;
@@ -35,6 +42,29 @@
 
     .mt-20 {
         margin-top: 20rpx;
+    }
+
+    .pb-20{
+        padding-bottom: 20rpx;
+    }
+    .t-checkbox-padding{
+        width: 100%;
+    }
+    .t-checkbox {
+        padding: 10rpx 0 10rpx 12rpx;
+        width: 100%;
+    }
+
+    .t-input__label,
+    .t-input__wrap,
+    .t-input__wrap--suffix {
+        display: flex;
+        align-items: center;
+
+        view {
+            display: flex;
+            align-items: center;
+        }
     }
 
     .wrapper {

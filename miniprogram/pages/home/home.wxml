@@ -2,16 +2,32 @@
     <view class="box">
         <t-input align="right" size="small" value="{{jobContent}}" data-inputfield="jobContent" onchange="setInputData" label="作业内容" placeholder="请输入作业内容" />
         <!-- <t-input size="small" value="{{jobGroupValue}}" label="作业段组" placeholder="请输入文字" /> -->
-        <view class="pannel-item" bind:tap="onClickPicker" data-key="{{PICKER_KEY.JOB_GROUP}}">
-            <view class="pannel-label">作业段组</view>
-            <view class="pannel-text {{jobGroupValue.length ? '' : 'empty'}}">{{jobGroupCurrentValue}}</view>
-            <t-icon name="chevron-right" color="rgba(0, 0, 0, 0.26)" size="24px" />
+        <view class="pannel-item" style="display: flex;flex-direction: column;height: max-content;">
+            <view class="pannel-label" style="width: 100%;height: 96rpx;padding:0 0 0 32rpx;line-height: 96rpx;display: flex;flex-direction: row;justify-content: space-between;">
+                <view>
+                    作业段组
+                </view>
+                <view style="padding-right: 32rpx;" bindtap="jobGroupVisible">
+                    <text style="color: #999;" wx:if="{{!jobGroupPick}}">点击选择</text>
+                    <text style="color: #999;" wx:if="{{jobGroupPick}}">收起</text>
+                </view>
+            </view>
+            <t-checkbox-group wx:if="{{jobGroupPick}}" style="width: calc(100% - 20rpx);" value="{{jobGroup}}" bind:change="handleGroupChange">
+                <t-checkbox wx:for="{{jobGroups}}" wx:key="index" t-class="t-checkbox-padding" value="{{item.value}}" label="{{item.label}}" align="right" />
+            </t-checkbox-group>
+            <!-- style表签使得按钮靠右 -->
+            <t-button bindtap="jobGroupVisible" wx:if="{{jobGroupPick}}" t-class="external-class" style="margin-left: auto;margin-top: 10rpx;" theme="primary" size="small" block>收起</t-button>
         </view>
         <t-cell title="作业日期" hover note="{{dateText || '年 月 日'}}" arrow data-mode="date" bindtap="showPicker" class="test" t-class="pannel-item" t-class-note="{{dateText ? 'sub-text' : 'empty'}}" />
-
-        <t-input align="right" size="small" data-inputfield="jobPosition" onchange="setInputData" value="{{jobPosition}}" label="作业地点" placeholder="请输入作业地点" />
-
-        <!-- 作业人员,使用Stepper  -->
+        <view style="width: 100%;">
+            <t-input disabled align="right" size="small" data-inputfield="jobPosition" onchange="setInputData" value="{{jobPosition}}" label="作业地点" placeholder="请输入作业地点">
+                <view slot="suffix">
+                    <!-- <button size="mini" bindtap="moveToLocation">定位</button> -->
+                    <t-icon name="location" size="48rpx" data-name="location" bindtap="moveToLocation" />
+                </view>
+            </t-input>
+        </view>
+        <!-- 作业人员,使用Stepper -->
         <view class="pannel-item">
             <view class="pannel-label">作业人数</view>
             <view class="pannel-text {{jobPersonValue.length ? '' : 'empty'}}"></view>
@@ -26,44 +42,68 @@
         <view class="pannel-item">
             <view class="pannel-label">安全交底</view>
             <view class="pannel-text {{safetyDisclosureValue.length ? '' : 'empty'}}"></view>
-            <view class="switch-text-left" data-textValue="false" data-valueName="safetyDisclosureValue" bindtap="onClickSwitchText" style="color:{{safetyDisclosureValue ? 'rgb(153,153,153)':'red'}}">未完成</view>
+            <view class="switch-text-left" data-textValue="false" data-valueName="safetyDisclosureValue" bindtap="onClickSwitchText" style="color:{{safetyDisclosureValue ? 'rgb(153,153,153)':'red'}}">
+                未完成
+            </view>
             <t-switch data-valueName="safetyDisclosureValue" value="{{safetyDisclosureValue}}" bindchange="onChangeSwitch" />
-            <view data-textValue="true" data-valueName="safetyDisclosureValue" bindtap="onClickSwitchText" class="switch-text-right" style="color:{{safetyDisclosureValue ? 'green' :'rgb(153,153,153)'}}">完成</view>
+            <view data-textValue="true" data-valueName="safetyDisclosureValue" bindtap="onClickSwitchText" class="switch-text-right" style="color:{{safetyDisclosureValue ? 'green' :'rgb(153,153,153)'}}">
+                完成
+            </view>
         </view>
         <view class="pannel-item">
             <view class="pannel-label">检测设备情况</view>
             <view class="pannel-text {{inspectionEquipmentValue.length ? '' : 'empty'}}"></view>
-            <view class="switch-text-left" data-textValue="false" data-valueName="inspectionEquipmentValue" bindtap="onClickSwitchText" style="color:{{inspectionEquipmentValue ? 'rgb(153,153,153)':'red'}}">不合格</view>
+            <view class="switch-text-left" data-textValue="false" data-valueName="inspectionEquipmentValue" bindtap="onClickSwitchText" style="color:{{inspectionEquipmentValue ? 'rgb(153,153,153)':'red'}}">
+                不合格
+            </view>
             <t-switch data-valueName="inspectionEquipmentValue" value="{{inspectionEquipmentValue}}" bindchange="onChangeSwitch" />
-            <view class="switch-text-right" data-textValue="true" data-valueName="inspectionEquipmentValue" bindtap="onClickSwitchText" style="color:{{inspectionEquipmentValue ? 'green' :'rgb(153,153,153)'}}">合格</view>
+            <view class="switch-text-right" data-textValue="true" data-valueName="inspectionEquipmentValue" bindtap="onClickSwitchText" style="color:{{inspectionEquipmentValue ? 'green' :'rgb(153,153,153)'}}">
+                合格
+            </view>
         </view>
         <view class="pannel-item">
             <view class="pannel-label">通风排气情况</view>
             <view class="pannel-text {{ventedExhaustValue.length ? '' : 'empty'}}"></view>
-            <view class="switch-text-left" data-textValue="false" data-valueName="ventedExhaustValue" bindtap="onClickSwitchText" style="color:{{ventedExhaustValue ? 'rgb(153,153,153)':'red'}}">未完成</view>
+            <view class="switch-text-left" data-textValue="false" data-valueName="ventedExhaustValue" bindtap="onClickSwitchText" style="color:{{ventedExhaustValue ? 'rgb(153,153,153)':'red'}}">
+                未完成
+            </view>
             <t-switch value="{{ventedExhaustValue}}" data-valueName="ventedExhaustValue" bindchange="onChangeSwitch" />
-            <view class="switch-text-right" data-textValue="true" data-valueName="ventedExhaustValue" bindtap="onClickSwitchText" style="color:{{ventedExhaustValue ? 'green' :'rgb(153,153,153)'}}">完成</view>
+            <view class="switch-text-right" data-textValue="true" data-valueName="ventedExhaustValue" bindtap="onClickSwitchText" style="color:{{ventedExhaustValue ? 'green' :'rgb(153,153,153)'}}">
+                完成
+            </view>
         </view>
         <view class="pannel-item">
             <view class="pannel-label">气体检测情况</view>
             <view class="pannel-text {{gasDetectionValue.length ? '' : 'empty'}}"></view>
-            <view class="switch-text-left" data-textValue="false" data-valueName="gasDetectionValue" bindtap="onClickSwitchText" style="color:{{gasDetectionValue ? 'rgb(153,153,153)':'red'}}">不合格</view>
+            <view class="switch-text-left" data-textValue="false" data-valueName="gasDetectionValue" bindtap="onClickSwitchText" style="color:{{gasDetectionValue ? 'rgb(153,153,153)':'red'}}">
+                不合格
+            </view>
             <t-switch value="{{gasDetectionValue}}" data-valueName="gasDetectionValue" bindchange="onChangeSwitch" />
-            <view class="switch-text-right" data-textValue="true" data-valueName="gasDetectionValue" bindtap="onClickSwitchText" style="color:{{gasDetectionValue ? 'green' :'rgb(153,153,153)'}}">合格</view>
+            <view class="switch-text-right" data-textValue="true" data-valueName="gasDetectionValue" bindtap="onClickSwitchText" style="color:{{gasDetectionValue ? 'green' :'rgb(153,153,153)'}}">
+                合格
+            </view>
         </view>
         <view class="pannel-item">
             <view class="pannel-label">安全防护设备</view>
             <view class="pannel-text {{safetyProtectionValue.length ? '' : 'empty'}}"></view>
-            <view class="switch-text-left" data-textValue="false" data-valueName="safetyProtectionValue" bindtap="onClickSwitchText" style="color:{{safetyProtectionValue ? 'rgb(153,153,153)':'red'}}">未完成</view>
+            <view class="switch-text-left" data-textValue="false" data-valueName="safetyProtectionValue" bindtap="onClickSwitchText" style="color:{{safetyProtectionValue ? 'rgb(153,153,153)':'red'}}">
+                未完成
+            </view>
             <t-switch value="{{safetyProtectionValue}}" data-valueName="safetyProtectionValue" bindchange="onChangeSwitch" />
-            <view class="switch-text-right" data-textValue="true" data-valueName="safetyProtectionValue" bindtap="onClickSwitchText" style="color:{{safetyProtectionValue ? 'green' :'rgb(153,153,153)'}}">完成</view>
+            <view class="switch-text-right" data-textValue="true" data-valueName="safetyProtectionValue" bindtap="onClickSwitchText" style="color:{{safetyProtectionValue ? 'green' :'rgb(153,153,153)'}}">
+                完成
+            </view>
         </view>
         <view class="pannel-item">
             <view class="pannel-label">个人防护用品</view>
             <view class="pannel-text {{personalProtectionValue.length ? '' : 'empty'}}"></view>
-            <view class="switch-text-left" data-textValue="false" data-valueName="personalProtectionValue" bindtap="onClickSwitchText" style="color:{{personalProtectionValue ? 'rgb(153,153,153)':'red'}}">不合格</view>
+            <view class="switch-text-left" data-textValue="false" data-valueName="personalProtectionValue" bindtap="onClickSwitchText" style="color:{{personalProtectionValue ? 'rgb(153,153,153)':'red'}}">
+                不合格
+            </view>
             <t-switch data-valueName="personalProtectionValue" value="{{personalProtectionValue}}" bindchange="onChangeSwitch" />
-            <view class="switch-text-right" data-textValue="true" data-valueName="personalProtectionValue" bindtap="onClickSwitchText" style="color:{{personalProtectionValue ? 'green' :'rgb(153,153,153)'}}">合格</view>
+            <view class="switch-text-right" data-textValue="true" data-valueName="personalProtectionValue" bindtap="onClickSwitchText" style="color:{{personalProtectionValue ? 'green' :'rgb(153,153,153)'}}">
+                合格
+            </view>
         </view>
         <view>
             <t-textarea align="right" data-inputfield="otherInfo" onchange="setInputData" autosize value="{{otherInfo}}" label="其他补充措施" placeholder="请输入文字" />
@@ -75,123 +115,222 @@
         <view style="display: flex;justify-content: space-between; align-items: center;padding:0 32rpx;">
             <text>开始时间</text>
             <view style="display: flex; width: 60%;justify-content: flex-end; align-items: center;">
-                <t-input align="right" data-inputfield="startTimeHour" onchange="setInputData" value="{{startTimeHour}}" style="width: 30%;" type="number" />
-                <text>时</text>
-                <t-input align="right" data-inputfield="startTimeMinute" onchange="setInputData" value="{{startTimeMinute}}" style="width: 30%;" type="number" />
-                <text>分</text>
-                <t-input align="right" data-inputfield="startTimeSecond" onchange="setInputData" value="{{startTimeSecond}}" style="width: 30%;" type="number" />
-                <text>秒</text>
+                <input bindtap="test" align="right" data-inputfield="startTimeHour" onchange="setInputData" value="{{startTimeHour}}" style="width: 30%;border-bottom: 1px solid silver;" type="number" />
+                <text style="padding-right: 4rpx;color: #000;">时</text>
+                <input align="right" data-inputfield="startTimeMinute" onchange="setInputData" value="{{startTimeMinute}}" style="width: 30%;border-bottom: 1px solid silver;" type="number" />
+                <text style="padding-right: 4rpx;color: #000;">分</text>
+                <input align="right" data-inputfield="startTimeSecond" onchange="setInputData" value="{{startTimeSecond}}" style="width: 30%;border-bottom: 1px solid silver;" type="number" />
+                <text style="padding-right: 4rpx;color: #000;">秒</text>
             </view>
         </view>
         <view class="pannel-item">
             <view class="pannel-label">是否中断</view>
             <view class="pannel-text {{isPause.length ? '' : 'empty'}}"></view>
-            <view class="switch-text-left" data-textValue="false" data-valueName="isPause" bindtap="onClickSwitchText" style="color:{{isPause ? 'rgb(153,153,153)':'red'}}">否</view>
+            <view class="switch-text-left" data-textValue="false" data-valueName="isPause" bindtap="onClickSwitchText" style="color:{{isPause ? 'rgb(153,153,153)':'red'}}">
+                否
+            </view>
             <t-switch value="{{isPause}}" data-valueName="isPause" bindchange="onChangeSwitch" />
-            <view class="switch-text-right" data-textValue="true" data-valueName="isPause" bindtap="onClickSwitchText" style="color:{{isPause ? 'green' :'rgb(153,153,153)'}}">是</view>
+            <view class="switch-text-right" data-textValue="true" data-valueName="isPause" bindtap="onClickSwitchText" style="color:{{isPause ? 'green' :'rgb(153,153,153)'}}">
+                是
+            </view>
         </view>
-        <t-input align="right" wx:if="{{isPause}}" size="small" data-inputfield="pauseTime" onchange="setInputData" value="{{pauseTime}}" label="中断时长" placeholder="请输入文字" />
-
+        <t-input align="right" wx:if="{{isPause}}" size="small" data-inputfield="pauseTime" onchange="setInputData" value="{{pauseTime}}" label="中断时长" placeholder="请输入文字">
+            <view slot="suffix">分钟</view>
+        </t-input>
         <view class="pannel-item box" wx:if="{{isPause}}">
             <view class="pannel-label">再次检测情况</view>
             <view class="pannel-text {{reDetectionValue.length ? '' : 'empty'}}"></view>
-            <view class="switch-text-left" data-textValue="false" data-valueName="reDetectionValue" bindtap="onClickSwitchText" style="color:{{reDetectionValue ? 'rgb(153,153,153)':'red'}}">不合格</view>
+            <view class="switch-text-left" data-textValue="false" data-valueName="reDetectionValue" bindtap="onClickSwitchText" style="color:{{reDetectionValue ? 'rgb(153,153,153)':'red'}}">
+                不合格
+            </view>
             <t-switch data-valueName="reDetectionValue" value="{{reDetectionValue}}" bindchange="onChangeSwitch" />
-            <view class="switch-text-right" data-textValue="true" data-valueName="reDetectionValue" bindtap="onClickSwitchText" style="color:{{reDetectionValue ? 'green' :'rgb(153,153,153)'}}">合格</view>
+            <view class="switch-text-right" data-textValue="true" data-valueName="reDetectionValue" bindtap="onClickSwitchText" style="color:{{reDetectionValue ? 'green' :'rgb(153,153,153)'}}">
+                合格
+            </view>
         </view>
-
         <view class="box">
             <!-- <view style="color: #999999;" class="pl-32 mt-20">现场气体检测情况</view> -->
             <view class="pannel-item">
                 <view class="pannel-label">有限空间类型</view>
                 <view class="pannel-text {{confinedSpaceType.length ? '' : 'empty'}}"></view>
-                <view class="switch-text-left" data-textValue="false" data-valueName="confinedSpaceType" bindtap="onClickSwitchText" style="color:{{confinedSpaceType ? 'rgb(153,153,153)':'blue'}}">表井</view>
+                <view class="switch-text-left" data-textValue="false" data-valueName="confinedSpaceType" bindtap="onClickSwitchText" style="color:{{confinedSpaceType ? 'rgb(153,153,153)':'blue'}}">
+                    表井
+                </view>
                 <t-switch value="{{confinedSpaceType}}" data-valueName="confinedSpaceType" bindchange="onChangeSwitch" />
-                <view class="switch-text-right" data-textValue="true" data-valueName="confinedSpaceType" bindtap="onClickSwitchText" style="color:{{confinedSpaceType ? 'blue' :'rgb(153,153,153)'}}">水表房</view>
+                <view class="switch-text-right" data-textValue="true" data-valueName="confinedSpaceType" bindtap="onClickSwitchText" style="color:{{confinedSpaceType ? 'blue' :'rgb(153,153,153)'}}">
+                    水表房
+                </view>
             </view>
             <view class="position-list">
                 <view class="position-item" wx:for="{{positionList}}" wx:key="index">
                     <view style="color: #999999;" class="pl-32 mt-20">{{item.key}}</view>
                     <t-input align="right" size="small" value="{{item.CO}}" data-index="{{index}}" data-key="CO" onchange="setPositionData" label="CO(一氧化碳)" placeholder="请输入浓度">
-                        <view slot="suffix">
-                            ppm
-                        </view>
+                        <view slot="suffix">ppm</view>
                     </t-input>
                     <t-input align="right" size="small" value="{{item.H2S}}" data-index="{{index}}" data-key="H2S" onchange="setPositionData" label="H2S(硫化氢)" placeholder="请输入浓度">
-                        <view slot="suffix">
-                            ppm
-                        </view>
+                        <view slot="suffix">ppm</view>
                     </t-input>
                     <t-input align="right" size="small" value="{{item.O2}}" data-index="{{index}}" data-key="O2" onchange="setPositionData" label="O2(氧气)" placeholder="请输入浓度">
-                        <view slot="suffix">
-                            %
-                        </view>
+                        <view slot="suffix">%</view>
                     </t-input>
                     <t-input align="right" size="small" value="{{item.combustibleGas}}" data-index="{{index}}" data-key="combustibleGas" onchange="setPositionData" label="可燃气体" placeholder="请输入浓度">
-                        <view slot="suffix">
-                            %
-                        </view>
+                        <view slot="suffix">%</view>
                     </t-input>
-                    <t-input align="right" size="small" value="{{item.detectionResult}}" data-index="{{index}}" data-key="detectionResult" onchange="setPositionData" label="检测结果" placeholder="请输入结果">
-                    </t-input>
+                    <t-input align="right" size="small" value="{{item.detectionResult}}" data-index="{{index}}" data-key="detectionResult" onchange="setPositionData" label="检测结果" placeholder="请输入结果"></t-input>
                 </view>
             </view>
             <view class="wrapper pt-20">
-                <view class="main">
+                <view class="pb-20">现场气体检测情况附图</view>
+                <view class="main pb-20">
                     <!-- {{!imgArr.length}} -->
-                    <!-- 点击上传前的页面 -->
-                    <view class="content" wx:if="{{!imgArr.length}}" bindtap="handleUploadImg">
+                    <view class="content" wx:if="{{!gasDetectionImgArr.length}}" data-arrname="gasDetection" bindtap="handleUploadImg">
                         <text class="plus">+</text>
                     </view>
-                    <!-- 点击上传后的页面 -->
                     <view class="selectImgArr">
-                        <view class="selectImg" wx:if="{{imgArr.length}}" wx:for="{{imgArr}}" wx:key="index">
-                            <view class="deleteBox" data-index="{{index}}" bindtap="deleteImg">
+                        <view class="selectImg" wx:if="{{gasDetectionImgArr.length}}" wx:for="{{gasDetectionImgArr}}" wx:key="index">
+                            <view class="deleteBox" data-index="{{index}}" data-arrname="gasDetection" bindtap="deletegArrImg">
                                 <view class="deleteBtn">x</view>
                             </view>
-                            <image class="img" data-index="{{index}}" src="{{imgArr[index]}}" bindtap="previewImg">
-                            </image>
+                            <image class="img" data-index="{{index}}" src="{{gasDetectionImgArr[index]}}" data-arrname="gasDetection" bindtap="previewImg"></image>
+                        </view>
+                    </view>
+                </view>
+                <view class="pb-20">标志牌照片</view>
+                <view class="main pb-20">
+                    <!-- {{!imgArr.length}} -->
+                    <view class="content" wx:if="{{!signBoardImgArr.length}}" data-arrname="signBoard" bindtap="handleUploadImg">
+                        <text class="plus">+</text>
+                    </view>
+                    <view class="selectImgArr">
+                        <view class="selectImg" wx:if="{{signBoardImgArr.length}}" wx:for="{{signBoardImgArr}}" wx:key="index">
+                            <view class="deleteBox" data-index="{{index}}" data-arrname="signBoard" bindtap="deletegArrImg">
+                                <view class="deleteBtn">x</view>
+                            </view>
+                            <image class="img" data-index="{{index}}" src="{{signBoardImgArr[index]}}" data-arrname="signBoard" bindtap="previewImg"></image>
+                        </view>
+                    </view>
+                </view>
+                <view class="pb-20">排风照片</view>
+                <view class="main pb-20">
+                    <!-- {{!imgArr.length}} -->
+                    <view class="content" wx:if="{{!exhaustAirImgArr.length}}" data-arrname="exhaustAir" bindtap="handleUploadImg">
+                        <text class="plus">+</text>
+                    </view>
+                    <view class="selectImgArr">
+                        <view class="selectImg" wx:if="{{exhaustAirImgArr.length}}" wx:for="{{exhaustAirImgArr}}" wx:key="index">
+                            <view class="deleteBox" data-index="{{index}}" data-arrname="exhaustAir" bindtap="deletegArrImg">
+                                <view class="deleteBtn">x</view>
+                            </view>
+                            <image class="img" data-index="{{index}}" src="{{exhaustAirImgArr[index]}}" data-arrname="exhaustAir" bindtap="previewImg"></image>
                         </view>
                     </view>
                 </view>
             </view>
         </view>
     </view>
-    <view class="box">
-        <t-input align="right" size="small" value="{{inspector}}" data-inputfield="inspector" onchange="setInputData" label="检测员" placeholder="请输入检测员" />
-        <t-input align="right" size="small" value="{{recorder}}" data-inputfield="recorder" onchange="setInputData" label="记录员" placeholder="请输入记录员" />
-    </view>
     <!-- <t-button t-class="external-class" theme="primary" variant="outline" block disabled="{{disabled}}">提交</t-button> -->
-
-
     <view class="box">
         <view class="workBefore" bindtap="logWorkIn">作业结束</view>
         <t-divider></t-divider>
         <view style="display: flex;justify-content: space-between; align-items: center;padding:0 32rpx;">
             <text>结束时间</text>
             <view style="display: flex; width: 60%;justify-content: flex-end; align-items: center;">
-                <t-input align="right" data-inputfield="endTimeHour" onchange="setInputData" value="{{endTimeHour}}" style="width: 30%;" type="number" />
-                <text>时</text>
-                <t-input align="right" data-inputfield="endTimeMinute" onchange="setInputData" value="{{endTimeMinute}}" style="width: 30%;" type="number" />
-                <text>分</text>
-                <t-input align="right" data-inputfield="endTimeSecond" onchange="setInputData" value="{{endTimeHour}}" style="width: 30%;" type="number" />
-                <text>秒</text>
+                <input align="right" data-inputfield="endTimeHour" onchange="setInputData" value="{{endTimeHour}}" style="width: 30%;border-bottom: 1px solid silver;" type="number" />
+                <text style="padding-right: 4rpx;color: #000;">时</text>
+                <input align="right" data-inputfield="endTimeMinute" onchange="setInputData" value="{{endTimeMinute}}" style="width: 30%;border-bottom: 1px solid silver;" type="number" />
+                <text style="padding-right: 4rpx;color: #000;">分</text>
+                <input align="right" data-inputfield="endTimeSecond" onchange="setInputData" value="{{endTimeSecond}}" style="width: 30%;border-bottom: 1px solid silver;" type="number" />
+                <text style="padding-right: 4rpx;color: #000;">秒</text>
             </view>
         </view>
         <view class="pannel-item">
             <view class="pannel-label">清理检查情况</view>
             <view class="pannel-text {{cleaningInspection.length ? '' : 'empty'}}"></view>
-            <view class="switch-text-left" data-textValue="false" data-valueName="cleaningInspection" bindtap="onClickSwitchText" style="color:{{cleaningInspection ? 'rgb(153,153,153)':'red'}}">不合格</view>
+            <view class="switch-text-left" data-textValue="false" data-valueName="cleaningInspection" bindtap="onClickSwitchText" style="color:{{cleaningInspection ? 'rgb(153,153,153)':'red'}}">
+                不合格
+            </view>
             <t-switch value="{{cleaningInspection}}" data-valueName="cleaningInspection" bindchange="onChangeSwitch" />
-            <view class="switch-text-right" data-textValue="true" data-valueName="cleaningInspection" bindtap="onClickSwitchText" style="color:{{cleaningInspection ? 'green' :'rgb(153,153,153)'}}">合格</view>
+            <view class="switch-text-right" data-textValue="true" data-valueName="cleaningInspection" bindtap="onClickSwitchText" style="color:{{cleaningInspection ? 'green' :'rgb(153,153,153)'}}">
+                合格
+            </view>
         </view>
-        <t-input align="right" size="small" value="{{item.key}}" data-index="{{index}}" data-key="key" onchange="setPositionData" label="安全员" placeholder="请输入安全员" />
-        <t-input align="right" size="small" value="{{item.key}}" data-index="{{index}}" data-key="key" onchange="setPositionData" label="现场负责人" placeholder="请输入现场负责人" />
+        <t-input align="right" size="small" value="{{aqy}}" data-inputfield="aqy" onchange="setInputData" label="安全员" placeholder="请输入安全员">
+            <view slot="suffix" style="font-weight: bold;">
+                <view style="color: red;" wx:if="{{!aqyDrawOk}}">
+                    ×
+                </view>
+                <view style="color: green;" wx:if="{{aqyDrawOk}}">
+                    √
+                </view>
+            </view>
+        </t-input>
+        <view style="display: flex;justify-content: center;align-items: center;">
+            <canvas style="width: 100%;height: 250px;" class="aqySign" data-name="aqy" type="2d" disable-scroll="true" bindtouchstart="touchstart" bindtouchmove="touchmove" canvas-id="aqySign"></canvas>
+        </view>
+        <view style="display: flex;justify-content: space-between;padding: 0 20rpx;">
+            <t-button t-class="external-class" data-name="aqy" theme="danger" variant="outline" block size="small" bindtap="resign">
+                重新签字
+            </t-button>
+            <t-button t-class="external-class" data-name="aqy" theme="primary" variant="outline" block size="small" bindtap="signOk">
+                完成签字
+            </t-button>
+        </view>
+        <t-input align="right" size="small" value="{{xcfzr}}" data-inputfield="xcfzr" onchange="setInputData" label="现场负责人" placeholder="请输入现场负责人">
+            <view slot="suffix" style="font-weight: bold;">
+                <view style="color: red;" wx:if="{{!xcfzrDrawOk}}">
+                    ×
+                </view>
+                <view style="color: green;" wx:if="{{xcfzrDrawOk}}">
+                    √
+                </view>
+            </view>
+        </t-input>
+        <view style="display: flex;justify-content: center;align-items: center;">
+            <canvas style="width: 100%;height: 250px;" class="xcfzrSign" data-name="xcfzr" type="2d" disable-scroll="true" bindtouchstart="touchstart" bindtouchmove="touchmove" canvas-id="xcfzrSign"></canvas>
+        </view>
+        <view style="display: flex;justify-content: space-between;padding: 0 20rpx;">
+            <t-button t-class="external-class" data-name="xcfzr" theme="danger" variant="outline" block size="small" bindtap="resign">
+                重新签字
+            </t-button>
+            <t-button t-class="external-class" data-name="xcfzr" theme="primary" variant="outline" block size="small" bindtap="signOk">
+                完成签字
+            </t-button>
+        </view>
+
+        <t-input align="right" size="small" value="{{jcy}}" data-inputfield="jcy" onchange="setInputData" label="检测员" placeholder="请输入检测员" />
+        <view style="display: flex;justify-content: center;align-items: center;">
+            <canvas style="width: 100%;height: 250px;" class="jcySign" data-name="jcy" type="2d" disable-scroll="true" bindtouchstart="touchstart" bindtouchmove="touchmove" canvas-id="jcySign"></canvas>
+        </view>
+        <view style="display: flex;justify-content: space-between;padding: 0 20rpx;">
+            <t-button t-class="external-class" data-name="jcy" theme="danger" variant="outline" block size="small" bindtap="resign">
+                重新签字
+            </t-button>
+            <t-button t-class="external-class" data-name="jcy" theme="primary" variant="outline" block size="small" bindtap="signOk">
+                完成签字
+            </t-button>
+        </view>
+        <t-input align="right" size="small" value="{{jly}}" data-inputfield="jly" onchange="setInputData" label="记录员" placeholder="请输入记录员" />
+        <view style="display: flex;justify-content: center;align-items: center;">
+            <canvas style="width: 100%;height: 250px;" class="jlySign" data-name="jly" type="2d" disable-scroll="true" bindtouchstart="touchstart" bindtouchmove="touchmove" canvas-id="jlySign"></canvas>
+        </view>
+        <view style="display: flex;justify-content: space-between;padding: 0 20rpx;padding-bottom: 30rpx;">
+            <t-button t-class="external-class" data-name="jly" theme="danger" variant="outline" block size="small" bindtap="resign">
+                重新签字
+            </t-button>
+            <t-button t-class="external-class" data-name="jly" theme="primary" variant="outline" block size="small" bindtap="signOk">
+                完成签字
+            </t-button>
+        </view>
+    </view>
+    <!-- <view class="box pannel-item">
+        <view class="pannel-label workBefore">
+            签字
+        </view>
+    </view> -->
+    <view>
+        <!-- <t-button>暂存</t-button> -->
+        <t-button t-class="external-class" block theme="primary" bindtap="submitJob">提交</t-button>
     </view>
 </scroll-view>
-
-<t-picker visible="{{jobGroupVisible}}" value="{{jobGroupValue}}" data-key="jobGroup" title="{{jobGroupPickerTitle}}" cancelBtn="取消" confirmBtn="确认" bindchange="onPickerChange" bindpick="onColumnChange" bindcancel="onPickerCancel">
-    <t-picker-item options="{{jobGroups}}"></t-picker-item>
-</t-picker>
-
 <t-date-time-picker title="选择日期" visible="{{dateVisible}}" mode="date" defaultValue="{{date}}" format="YYYY-MM-DD" bindchange="onConfirm" bindpick="onColumnChange" bindcancel="hidePicker" start="{{start}}" end="{{end}}"></t-date-time-picker>
+<t-toast id="t-toast" />

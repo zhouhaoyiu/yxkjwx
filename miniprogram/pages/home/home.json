@@ -1,15 +1,19 @@
 {
-  "usingComponents": {
-    "t-input": "tdesign-miniprogram/input/input",
-    "t-picker": "tdesign-miniprogram/picker/picker",
-    "t-picker-item": "tdesign-miniprogram/picker/picker-item",
-    "t-date-time-picker": "tdesign-miniprogram/date-time-picker/date-time-picker",
-    "t-cell": "tdesign-miniprogram/cell/cell",
-    "t-button": "tdesign-miniprogram/button/button",
-    "t-button-group": "tdesign-miniprogram/button-group/button-group",
-    "t-stepper": "tdesign-miniprogram/stepper/stepper",
-    "t-divider": "tdesign-miniprogram/divider/divider",
-    "t-switch": "tdesign-miniprogram/switch/switch",
-    "t-textarea": "tdesign-miniprogram/textarea/textarea"
-  }
+    "usingComponents": {
+        "t-input": "tdesign-miniprogram/input/input",
+        "t-picker": "tdesign-miniprogram/picker/picker",
+        "t-picker-item": "tdesign-miniprogram/picker/picker-item",
+        "t-date-time-picker": "tdesign-miniprogram/date-time-picker/date-time-picker",
+        "t-cell": "tdesign-miniprogram/cell/cell",
+        "t-button": "tdesign-miniprogram/button/button",
+        "t-button-group": "tdesign-miniprogram/button-group/button-group",
+        "t-stepper": "tdesign-miniprogram/stepper/stepper",
+        "t-divider": "tdesign-miniprogram/divider/divider",
+        "t-switch": "tdesign-miniprogram/switch/switch",
+        "t-textarea": "tdesign-miniprogram/textarea/textarea",
+        "t-icon": "tdesign-miniprogram/icon/icon",
+        "t-toast": "tdesign-miniprogram/toast/toast",
+        "t-checkbox": "tdesign-miniprogram/checkbox/checkbox",
+        "t-checkbox-group": "tdesign-miniprogram/checkbox-group/checkbox-group"
+    }
 }

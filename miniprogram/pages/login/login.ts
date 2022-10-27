@@ -6,11 +6,17 @@ Page({
     data: {},
 
     wxLogin() {
-        wx.getUserProfile({
-            desc: "用于完善用户资料",
-            success: (res) => {
-                console.log(res);
-            },
+        // wx.getUserProfile({
+        //     desc: "用于完善用户资料",
+        //     success: (res) => {
+        //         console.log(res);
+        //         wx.switchTab({
+        //             url: "/pages/home/home",
+        //         });
+        //     },
+        // });
+        wx.switchTab({
+            url: "/pages/home/home",
         });
     },
     onGetPhoneNumber(e: any) {

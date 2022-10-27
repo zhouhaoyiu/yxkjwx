@@ -119,13 +119,12 @@ page {
 .t-tabs__scroll--top {
   border-bottom: solid 1rpx var(--td-tab-border-color, rgba(150, 95, 95, 0.12));
 }
-.t-tabs__scroll--left,
-.t-tabs__scroll--right {
-  width: 208rpx;
-  max-height: 100vh;
-}
 .t-tabs__content-inner {
   display: block;
+}
+.t-tabs__sticky--left,
+.t-tabs__sticky--right {
+  width: 208rpx;
 }
 .t-tabs.t-tabs--top,
 .t-tabs.t-tabs--bottom {
