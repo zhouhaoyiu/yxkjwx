@@ -1,11 +1,13 @@
 <scroll-view class="page" scroll-y="true">
     <view class="box">
-        <t-input align="right" size="small" value="{{jobContent}}" data-inputfield="jobContent" onchange="setInputData" label="作业内容" placeholder="请输入作业内容" />
+        <t-input align="right" size="small" value="{{jobContent}}" data-inputfield="jobContent" label="slot" onchange="setInputData" placeholder="请输入作业内容">
+            <text slot="label">作业内容<text style="color: #e34d59"> *</text> </text>
+        </t-input>
         <!-- <t-input size="small" value="{{jobGroupValue}}" label="作业段组" placeholder="请输入文字" /> -->
         <view class="pannel-item" style="display: flex;flex-direction: column;height: max-content;">
             <view class="pannel-label" style="width: 100%;height: 96rpx;padding:0 0 0 32rpx;line-height: 96rpx;display: flex;flex-direction: row;justify-content: space-between;">
                 <view>
-                    作业段组
+                    作业段组<text style="color: #e34d59"> *</text>
                 </view>
                 <view>
                     {{jobGroup}}
@@ -21,9 +23,10 @@
             <!-- style表签使得按钮靠右 -->
             <t-button bindtap="jobGroupVisible" wx:if="{{jobGroupPick}}" t-class="external-class" style="margin-left: auto;margin-top: 10rpx;" theme="primary" size="small" block>收起</t-button>
         </view>
-        <t-cell title="作业日期" hover note="{{dateText || '年 月 日'}}" arrow data-mode="date" bindtap="showPicker" class="test" t-class="pannel-item" t-class-note="{{dateText ? 'sub-text' : 'empty'}}" />
+        <t-cell required title="作业日期" hover note="{{dateText || '年 月 日'}}" arrow data-mode="date" bindtap="showPicker" class="test" t-class="pannel-item" t-class-note="{{dateText ? 'sub-text' : 'empty'}}" />
         <view style="width: 100%;">
-            <t-input disabled align="right" size="small" data-inputfield="jobPosition" onchange="setInputData" value="{{jobPosition}}" label="作业地点" placeholder="请输入作业地点">
+            <t-input disabled align="right" size="small" data-inputfield="jobPosition" onchange="setInputData" value="{{jobPosition}}" label="slot" placeholder="请输入作业地点">
+                <text slot="label">作业地点<text style="color: #e34d59"> *</text> </text>
                 <view slot="suffix">
                     <!-- <button size="mini" bindtap="moveToLocation">定位</button> -->
                     <t-icon name="location" size="48rpx" data-name="location" bindtap="moveToLocation" />
@@ -32,7 +35,7 @@
         </view>
         <!-- 作业人员,使用Stepper -->
         <view class="pannel-item">
-            <view class="pannel-label">作业人数</view>
+            <view class="pannel-label">作业人数<text style="color: #e34d59"> *</text></view>
             <view class="pannel-text {{jobPersonValue.length ? '' : 'empty'}}"></view>
             <t-stepper min="0" max="100" step="1" value="{{jobPersonValue}}" bindchange="onChangeJobPerson" />
             <!-- <view style="margin-left: 14px;">人</view> -->
@@ -116,7 +119,7 @@
         <view class="workBefore" bindtap="logWorkIn">作业中</view>
         <t-divider></t-divider>
         <view style="display: flex;justify-content: space-between; align-items: center;padding:0 32rpx;">
-            <text>开始时间</text>
+            <text>开始时间<text style="color: #e34d59"> *</text></text>
             <view style="display: flex; width: 60%;justify-content: flex-end; align-items: center;">
                 <input align="right" data-inputfield="startTimeHour" onchange="setInputData" value="{{startTimeHour}}" style="width: 30%;border-bottom: 1px solid silver;" type="number" />
                 <text style="padding-right: 4rpx;color: #000;">时</text>
@@ -127,7 +130,7 @@
             </view>
         </view>
         <view class="pannel-item">
-            <view class="pannel-label">是否中断</view>
+            <view class="pannel-label">是否中断<text style="color: #e34d59"> *</text></view>
             <view class="pannel-text {{isPause.length ? '' : 'empty'}}"></view>
             <view class="switch-text-left" data-textValue="false" data-valueName="isPause" bindtap="onClickSwitchText" style="color:{{isPause ? 'rgb(153,153,153)':'red'}}">
                 否
@@ -137,7 +140,8 @@
                 是
             </view>
         </view>
-        <t-input align="right" wx:if="{{isPause}}" size="small" data-inputfield="pauseTime" onchange="setInputData" value="{{pauseTime}}" label="中断时长" placeholder="请输入文字">
+        <t-input align="right" wx:if="{{isPause}}" size="small" data-inputfield="pauseTime" onchange="setInputData" value="{{pauseTime}}" label="slot" placeholder="请输入文字">
+            <text slot="label">中断时长<text style="color: #e34d59"> *</text> </text>
             <view slot="suffix">分钟</view>
         </t-input>
         <view class="pannel-item box" wx:if="{{isPause}}">
@@ -167,23 +171,27 @@
             <view class="position-list">
                 <view class="position-item" wx:for="{{positionList}}" wx:key="index">
                     <view style="color: #999999;" class="pl-32 mt-20">{{item.key}}</view>
-                    <t-input align="right" size="small" value="{{item.CO}}" data-index="{{index}}" data-key="CO" onchange="setPositionData" label="CO(一氧化碳)" placeholder="小于24">
+                    <t-input align="right" size="small" value="{{item.CO}}" data-index="{{index}}" data-key="CO" onchange="setPositionData" label="slot" placeholder="小于24">
+                        <text slot="label">CO(一氧化碳)<text style="color: #e34d59"> *</text> </text>
                         <view slot="suffix">ppm</view>
                     </t-input>
-                    <t-input align="right" size="small" value="{{item.H2S}}" data-index="{{index}}" data-key="H2S" onchange="setPositionData" label="H2S(硫化氢)" placeholder="小于10">
+                    <t-input align="right" size="small" value="{{item.H2S}}" data-index="{{index}}" data-key="H2S" onchange="setPositionData" label="slot" placeholder="小于10">
+                        <text slot="label">H2S(硫化氢)<text style="color: #e34d59"> *</text> </text>
                         <view slot="suffix">ppm</view>
                     </t-input>
-                    <t-input align="right" size="small" value="{{item.O2}}" data-index="{{index}}" data-key="O2" onchange="setPositionData" label="O2(氧气)" placeholder="19.5~23">
+                    <t-input align="right" size="small" value="{{item.O2}}" data-index="{{index}}" data-key="O2" onchange="setPositionData" label="slot" placeholder="19.5~23">
+                        <text slot="label">O2(氧气)<text style="color: #e34d59"> *</text> </text>
                         <view slot="suffix">%</view>
                     </t-input>
-                    <t-input align="right" size="small" value="{{item.combustibleGas}}" data-index="{{index}}" data-key="combustibleGas" onchange="setPositionData" label="可燃气体" placeholder="小于等于0">
+                    <t-input align="right" size="small" value="{{item.combustibleGas}}" data-index="{{index}}" data-key="combustibleGas" onchange="setPositionData" label="slot" placeholder="小于等于0">
+                        <text slot="label">可燃气体<text style="color: #e34d59"> *</text> </text>
                         <view slot="suffix">%</view>
                     </t-input>
                     <!-- <t-input align="right" size="small" value="{{item.detectionResult}}" data-index="{{index}}" data-key="detectionResult" onchange="setPositionData" label="检测结果" placeholder="请输入结果"></t-input> -->
                 </view>
             </view>
             <view class="wrapper pt-20">
-                <view class="pb-20">现场气体检测情况附图</view>
+                <view class="pb-20">现场气体检测情况附图<text style="color: #e34d59"> *</text></view>
                 <view class="main pb-20">
                     <!-- {{!imgArr.length}} -->
                     <view class="content" wx:if="{{!gasDetectionImgArr.length}}" data-arrname="gasDetection" bindtap="handleUploadImg">
@@ -198,7 +206,7 @@
                         </view>
                     </view>
                 </view>
-                <view class="pb-20">标志牌照片</view>
+                <view class="pb-20">标志牌照片<text style="color: #e34d59"> *</text></view>
                 <view class="main pb-20">
                     <!-- {{!imgArr.length}} -->
                     <view class="content" wx:if="{{!signBoardImgArr.length}}" data-arrname="signBoard" bindtap="handleUploadImg">
@@ -236,7 +244,7 @@
         <view class="workBefore" bindtap="logWorkIn">作业结束</view>
         <t-divider></t-divider>
         <view style="display: flex;justify-content: space-between; align-items: center;padding:0 32rpx;">
-            <text>结束时间</text>
+            <text>结束时间<text style="color: #e34d59"> *</text></text>
             <view style="display: flex; width: 60%;justify-content: flex-end; align-items: center;">
                 <input align="right" data-inputfield="endTimeHour" onchange="setInputData" value="{{endTimeHour}}" style="width: 30%;border-bottom: 1px solid silver;" type="number" />
                 <text style="padding-right: 4rpx;color: #000;">时</text>
@@ -257,7 +265,8 @@
                 合格
             </view>
         </view>
-        <t-input align="right" size="small" value="{{aqy}}" data-inputfield="aqy" onchange="setInputData" label="安全员" placeholder="请输入安全员">
+        <t-input align="right" size="small" value="{{aqy}}" data-inputfield="aqy" onchange="setInputData" label="slot" placeholder="请输入安全员">
+            <text slot="label" style="font-size: 28rpx;">安全员<text style="color: #e34d59"> *</text> </text>
             <view slot="suffix" style="font-weight: bold;">
                 <view style="color: red;" wx:if="{{!aqyDrawOk}}">
                     ×
@@ -284,7 +293,8 @@
                 {{!aqyDrawOk?"开始签字":"重新签字"}}
             </t-button>
         </view>
-        <t-input align="right" size="small" value="{{xcfzr}}" data-inputfield="xcfzr" onchange="setInputData" label="现场负责人" placeholder="请输入现场负责人">
+        <t-input align="right" size="small" value="{{xcfzr}}" data-inputfield="xcfzr" onchange="setInputData" label="slot" placeholder="请输入现场负责人">
+            <text slot="label" style="font-size: 28rpx;">现场负责人<text style="color: #e34d59"> *</text> </text>
             <view slot="suffix" style="font-weight: bold;">
                 <view style="color: red;" wx:if="{{!xcfzrDrawOk}}">
                     ×
@@ -311,7 +321,8 @@
                 {{!xcfzrDrawOk?"开始签字":"重新签字"}}
             </t-button>
         </view>
-        <t-input align="right" size="small" value="{{jcy}}" data-inputfield="jcy" onchange="setInputData" label="检测员" placeholder="请输入检测员">
+        <t-input align="right" size="small" value="{{jcy}}" data-inputfield="jcy" onchange="setInputData" label="slot" placeholder="请输入检测员">
+            <text slot="label" style="font-size: 28rpx;">检测员<text style="color: #e34d59"> *</text> </text>
             <view slot="suffix" style="font-weight: bold;">
                 <view style="color: red;" wx:if="{{!jcyDrawOk}}">
                     ×
@@ -338,7 +349,8 @@
                 {{!jcyDrawOk?"开始签字":"重新签字"}}
             </t-button>
         </view>
-        <t-input align="right" size="small" value="{{jly}}" data-inputfield="jly" onchange="setInputData" label="记录员" placeholder="请输入记录员">
+        <t-input align="right" size="small" value="{{jly}}" data-inputfield="jly" onchange="setInputData" label="slot" placeholder="请输入记录员">
+            <text slot="label" style="font-size: 28rpx;">记录员<text style="color: #e34d59"> *</text> </text>
             <view slot="suffix" style="font-weight: bold;">
                 <view style="color: red;" wx:if="{{!jlyDrawOk}}">
                     ×
