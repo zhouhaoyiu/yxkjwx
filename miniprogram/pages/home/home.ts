@@ -676,7 +676,7 @@ Page({
             pauseTime: this.data.pauseTime,
             reDetectionValue: this.data.reDetectionValue, //
             confinedSpaceType: this.data.confinedSpaceType, //
-            positionList: this.data.positionList,
+            positionList: JSON.stringify(this.data.positionList),
             gasDetectionBase64Arr: this.data.gasDetectionBase64Arr.toString(),
             signBoardBase64Arr: this.data.signBoardBase64Arr.toString(),
             exhaustBase64Arr: this.data.exhaustAirBase64Arr.toString(),
@@ -695,11 +695,11 @@ Page({
         };
         console.log(data);
 
-        // wx.request({
-        //   url: "http://localhost:8092/Job/addJob",
-        //   method: "POST",
-        //   data: data,
-        // });
+        wx.request({
+          url: "http://localhost:8092/Job/addJob",
+          method: "POST",
+          data: data,
+        });
     },
 
     toast(option: ToastOptionsType) {
