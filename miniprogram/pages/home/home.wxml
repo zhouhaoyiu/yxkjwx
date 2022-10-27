@@ -115,7 +115,7 @@
         <view style="display: flex;justify-content: space-between; align-items: center;padding:0 32rpx;">
             <text>开始时间</text>
             <view style="display: flex; width: 60%;justify-content: flex-end; align-items: center;">
-                <input bindtap="test" align="right" data-inputfield="startTimeHour" onchange="setInputData" value="{{startTimeHour}}" style="width: 30%;border-bottom: 1px solid silver;" type="number" />
+                <input align="right" data-inputfield="startTimeHour" onchange="setInputData" value="{{startTimeHour}}" style="width: 30%;border-bottom: 1px solid silver;" type="number" />
                 <text style="padding-right: 4rpx;color: #000;">时</text>
                 <input align="right" data-inputfield="startTimeMinute" onchange="setInputData" value="{{startTimeMinute}}" style="width: 30%;border-bottom: 1px solid silver;" type="number" />
                 <text style="padding-right: 4rpx;color: #000;">分</text>
@@ -297,7 +297,16 @@
             </t-button>
         </view>
 
-        <t-input align="right" size="small" value="{{jcy}}" data-inputfield="jcy" onchange="setInputData" label="检测员" placeholder="请输入检测员" />
+        <t-input align="right" size="small" value="{{jcy}}" data-inputfield="jcy" onchange="setInputData" label="检测员" placeholder="请输入检测员">
+            <view slot="suffix" style="font-weight: bold;">
+                <view style="color: red;" wx:if="{{!jcyDrawOk}}">
+                    ×
+                </view>
+                <view style="color: green;" wx:if="{{jcyDrawOk}}">
+                    √
+                </view>
+            </view>
+        </t-input>
         <view style="display: flex;justify-content: center;align-items: center;">
             <canvas style="width: 100%;height: 250px;" class="jcySign" data-name="jcy" type="2d" disable-scroll="true" bindtouchstart="touchstart" bindtouchmove="touchmove" canvas-id="jcySign"></canvas>
         </view>
@@ -309,7 +318,16 @@
                 完成签字
             </t-button>
         </view>
-        <t-input align="right" size="small" value="{{jly}}" data-inputfield="jly" onchange="setInputData" label="记录员" placeholder="请输入记录员" />
+        <t-input align="right" size="small" value="{{jly}}" data-inputfield="jly" onchange="setInputData" label="记录员" placeholder="请输入记录员">
+            <view slot="suffix" style="font-weight: bold;">
+                <view style="color: red;" wx:if="{{!jlyDrawOk}}">
+                    ×
+                </view>
+                <view style="color: green;" wx:if="{{jlyDrawOk}}">
+                    √
+                </view>
+            </view>
+        </t-input>
         <view style="display: flex;justify-content: center;align-items: center;">
             <canvas style="width: 100%;height: 250px;" class="jlySign" data-name="jly" type="2d" disable-scroll="true" bindtouchstart="touchstart" bindtouchmove="touchmove" canvas-id="jlySign"></canvas>
         </view>

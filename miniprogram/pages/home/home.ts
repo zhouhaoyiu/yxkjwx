@@ -1,6 +1,6 @@
 // pages/home/home.ts
 // @ts-nocheck
-import Toast, { ToastOptionsType } from "tdesign-miniprogram/toast/index";
+import Toast from "tdesign-miniprogram/toast/index";
 
 const width = wx.getSystemInfoSync().windowWidth;
 const wellPostion = [
@@ -52,6 +52,7 @@ Page({
      * 页面的初始数据
      */
     data: {
+        uuid: "",
         width,
         // 签字信息
         aqySignContext: undefined as unknown as WechatMiniprogram.CanvasContext,
@@ -78,7 +79,7 @@ Page({
         jlySignContext: undefined,
         jlySignCanvas: undefined as unknown as WechatMiniprogram.Canvas,
         jlyHasDraw: false,
-        jlyDrawOK: false,
+        jlyDrawOk: false,
         jlySrc: null,
         jlyBase64: null,
 
@@ -183,7 +184,6 @@ Page({
     },
 
     handleUploadImg(e: any) {
-        // console.log(e.target.dataset.arrname);
         const arrname = e.target.dataset.arrname;
         const that = this;
         // 从相册或相机拍摄
@@ -272,7 +272,6 @@ Page({
     },
     // 点击选择
     handleGroupChange(event) {
-        console.log("group", event.detail.value);
         this.setData({
             jobGroup: event.detail.value,
         });
@@ -284,7 +283,7 @@ Page({
     },
 
     onColumnChange(e: any) {
-        console.log("picker pick:", e, 4123);
+        console.log("picker pick:", e);
     },
 
     onPickerChange(e: {
@@ -332,7 +331,6 @@ Page({
         let that = this;
         wx.chooseLocation({
             success: function (res) {
-                console.log(res);
                 //赋值给data中的mapName
                 that.setData({
                     jobPosition: res.name,
@@ -352,6 +350,21 @@ Page({
         this.getTabBar().setData({
             selected: 0,
         });
+        // wx.request({
+        //     url: "http://localhost:8092/Job/getUuid",
+        //     method: "GET",
+        //     success: (res) => {
+        //         console.log(res);
+
+        //         this.setData({
+        //             uuid: res.data
+        //         })
+        //     },
+        //     fail: (e) => {
+        //         console.log(e);
+
+        //     }
+        // })
         const query = wx.createSelectorQuery();
         query
             .select(".aqySign")
@@ -421,8 +434,6 @@ Page({
         target: { dataset: { name: string } };
     }) {
         const name = e.target.dataset.name;
-        console.log(this.data[`${name}DrawOk`]);
-
         if (this.data[`${name}DrawOk`]) {
             return;
         }
@@ -441,12 +452,12 @@ Page({
         touches: { x: any; y: any }[];
         target: { dataset: { name: string } };
     }) {
-        var x = e.touches[0].x;
-        var y = e.touches[0].y;
         const name = e.target.dataset.name;
         if (this.data[`${name}DrawOk`]) {
             return;
         }
+        var x = e.touches[0].x;
+        var y = e.touches[0].y;
         let canvasContext = this.data[`${name}SignContext`];
 
         canvasContext.lineTo(x, y);
@@ -495,7 +506,7 @@ Page({
             });
             this.setData({
                 [`${name}DrawOk`]: true,
-            })
+            });
         }
 
         wx.canvasToTempFilePath({
@@ -512,6 +523,138 @@ Page({
     },
 
     submitJob() {
+        if (!this.data.jobContent) {
+            this.handleToast({
+                message: "请填写作业内容",
+            });
+            return;
+        }
+        if (!this.data.jobGroup.toString()) {
+            this.handleToast({
+                message: "请选择作业班组",
+            });
+            return;
+        }
+        if (!this.data.dateText) {
+            this.handleToast({
+                message: "请选择作业日期",
+            });
+            return;
+        }
+        if (!this.data.jobPosition) {
+            this.handleToast({
+                message: "请选择作业地点",
+            });
+            return;
+        }
+        if (!this.data.jobPersonValue) {
+            this.handleToast({
+                message: "请输入作业人数",
+            });
+            return;
+        }
+        if (!this.data.startTimeHour) {
+            this.handleToast({
+                message: "请输入作业开始小时",
+            });
+            return;
+        }
+        if (!this.data.startTimeMinute) {
+            this.handleToast({
+                message: "请输入作业开始分钟",
+            });
+            return;
+        }
+        if (!this.data.startTimeSecond) {
+            this.handleToast({
+                message: "请输入作业开始秒",
+            });
+            return;
+        }
+        if (!this.data.endTimeHour) {
+            this.handleToast({
+                message: "请输入作业结束小时",
+            });
+            return;
+        }
+        if (!this.data.endTimeMinute) {
+            this.handleToast({
+                message: "请输入作业结束分钟",
+            });
+            return;
+        }
+        if (!this.data.endTimeSecond) {
+            this.handleToast({
+                message: "请输入作业结束秒",
+            });
+            return;
+        }
+        if (this.data.isInterrupt && !this.data.pauseTime) {
+            this.handleToast({
+                message: "请输入中断时间",
+            });
+            return;
+        }
+        if (!this.data.gasDetectionBase64Arr.length) {
+            this.handleToast({
+                message: "请上传气体检测照片",
+            });
+            return;
+        }
+        if (!this.data.signBoardBase64Arr.length) {
+            this.handleToast({
+                message: "请上传作业标识照片",
+            });
+            return;
+        }
+        if (!this.data.aqy) {
+            this.handleToast({
+                message: "请输入安全员名称",
+            });
+            return;
+        }
+        if (!this.data.aqyDrawOk) {
+            this.handleToast({
+                message: "请安全员签字",
+            });
+            return;
+        }
+        if (!this.data.xcfzr) {
+            this.handleToast({
+                message: "请输入现场负责人名称",
+            });
+            return;
+        }
+        if (!this.data.xcfzrDrawOk) {
+            this.handleToast({
+                message: "请现场负责人签字",
+            });
+            return;
+        }
+        if (!this.data.jcy) {
+            this.handleToast({
+                message: "请输入检查员名称",
+            });
+            return;
+        }
+        if (!this.data.jcyDrawOk) {
+            this.handleToast({
+                message: "请检测员签字",
+            });
+            return;
+        }
+        if (!this.data.jly) {
+            this.handleToast({
+                message: "请输入记录员名称",
+            });
+            return;
+        }
+        if (!this.data.jlyDrawOk) {
+            this.handleToast({
+                message: "请记录员签字",
+            });
+            return;
+        }
         const data = {
             jobContent: this.data.jobContent,
             jobGroup: this.data.jobGroup.toString(),
@@ -519,20 +662,20 @@ Page({
             jobPosition: this.data.jobPosition,
 
             jobPersonValue: this.data.jobPersonValue,
-            safetyDisclosureValue: this.data.safetyDisclosureValue,
-            inspectionEquipmentValue: this.data.inspectionEquipmentValue,
-            ventedExhaustValue: this.data.ventedExhaustValue,
-            personalProtectionValue: this.data.personalProtectionValue,
-            gasDetectionValue: this.data.gasDetectionValue,
-            safetyProtectionValue: this.data.safetyProtectionValue,
-            otherInfo: this.data.otherInfo,
+            safetyDisclosureValue: this.data.safetyDisclosureValue, //
+            inspectionEquipmentValue: this.data.inspectionEquipmentValue, //
+            ventedExhaustValue: this.data.ventedExhaustValue, //
+            personalProtectionValue: this.data.personalProtectionValue, //
+            gasDetectionValue: this.data.gasDetectionValue, //
+            safetyProtectionValue: this.data.safetyProtectionValue, //
+            otherInfo: this.data.otherInfo, //
             startTimeHour: this.data.startTimeHour,
             startTimeMinute: this.data.startTimeMinute,
             startTimeSecond: this.data.startTimeSecond,
-            isInterrupt: this.data.isInterrupt,
+            isInterrupt: this.data.isInterrupt, //
             pauseTime: this.data.pauseTime,
-            reDetectionValue: this.data.reDetectionValue,
-            confinedSpaceType: this.data.confinedSpaceType,
+            reDetectionValue: this.data.reDetectionValue, //
+            confinedSpaceType: this.data.confinedSpaceType, //
             positionList: this.data.positionList,
             gasDetectionBase64Arr: this.data.gasDetectionBase64Arr.toString(),
             signBoardBase64Arr: this.data.signBoardBase64Arr.toString(),
@@ -540,7 +683,7 @@ Page({
             endTimeHour: this.data.endTimeHour,
             endTimeMinute: this.data.endTimeMinute,
             endTimeSecond: this.data.endTimeSecond,
-            cleaningInspection: this.data.cleaningInspection,
+            cleaningInspection: this.data.cleaningInspection, //
             aqy: this.data.aqy,
             aqyBase64: this.data.aqyBase64,
             xcfzr: this.data.xcfzr,
@@ -609,5 +752,10 @@ Page({
     /**
      * 用户点击右上角分享
      */
-    onShareAppMessage() { },
+    onShareAppMessage() {
+        return {
+            title: "邀请您进行审批",
+            path: "pages/verify/verify",
+        };
+    },
 });
