@@ -543,6 +543,7 @@ Page({
     },
 
     submitJob() {
+        const openId = wx.getStorageSync("openId")
         if (!this.data.jobContent) {
             this.handleToast({
                 message: "请填写作业内容",
@@ -712,10 +713,12 @@ Page({
             jcyBase64: this.data.jcyBase64,
             jly: this.data.jly,
             jlyBase64: this.data.jlyBase64,
+            sendOpenId: openId,
         };
         const that = this
         wx.request({
-            url: "http://zhouhaoyiu.oicp.vip/Job/addJob",
+            // url: "https://zhouhaoyiu.oicp.vip/Job/addJob",
+            url: "http://localhost:8092/Job/addJob",
             method: "POST",
             data: data,
             success(res) {
@@ -782,9 +785,6 @@ Page({
      * 用户点击右上角分享
      */
     onShareAppMessage() {
-        return {
-            title: "邀请您进行审批",
-            path: "pages/verify/verify",
-        };
+       
     },
 });

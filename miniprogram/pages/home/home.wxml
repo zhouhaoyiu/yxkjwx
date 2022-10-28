@@ -3,7 +3,6 @@
         <t-input align="right" size="small" value="{{jobContent}}" data-inputfield="jobContent" label="slot" onchange="setInputData" placeholder="请输入作业内容">
             <text slot="label">作业内容<text style="color: #e34d59"> *</text> </text>
         </t-input>
-        <!-- <t-input size="small" value="{{jobGroupValue}}" label="作业段组" placeholder="请输入文字" /> -->
         <view class="pannel-item" style="display: flex;flex-direction: column;height: max-content;">
             <view class="pannel-label" style="width: 100%;height: 96rpx;padding:0 0 0 32rpx;line-height: 96rpx;display: flex;flex-direction: row;justify-content: space-between;">
                 <view>
@@ -20,7 +19,6 @@
             <t-checkbox-group wx:if="{{jobGroupPick}}" style="width: calc(100% - 20rpx);" value="{{jobGroup}}" bind:change="handleGroupChange">
                 <t-checkbox wx:for="{{jobGroups}}" wx:key="index" t-class="t-checkbox-padding" value="{{item.value}}" label="{{item.label}}" align="right" />
             </t-checkbox-group>
-            <!-- style表签使得按钮靠右 -->
             <t-button bindtap="jobGroupVisible" wx:if="{{jobGroupPick}}" t-class="external-class" style="margin-left: auto;margin-top: 10rpx;" theme="primary" size="small" block>收起</t-button>
         </view>
         <t-cell required title="作业日期" hover note="{{dateText || '年 月 日'}}" arrow data-mode="date" bindtap="showPicker" class="test" t-class="pannel-item" t-class-note="{{dateText ? 'sub-text' : 'empty'}}" />

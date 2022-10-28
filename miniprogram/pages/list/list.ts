@@ -3,50 +3,15 @@ Page({
      * 页面的初始数据
      */
     data: {
-        testInfo: [
-            {
-                id: 0,
-                status: 0,
-                subName: "xx",
-                time: new Date().toLocaleString(),
-            },
-            {
-                id: 1,
-                status: 1,
-                subName: "xx",
-                time: new Date().toLocaleString(),
-            },
-            {
-                id: 2,
-                status: 2,
-                subName: "xx",
-                time: new Date().toLocaleString(),
-            },
-            {
-                id: 3,
-                status: 1,
-                subName: "xx",
-                time: new Date().toLocaleString(),
-            },
-            {
-                id: 4,
-                status: 2,
-                subName: "xx",
-                time: new Date().toLocaleString(),
-            },
-            {
-                id: 5,
-                status: 1,
-                subName: "xx",
-                time: new Date().toLocaleString(),
-            },
-        ],
+        page: 1,
+        testInfo: [] as any
     },
 
     goDetails(e: any) {
-        console.log(e.currentTarget.dataset.listid);
+        console.log(e);
+
         wx.navigateTo({
-            url: "/pages/details/details?listId=" + e.currentTarget.dataset.listid,
+            url: "/pages/details/details?jobUuid=" + e.currentTarget.dataset.jobuuid,
         });
     },
 
@@ -54,9 +19,28 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad() {
+        const openId = wx.getStorageSync("openId")
+        console.log(openId);
+
+        const that = this;
         this.getTabBar().setData({
             selected: 1,
         });
+        wx.request({
+            method: "GET",
+            // url: "https://zhouhaoyiu.oicp.vip/Job/getJobByPage",
+            url: "http://localhost:8092/Job/getJobByPage",
+            data: {
+                page: this.data.page,
+                sendOpenId: openId
+            },
+            success(res) {
+                console.log(res);
+                that.setData({
+                    testInfo: res.data
+                })
+            }
+        })
     },
 
     /**
@@ -91,12 +75,12 @@ Page({
      */
     onReachBottom() {
         console.log("到底了");
-        wx.request({
-            url: "http://zhouhaoyiu.oicp.vip/Job/test",
-            success(res) {
-                console.log(res);
-            },
-        });
+        // wx.request({
+        //     url: "https://zhouhaoyiu.oicp.vip/Job/test",
+        //     success(res) {
+        //         console.log(res);
+        //     },
+        // });
     },
 
     /**
