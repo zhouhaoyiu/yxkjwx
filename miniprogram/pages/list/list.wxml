@@ -1,10 +1,10 @@
-<!-- pages/list/list.wxml -->
-<t-tabs defaultValue="{{0}}" t-class="custom-tabs">
+<!-- {{tabBarIndex}} -->
+<t-tabs defaultValue="{{tabBarIndex}}" t-class="custom-tabs" bind:change="changeTabBar">
     <t-tab-panel label="我发起的" value="0">
         <scroll-view class="page" scroll-y="true">
             <view class="list">
                 <!-- 根据status来设置对应颜色 status为0是白色 1是rgba(119, 255, 130, 0.15) 2是red -->
-                <view bindtap="goDetails" wx:for="{{testInfo}}" wx:key="index" class="list-item" style="background-color:{{item.status==1?'white':item.status==2?'rgba(119, 255, 130, 0.15)':' rgba(255, 100, 100, 0.10);'}}" data-jobuuid="{{item.jobUuid}}">
+                <view bindtap="goDetails" wx:for="{{sendInfo}}" wx:key="index" class="list-item" style="background-color:{{item.status==1?'white':item.status==2?'rgba(119, 255, 130, 0.15)':' rgba(255, 100, 100, 0.10);'}}" data-jobuuid="{{item.jobUuid}}">
                     <view class="list-item-title">{{item.jly}} 提交的有限空间作业审批 </view>
                     <view class="list-item-info">
                         <view>
@@ -22,5 +22,30 @@
             </view>
         </scroll-view>
     </t-tab-panel>
-    <t-tab-panel label="我审批的" value="1">标签二内容</t-tab-panel>
+    <t-tab-panel label="我审批的" value="1">
+        <scroll-view class="page" scroll-y="true">
+            <view class="list" wx:if="{{verifyInfo.length}}">
+                <!-- 根据status来设置对应颜色 status为0是白色 1是rgba(119, 255, 130, 0.15) 2是red -->
+                <view bindtap="goDetails" wx:for="{{verifyInfo}}" wx:key="index" class="list-item" style="background-color:{{item.status==1?'white':item.status==2?'rgba(119, 255, 130, 0.15)':' rgba(255, 100, 100, 0.10);'}}" data-jobuuid="{{item.jobUuid}}">
+                    <view class="list-item-title">{{item.jly}} 提交的有限空间作业审批 </view>
+                    <view class="list-item-info">
+                        <view>
+                            作业内容：{{item.jobContent}}
+                        </view>
+                        <view>
+                            作业段组：{{item.jobGroup}}
+                        </view>
+                        <view>
+                            作业人数：{{item.jobPersonValue}}
+                        </view>
+                    </view>
+                    <!-- <view class="list-item-time">{{item.time}}</view> -->
+                </view>
+            </view>
+            <view wx:else>
+                暂无内容
+            </view>
+        </scroll-view>
+    </t-tab-panel>
 </t-tabs>
+<t-toast id="toast" />

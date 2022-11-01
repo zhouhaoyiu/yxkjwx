@@ -1,6 +1,3 @@
-// pages/details/details.ts
-// 从url中获取参数
-//         const listId = options.listId;
 Page({
     /**
      * 页面的初始数据
@@ -21,15 +18,18 @@ Page({
         });
         wx.request({
             method: "GET",
-            // url: "https://zhouhaoyiu.oicp.vip/Job/getInfoByJobUuid",
-            url:"http://localhost:8092/Job/getInfoByJobUuid",
+            url: "https://zhouhaoyiu.oicp.vip/Job/getInfoByJobUuid",
+            // url:"http://localhost:8092/Job/getInfoByJobUuid",
             data: {
                 jobUuid: this.data.jobUuid,
             },
-            success(res: any) {   
+            success(res: any) {
                 console.log(res);
-                           
+
                 res.data[0].positionList = JSON.parse(res.data[0].positionList)
+                if (res.data[0].status != 1) {
+                    wx.hideShareMenu({});
+                }
                 that.setData({
                     info: res.data[0],
                 });
@@ -39,6 +39,7 @@ Page({
 
     previewImgByBase64(e: any) {
         const imgname = e.currentTarget.dataset.imgname as string;
+        // @ts-ignore
         const base64 = "data:image/jpeg;base64," + this.data.info[imgname];
 
         wx.previewImage({

@@ -1,3 +1,11 @@
 {
-  "usingComponents": {}
+    "usingComponents": {
+        "t-cell": "tdesign-miniprogram/cell/cell",
+        "t-button": "tdesign-miniprogram/button/button",
+        "t-button-group": "tdesign-miniprogram/button-group/button-group",
+        "t-input": "tdesign-miniprogram/input/input",
+        "t-textarea": "tdesign-miniprogram/textarea/textarea",
+        "t-toast": "tdesign-miniprogram/toast/toast",
+        "t-icon": "tdesign-miniprogram/icon/icon"
+    }
 }

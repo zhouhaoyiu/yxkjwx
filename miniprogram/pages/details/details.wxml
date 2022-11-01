@@ -47,4 +47,17 @@
     <view wx:if="{{info.exhaustAirBase64Arr}}" style="background: white;">
         <image src="data:image/jpeg;base64,{{info.exhaustAirBase64Arr}}" bindtap="previewImgByBase64" data-imgname="exhaustAirBase64Arr"></image>
     </view>
+    <view wx:if="{{info.spr}}">
+        <t-cell title="审批人" hover note="{{info.spr}}" />
+        <view style="background: white;">
+            <image src="data:image/jpeg;base64,{{info.sprBase64}}"></image>
+        </view>
+        <t-cell title="审批备注" hover wx:if="{{info.sprbz}}" description="{{info.sprbz}}" />
+    </view>
+    <t-cell wx:if="{{info.status === 2}}" title="审批结果" hover>
+        <text slot="note" style="color: green;">通过</text>
+    </t-cell>
+    <t-cell wx:if="{{info.status == 3}}" title="审批结果" hover>
+        <text slot="note" style="color: red;">拒绝</text>
+    </t-cell>
 </scroll-view>

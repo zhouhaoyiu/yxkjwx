@@ -1,17 +1,38 @@
+import Toast, { ToastOptionsType } from "tdesign-miniprogram/toast/index";
 Page({
     /**
      * 页面的初始数据
      */
     data: {
-        page: 1,
-        testInfo: [] as any
+        tabBarIndex: 0,
+        sendPage: 1,
+        verifyPage: 1,
+        sendInfo: [] as any,
+        verifyInfo: [] as any
     },
-
+    changeTabBar(e: any) {
+        this.setData({
+            tabBarIndex: e.detail.value
+        })
+    },
     goDetails(e: any) {
         console.log(e);
 
         wx.navigateTo({
             url: "/pages/details/details?jobUuid=" + e.currentTarget.dataset.jobuuid,
+        });
+    },
+    toast(option: ToastOptionsType) {
+        Toast({
+            context: this,
+            selector: "#toast",
+            ...option,
+        });
+    },
+
+    handleToast(message: string | ToastOptionsType) {
+        this.toast({
+            message: typeof message === "string" ? message : message.message,
         });
     },
 
@@ -20,27 +41,54 @@ Page({
      */
     onLoad() {
         const openId = wx.getStorageSync("openId")
-        console.log(openId);
-
         const that = this;
         this.getTabBar().setData({
             selected: 1,
         });
-        wx.request({
-            method: "GET",
-            // url: "https://zhouhaoyiu.oicp.vip/Job/getJobByPage",
-            url: "http://localhost:8092/Job/getJobByPage",
-            data: {
-                page: this.data.page,
-                sendOpenId: openId
-            },
-            success(res) {
-                console.log(res);
-                that.setData({
-                    testInfo: res.data
-                })
-            }
-        })
+        try {
+            wx.request({
+                method: "GET",
+                url: "https://zhouhaoyiu.oicp.vip/Job/getSendJobByPage",
+                // url: "http://localhost:8092/Job/getSendJobByPage",
+                data: {
+                    page: this.data.sendPage,
+                    sendOpenId: openId
+                },
+                success(res) {
+                    console.log(res);
+                    that.setData({
+                        sendInfo: res.data
+                    })
+                },
+                fail(_e) {
+                    that.handleToast({
+                        message: '网络错误',
+                    });
+                }
+            })
+            wx.request({
+                method: "GET",
+                url: "https://zhouhaoyiu.oicp.vip/Job/getVerifyJobByPage",
+                // url: "http://localhost:8092/Job/getVerifyJobByPage",
+                data: {
+                    page: this.data.verifyPage,
+                    verifyOpenId: openId
+                },
+                success(res) {
+                    that.setData({
+                        verifyInfo: res.data
+                    })
+                }
+            })
+        }
+        catch (e) {
+            this.handleToast({
+                message: '网络错误',
+            })
+        }
+        finally {
+
+        }
     },
 
     /**

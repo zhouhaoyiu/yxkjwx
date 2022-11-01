@@ -520,10 +520,6 @@ Page({
             this.handleToast({
                 message: `${chineseName}签字成功`,
             });
-            this.setData({
-                [`${name}DrawOk`]: true,
-                [`${name}DrawShow`]: false,
-            });
         }
 
         wx.canvasToTempFilePath({
@@ -535,6 +531,8 @@ Page({
                 this.setData({
                     [`${name}Src`]: res.tempFilePath,
                     [`${name}Base64`]: base64,
+                    [`${name}DrawOk`]: true,
+                    [`${name}DrawShow`]: false,
                 });
                 let canvasContext = this.data[`${name}SignContext`];
                 canvasContext.clearRect(0, 0, this.data.width, 250);
@@ -717,8 +715,8 @@ Page({
         };
         const that = this
         wx.request({
-            // url: "https://zhouhaoyiu.oicp.vip/Job/addJob",
-            url: "http://localhost:8092/Job/addJob",
+            url: "https://zhouhaoyiu.oicp.vip/Job/addJob",
+            // url: "http://localhost:8092/Job/addJob",
             method: "POST",
             data: data,
             success(res) {
@@ -785,6 +783,6 @@ Page({
      * 用户点击右上角分享
      */
     onShareAppMessage() {
-       
+
     },
 });

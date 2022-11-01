@@ -1,10 +1,16 @@
-// pages/login/login.ts
+import Toast, { ToastOptionsType } from "tdesign-miniprogram/toast/index";
 Page({
     /**
      * 页面的初始数据
      */
-    data: {},
-
+    data: {
+        pin: ""
+    },
+    setInputData(e: any) {
+        this.setData({
+            [e.target.dataset.inputfield]: e.detail.value,
+        });
+    },
     wxLogin() {
         // wx.getUserProfile({
         //     desc: "用于完善用户资料",
@@ -15,18 +21,45 @@ Page({
         //         });
         //     },
         // });
-        wx.switchTab({
-            url: "/pages/home/home",
-        });
+        if (this.data.pin == "tygscbyx") {
+            wx.switchTab({
+                url: "/pages/home/home",
+            });
+            wx.setStorageSync("login", true);
+        }
+        else {
+            this.handleToast({
+                message: `请输入pin码`,
+            });
+        }
     },
     onGetPhoneNumber(e: any) {
         console.log(e);
     },
+    toast(option: ToastOptionsType) {
+        Toast({
+            context: this,
+            selector: "#t-toast",
+            ...option,
+        });
+    },
 
+    handleToast(message: string | ToastOptionsType) {
+        this.toast({
+            message: typeof message === "string" ? message : message.message,
+        });
+    },
     /**
      * 生命周期函数--监听页面加载
      */
-    onLoad() { },
+    onLoad() {
+        const login = wx.getStorageSync("login")
+        if (login) {
+            wx.switchTab({
+                url: "/pages/home/home",
+            });
+        }
+    },
 
     /**
      * 生命周期函数--监听页面初次渲染完成

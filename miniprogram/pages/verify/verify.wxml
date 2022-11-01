@@ -1,2 +1,87 @@
-<!--pages/verify/verify.wxml-->
-<text>{{opt}}</text>
+<scroll-view class="page" scroll-y="true">
+    <t-cell title="作业内容" hover note="{{info.jobContent}}" />
+    <t-cell title="作业段组" hover note="{{info.jobGroup}}" />
+    <t-cell title="作业日期" hover note="{{info.jobDate}}" />
+    <t-cell title="作业人数" hover note="{{info.jobPersonValue}}" />
+    <t-cell title="作业位置" hover description="{{info.jobPosition}}" />
+    <t-cell title="安全交底" hover note="{{info.safetyDisclosureValue?'完成':'未完成'}}" />
+    <t-cell title="检测设备情况" hover note="{{info.inspectionEquipmentValue?'合格':'不合格'}}" />
+    <t-cell title="通风排气情况" hover note="{{info.ventedExhaustValue?'完成':'未完成'}}" />
+    <t-cell title="气体检测情况" hover note="{{info.gasDetectionValue?'合格':'不合格'}}" />
+    <t-cell title="安全防护设备" hover note="{{info.safetyProtectionValue?'完成':'未完成'}}" />
+    <t-cell title="个人防护用品" hover note="{{info.personalProtectionValue?'完成':'未完成'}}" />
+    <t-cell title="其他补充措施" hover description="{{info.otherInfo}}" />
+    <t-cell title="开始时间" hover note="{{info.startTimeHour}}时{{info.startTimeMinute}}分" />
+    <t-cell title="是否中断" hover note="{{info.isInterrupt?'是':'否'}}" />
+    <t-cell wx:if="{{info.isInterrupt}}" title="中断时长" hover note="{{info.pauseTime}}分钟" />
+    <t-cell wx:if="{{info.isInterrupt}}" title="再次检测情况" hover note="{{info.reDetectionValue?'合格':'不合格'}}" />
+    <!-- {{info.positionList}} -->
+    <t-cell wx:key="index" wx:for="{{info.positionList}}" title="{{item.key}}" hover description="一氧化碳：{{item.CO}}ppm\n 硫化氢：{{item.H2S}}ppm 氧气：{{item.O2}}% 可燃气体：{{item.combustibleGas}}%" />
+    <t-cell title="结束时间" hover note="{{info.endTimeHour}}时{{info.endTimeMinute}}分" />
+    <t-cell title="清理检查情况" hover note="{{info.cleaningInspection?'合格':'不合格'}}" />
+    <t-cell title="安全员" hover note="{{info.aqy}}" />
+    <view style="background: white;">
+        <image src="data:image/jpeg;base64,{{info.aqyBase64}}"></image>
+    </view>
+    <t-cell title="现场负责人" hover note="{{info.xcfzr}}" />
+    <view style="background: white;">
+        <image src="data:image/jpeg;base64,{{info.xcfzrBase64}}"></image>
+    </view>
+    <t-cell title="检测员" hover note="{{info.jcy}}" />
+    <view style="background: white;">
+        <image src="data:image/jpeg;base64,{{info.jcyBase64}}"></image>
+    </view>
+    <t-cell title="记录员" hover note="{{info.spr}}" />
+    <view style="background: white;">
+        <image src="data:image/jpeg;base64,{{info.sprBase64}}"></image>
+    </view>
+    <t-cell title="现场气体检测情况附图" hover />
+    <view style="background: white;">
+        <image wx:if="{{info.gasDetectionBase64Arr}}" src="data:image/jpeg;base64,{{info.gasDetectionBase64Arr}}" bindtap="previewImgByBase64" data-imgname="gasDetectionBase64Arr"></image>
+    </view>
+    <t-cell title="标志牌照片" hover />
+    <view style="background: white;">
+        <image wx:if="{{info.signBoardBase64Arr}}" src="data:image/jpeg;base64,{{info.signBoardBase64Arr}}" bindtap="previewImgByBase64" data-imgname="signBoardBase64Arr"></image>
+    </view>
+    <t-cell wx:if="{{info.exhaustAirBase64Arr}}" title="排风照片" hover />
+    <view wx:if="{{info.exhaustAirBase64Arr}}" style="background: white;">
+        <image src="data:image/jpeg;base64,{{info.exhaustAirBase64Arr}}" bindtap="previewImgByBase64" data-imgname="exhaustAirBase64Arr"></image>
+    </view>
+    <t-input align="right" size="small" value="{{spr}}" data-inputfield="spr" onchange="setInputData" label="slot" placeholder="请输入审批人">
+        <text slot="label" style="font-size: 28rpx;">审批人<text style="color: #e34d59"> *</text> </text>
+        <view slot="suffix" style="font-weight: bold;">
+            <view style="color: red;" wx:if="{{!sprDrawOk}}">
+                ×
+            </view>
+            <view style="color: green;" wx:if="{{sprDrawOk}}">
+                <t-icon name="check" size="18" data-name="check" />
+            </view>
+        </view>
+    </t-input>
+    <view style="display: flex;justify-content: center;align-items: center;">
+        <canvas style="width: 100%;height: 250px;display:{{sprDrawShow?'block':'none'}};" id="sprSign" class="sprSign" data-name="spr" type="2d" disable-scroll="true" bindtouchstart="touchstart" bindtouchmove="touchmove" canvas-id="sprSign"></canvas>
+    </view>
+    <!-- {{sprDrawShow}} -->
+    <view wx:if="{{sprDrawShow}}" style="display: flex;justify-content: space-between;padding: 0 20rpx;padding-bottom: 30rpx;">
+        <t-button t-class="external-class" data-name="spr" theme="danger" variant="outline" block size="small" bindtap="resign">
+            重新签字
+        </t-button>
+        <t-button t-class="external-class" data-name="spr" theme="primary" variant="outline" block size="small" bindtap="signOk">
+            完成签字
+        </t-button>
+    </view>
+    <image wx:if="{{sprBase64}}" style="margin:0;width:100%" src="data:image/jpeg;base64,{{sprBase64}}" />
+    <view>
+        <t-button wx:if="{{!sprDrawShow}}" t-class="external-class" data-name="spr" theme="primary" variant="outline" block size="small" bindtap="openSign">
+            {{!sprDrawOk?"开始签字":"重新签字"}}
+        </t-button>
+    </view>
+    <view>
+        <t-textarea align="right" data-inputfield="sprbz" onchange="setInputData" autosize value="{{sprbz}}" label="审批备注" placeholder="请输入文字" />
+    </view>
+    <view style="display: flex;justify-content: space-between;margin-top: 20rpx;">
+        <t-button t-class="external-class" theme="danger" bindtap="refuse">拒绝</t-button>
+        <t-button t-class="external-class" theme="primary" bindtap="accept">同意</t-button>
+    </view>
+    <t-toast id="toast" />
+</scroll-view>

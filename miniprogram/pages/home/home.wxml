@@ -169,19 +169,19 @@
             <view class="position-list">
                 <view class="position-item" wx:for="{{positionList}}" wx:key="index">
                     <view style="color: #999999;" class="pl-32 mt-20">{{item.key}}</view>
-                    <t-input align="right" size="small" value="{{item.CO}}" data-index="{{index}}" data-key="CO" onchange="setPositionData" label="slot" placeholder="小于24">
+                    <t-input align="right" size="small" value="{{item.CO}}" data-index="{{index}}" data-key="CO" onchange="setPositionData" label="slot" placeholder="小于24" type="number">
                         <text slot="label">CO(一氧化碳)<text style="color: #e34d59"> *</text> </text>
                         <view slot="suffix">ppm</view>
                     </t-input>
-                    <t-input align="right" size="small" value="{{item.H2S}}" data-index="{{index}}" data-key="H2S" onchange="setPositionData" label="slot" placeholder="小于10">
+                    <t-input align="right" size="small" value="{{item.H2S}}" data-index="{{index}}" data-key="H2S" onchange="setPositionData" label="slot" placeholder="小于10" type="number">
                         <text slot="label">H2S(硫化氢)<text style="color: #e34d59"> *</text> </text>
                         <view slot="suffix">ppm</view>
                     </t-input>
-                    <t-input align="right" size="small" value="{{item.O2}}" data-index="{{index}}" data-key="O2" onchange="setPositionData" label="slot" placeholder="19.5~23">
+                    <t-input align="right" size="small" value="{{item.O2}}" data-index="{{index}}" data-key="O2" onchange="setPositionData" label="slot" placeholder="19.5~23" type="number">
                         <text slot="label">O2(氧气)<text style="color: #e34d59"> *</text> </text>
                         <view slot="suffix">%</view>
                     </t-input>
-                    <t-input align="right" size="small" value="{{item.combustibleGas}}" data-index="{{index}}" data-key="combustibleGas" onchange="setPositionData" label="slot" placeholder="小于等于0">
+                    <t-input align="right" size="small" value="{{item.combustibleGas}}" data-index="{{index}}" data-key="combustibleGas" onchange="setPositionData" label="slot" placeholder="小于等于0" type="number">
                         <text slot="label">可燃气体<text style="color: #e34d59"> *</text> </text>
                         <view slot="suffix">%</view>
                     </t-input>
@@ -285,7 +285,7 @@
                 完成签字
             </t-button>
         </view>
-        <image wx:if="{{aqySrc}}" src="{{aqySrc}}" mode="" />
+        <image wx:if="{{aqyBase64}}" src="data:image/jpeg;base64,{{aqyBase64}}" mode="" />
         <view>
             <t-button wx:if="{{!aqyDrawShow}}" t-class="external-class" data-name="aqy" theme="primary" variant="outline" block size="small" bindtap="openSign">
                 {{!aqyDrawOk?"开始签字":"重新签字"}}
@@ -313,7 +313,7 @@
                 完成签字
             </t-button>
         </view>
-        <image wx:if="{{xcfzrSrc}}" src="{{xcfzrSrc}}" mode="" />
+        <image wx:if="{{xcfzrBase64}}" src="data:image/jpeg;base64,{{xcfzrBase64}}" mode="" />
         <view>
             <t-button wx:if="{{!xcfzrDrawShow}}" t-class="external-class" data-name="xcfzr" theme="primary" variant="outline" block size="small" bindtap="openSign">
                 {{!xcfzrDrawOk?"开始签字":"重新签字"}}
@@ -341,7 +341,7 @@
                 完成签字
             </t-button>
         </view>
-        <image wx:if="{{jcySrc}}" src="{{jcySrc}}" mode="" />
+        <image wx:if="{{jcyBase64}}" src="data:image/jpeg;base64,{{jcyBase64}}" mode="" />
         <view>
             <t-button wx:if="{{!jcyDrawShow}}" t-class="external-class" data-name="jcy" theme="primary" variant="outline" block size="small" bindtap="openSign">
                 {{!jcyDrawOk?"开始签字":"重新签字"}}
@@ -369,7 +369,7 @@
                 完成签字
             </t-button>
         </view>
-        <image wx:if="{{jlySrc}}" src="{{jlySrc}}" mode="" />
+        <image wx:if="{{jlyBase64}}" src="data:image/jpeg;base64,{{jlyBase64}}" mode="" />
         <view>
             <t-button wx:if="{{!jlyDrawShow}}" t-class="external-class" data-name="jly" theme="primary" variant="outline" block size="small" bindtap="openSign">
                 {{!jlyDrawOk?"开始签字":"重新签字"}}
