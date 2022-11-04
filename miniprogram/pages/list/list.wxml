@@ -3,7 +3,7 @@
     <t-tab-panel label="我发起的" value="0">
         <scroll-view class="page" scroll-y="true">
             <view wx:for="{{sendInfo}}" wx:key="index">
-                <view>
+                <view style="font-size: 36rpx;padding-left: 12rpx;font-weight: bold;line-height: 36rpx;padding-bottom: 10rpx;">
                     {{item.jobDate}}
                 </view>
                 <view class="list">
@@ -30,10 +30,8 @@
     <t-tab-panel label="我审批的" value="1">
         <scroll-view class="page" scroll-y="true">
             <view wx:for="{{verifyInfo}}" wx:key="index">
-                <view>
-                    <view>
-                        {{item.jobDate}}
-                    </view>
+                <view style="font-size: 36rpx;padding-left: 12rpx;font-weight: bold;line-height: 36rpx;padding-bottom: 10rpx;">
+                    {{item.jobDate}}
                 </view>
 
                 <view class="list" wx:if="{{item.jobInfo.length}}">
