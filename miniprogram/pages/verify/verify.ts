@@ -17,7 +17,8 @@ Page({
         sprDrawShow: false,
         sprSrc: null,
         sprBase64: null,
-        sprbz: ""
+        sprbz: "",
+        showDialog: false
     },
     touchstart(e: {
         touches: { x: any; y: any }[];
@@ -183,28 +184,12 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad(opt: any) {
-        console.log(opt);
         const that = this;
+        let flag = true;
         this.setData({
             jobUuid: opt.jobUuid,
         });
         wx.hideShareMenu({})
-        const query = wx.createSelectorQuery();
-        query
-            .select(".sprSign")
-            .fields({ node: true })
-            .exec((res) => {
-                const canvas = res[0].node;
-                canvas.width = width;
-                canvas.height = "250";
-                let canvasContext = canvas.getContext("2d");
-                canvasContext.strokeStyle = "black";
-                canvasContext.lineWidth = 2;
-                this.setData({
-                    sprSignContext: canvasContext,
-                    sprSignCanvas: canvas,
-                });
-            });
         wx.request({
             method: "GET",
             url: "https://zhouhaoyiu.oicp.vip/Job/getInfoByJobUuid",
@@ -219,8 +204,37 @@ Page({
                 that.setData({
                     info: res.data[0],
                 });
+                if (res.data[0].spr) {
+                    that.setData({
+                        showDialog: true,
+                    })
+                    flag = false
+                }
             },
         });
+        if (flag) {
+            const query = wx.createSelectorQuery();
+            query
+                .select(".sprSign")
+                .fields({ node: true })
+                .exec((res) => {
+                    const canvas = res[0].node;
+                    canvas.width = width;
+                    canvas.height = "250";
+                    let canvasContext = canvas.getContext("2d");
+                    canvasContext.strokeStyle = "black";
+                    canvasContext.lineWidth = 2;
+                    this.setData({
+                        sprSignContext: canvasContext,
+                        sprSignCanvas: canvas,
+                    });
+                });
+        }
+    },
+    goHome() {
+        wx.switchTab({
+            url: "/pages/home/home"
+        })
     },
     openSign(e: any) {
         const name = e.target.dataset.name

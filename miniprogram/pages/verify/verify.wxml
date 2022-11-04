@@ -85,3 +85,4 @@
     </view>
     <t-toast id="toast" />
 </scroll-view>
+<t-dialog visible="{{showDialog}}" title="此申请已经被{{info.spr}}审批" confirm-btn="回到首页" bind:confirm="goHome" />
