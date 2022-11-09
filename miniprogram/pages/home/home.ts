@@ -166,6 +166,25 @@ Page({
     },
     openSign(e: any) {
         const name = e.target.dataset.name
+        if (!this.data[`${name}SignContext`]) {
+            const query = wx.createSelectorQuery();
+            query
+                .select(`.${name}Sign`)
+                .fields({ node: true })
+                .exec((res) => {
+
+                    const canvas = res[0].node;
+                    canvas.width = width;
+                    canvas.height = "250";
+                    let canvasContext = canvas.getContext("2d");
+                    canvasContext.strokeStyle = "black";
+                    canvasContext.lineWidth = 2;
+                    this.setData({
+                        [`${name}SignContext`]: canvasContext,
+                        [`${name}SignCanvas`]: canvas,
+                    });
+                });
+        }
         this.setData({
             [`${name}DrawShow`]: true,
             [`${name}HasDraw`]: false,
@@ -222,9 +241,17 @@ Page({
                     [`${arrname}Base64Arr`]: base64Arr,
                 });
             },
+            fail(e) {
+                that.handleToast({
+                    message: '图片上传失败，请重试'
+                });
+            }
         });
     },
 
+    udf() {
+        void 0
+    },
     previewImg(e: any) {
         const arrname = e.target.dataset.arrname;
         const index = e.target.dataset.index;
@@ -419,7 +446,7 @@ Page({
                 canvas.width = width;
                 canvas.height = "250";
                 let canvasContext = canvas.getContext("2d");
-                canvasContext.strokeStyle = "#000000";
+                canvasContext.strokeStyle = "black";
                 canvasContext.lineWidth = 2;
                 this.setData({
                     jcySignContext: canvasContext,
@@ -537,7 +564,10 @@ Page({
                 let canvasContext = this.data[`${name}SignContext`];
                 canvasContext.clearRect(0, 0, this.data.width, 250);
             },
-        });
+            fail(e) {
+                console.log(e);
+            }
+        }, this);
     },
 
     submitJob() {
@@ -721,7 +751,7 @@ Page({
             data: data,
             success(res) {
                 that.handleToast({
-                    message: res.data,
+                    message: res.data == 1 ? "提交成功" : "提交失败",
                 });
             },
             fail(res) {

@@ -29,7 +29,7 @@ Page({
         }
         else {
             this.handleToast({
-                message: `请输入pin码`,
+                message: `pin码错误`,
             });
         }
     },
@@ -53,12 +53,11 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad() {
-        const login = wx.getStorageSync("login")
-        if (login) {
-            wx.switchTab({
-                url: "/pages/home/home",
-            });
-        }
+        // if (login) {
+        //     wx.switchTab({
+        //         url: "/pages/home/home",
+        //     });
+        // }
     },
 
     /**

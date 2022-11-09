@@ -2,11 +2,6 @@
 App<IAppOption>({
     globalData: {},
     onLaunch() {
-        // 展示本地存储能力
-        const logs = wx.getStorageSync("logs") || [];
-        logs.unshift(Date.now());
-        wx.setStorageSync("logs", logs);
-
         const updateManager = wx.getUpdateManager()
         updateManager.onCheckForUpdate(function (res) {
             console.log(res.hasUpdate)
@@ -41,7 +36,12 @@ App<IAppOption>({
                         code: res.code
                     },
                     success(res) {
-                        wx.setStorageSync("openId", res.data)
+                        try {
+                            wx.setStorageSync("openId", res.data)
+                        }
+                        catch (e) {
+                            console.log(e);
+                        }
                     }
                 })
             },

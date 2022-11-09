@@ -159,6 +159,11 @@ Page({
                 sprBase64: this.data.sprBase64,
                 sprbz: this.data.sprbz,
                 verifyOpenId: openId
+            },
+            success(res) {
+                if (res == 1) {
+                    this.handleToast("审批成功")
+                }
             }
         })
         wx.switchTab({

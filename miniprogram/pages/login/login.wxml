@@ -6,7 +6,7 @@
         </image>
     </view>
     <view class="loginBox">
-        <t-input value="{{userName}}" label="pin" data-inputfield="pin"  onchange="setInputData" placeholder="请输入pin" />
+        <t-input value="{{userName}}" label="登录代码" data-inputfield="pin"  onchange="setInputData" placeholder="请输入登录代码" />
         <!-- <t-input value="{{passWord}}" label="密码" placeholder="请输入密码" /> -->
         <!-- <button class="authbtn" open-type="getPhoneNumber" type="primary" bindgetphonenumber="onGetPhoneNumber">获取手机号码</button> -->
         <t-button t-class="external-class" bindtap="wxLogin" theme="primary" block disabled="{{disabled}}" content="登录"></t-button>

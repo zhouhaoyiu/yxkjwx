@@ -49,6 +49,15 @@ canvas {
         padding-bottom: 20rpx;
     }
 
+    .t-input__control {
+        height: 2rem;
+    }
+
+    .t-input--size-small {
+        padding-top: 12rpx;
+        padding-bottom: 12rpx;
+    }
+
     .t-checkbox-padding {
         width: 100%;
     }

@@ -1,4 +1,4 @@
-<scroll-view class="page" scroll-y="true">
+<scroll-view class="page" scroll-y="false">
     <view class="box">
         <t-input align="right" size="small" value="{{jobContent}}" data-inputfield="jobContent" label="slot" onchange="setInputData" placeholder="请输入作业内容">
             <text slot="label">作业内容<text style="color: #e34d59"> *</text> </text>
@@ -169,19 +169,19 @@
             <view class="position-list">
                 <view class="position-item" wx:for="{{positionList}}" wx:key="index">
                     <view style="color: #999999;" class="pl-32 mt-20">{{item.key}}</view>
-                    <t-input align="right" size="small" value="{{item.CO}}" data-index="{{index}}" data-key="CO" onchange="setPositionData" label="slot" placeholder="小于24" type="number">
+                    <t-input align="right" size="small" value="{{item.CO}}" data-index="{{index}}" data-key="CO" onchange="setPositionData" label="slot" placeholder="小于24">
                         <text slot="label">CO(一氧化碳)<text style="color: #e34d59"> *</text> </text>
                         <view slot="suffix">ppm</view>
                     </t-input>
-                    <t-input align="right" size="small" value="{{item.H2S}}" data-index="{{index}}" data-key="H2S" onchange="setPositionData" label="slot" placeholder="小于10" type="number">
+                    <t-input align="right" size="small" value="{{item.H2S}}" data-index="{{index}}" data-key="H2S" onchange="setPositionData" label="slot" placeholder="小于10">
                         <text slot="label">H2S(硫化氢)<text style="color: #e34d59"> *</text> </text>
                         <view slot="suffix">ppm</view>
                     </t-input>
-                    <t-input align="right" size="small" value="{{item.O2}}" data-index="{{index}}" data-key="O2" onchange="setPositionData" label="slot" placeholder="19.5~23" type="number">
+                    <t-input align="right" size="small" value="{{item.O2}}" data-index="{{index}}" data-key="O2" onchange="setPositionData" label="slot" placeholder="19.5~23">
                         <text slot="label">O2(氧气)<text style="color: #e34d59"> *</text> </text>
                         <view slot="suffix">%</view>
                     </t-input>
-                    <t-input align="right" size="small" value="{{item.combustibleGas}}" data-index="{{index}}" data-key="combustibleGas" onchange="setPositionData" label="slot" placeholder="小于等于0" type="number">
+                    <t-input align="right" size="small" value="{{item.combustibleGas}}" data-index="{{index}}" data-key="combustibleGas" onchange="setPositionData" label="slot" placeholder="小于等于0">
                         <text slot="label">可燃气体<text style="color: #e34d59"> *</text> </text>
                         <view slot="suffix">%</view>
                     </t-input>
@@ -274,8 +274,8 @@
                 </view>
             </view>
         </t-input>
-        <view style="display: flex;justify-content: center;align-items: center;">
-            <canvas style="width: 100%;height: 250px;display:{{aqyDrawShow?'block':'none'}};" class="aqySign" data-name="aqy" type="2d" disable-scroll="true" bindtouchstart="touchstart" bindtouchmove="touchmove" canvas-id="aqySign"></canvas>
+        <view catchtouchmove="udf" style="display: flex;justify-content: center;align-items: center;">
+            <canvas style="width: 100%;height: 250px;display:{{aqyDrawShow?'block':'none'}};" class="aqySign" data-name="aqy" type="2d" disable-scroll="true" bindtouchstart="touchstart" bindtouchmove="touchmove" bindtouchend="udf" canvas-id="aqySign"></canvas>
         </view>
         <view wx:if="{{aqyDrawShow}}" style="display: flex;justify-content: space-between;padding: 0 20rpx;">
             <t-button t-class="external-class" data-name="aqy" theme="danger" variant="outline" block size="small" bindtap="resign">
@@ -302,8 +302,8 @@
                 </view>
             </view>
         </t-input>
-        <view style="display: flex;justify-content: center;align-items: center;">
-            <canvas style="width: 100%;height: 250px;display:{{xcfzrDrawShow?'block':'none'}};" class="xcfzrSign" data-name="xcfzr" type="2d" disable-scroll="true" bindtouchstart="touchstart" bindtouchmove="touchmove" canvas-id="xcfzrSign"></canvas>
+        <view catchtouchmove="udf" style="display: flex;justify-content: center;align-items: center;">
+            <canvas style="width: 100%;height: 250px;display:{{xcfzrDrawShow?'block':'none'}};" class="xcfzrSign" data-name="xcfzr" type="2d" disable-scroll="true" bindtouchstart="touchstart" bindtouchmove="touchmove" bindtouchend="udf" canvas-id="xcfzrSign"></canvas>
         </view>
         <view wx:if="{{xcfzrDrawShow}}" style="display: flex;justify-content: space-between;padding: 0 20rpx;">
             <t-button t-class="external-class" data-name="xcfzr" theme="danger" variant="outline" block size="small" bindtap="resign">
@@ -330,8 +330,8 @@
                 </view>
             </view>
         </t-input>
-        <view style="display: flex;justify-content: center;align-items: center;">
-            <canvas style="width: 100%;height: 250px;display:{{jcyDrawShow?'block':'none'}};" class="jcySign" data-name="jcy" type="2d" disable-scroll="true" bindtouchstart="touchstart" bindtouchmove="touchmove" canvas-id="jcySign"></canvas>
+        <view catchtouchmove="udf" style="display: flex;justify-content: center;align-items: center;">
+            <canvas style="width: 100%;height: 250px;display:{{jcyDrawShow?'block':'none'}};" class="jcySign" data-name="jcy" type="2d" disable-scroll="true" bindtouchstart="touchstart" bindtouchmove="touchmove" bindtouchend="udf" canvas-id="jcySign"></canvas>
         </view>
         <view wx:if="{{jcyDrawShow}}" style="display: flex;justify-content: space-between;padding: 0 20rpx;">
             <t-button t-class="external-class" data-name="jcy" theme="danger" variant="outline" block size="small" bindtap="resign">
@@ -358,8 +358,8 @@
                 </view>
             </view>
         </t-input>
-        <view style="display: flex;justify-content: center;align-items: center;">
-            <canvas style="width: 100%;height: 250px;display:{{jlyDrawShow?'block':'none'}};" id="jlySign" class="jlySign" data-name="jly" type="2d" disable-scroll="true" bindtouchstart="touchstart" bindtouchmove="touchmove" canvas-id="jlySign"></canvas>
+        <view catchtouchmove="udf" style="display: flex;justify-content: center;align-items: center;">
+            <canvas style="width: 100%;height: 250px;display:{{jlyDrawShow?'block':'none'}};" id="jlySign" class="jlySign" data-name="jly" type="2d" disable-scroll="true" bindtouchstart="touchstart" bindtouchmove="touchmove" bindtouchend="udf" canvas-id="jlySign"></canvas>
         </view>
         <view wx:if="{{jlyDrawShow}}" style="display: flex;justify-content: space-between;padding: 0 20rpx;padding-bottom: 30rpx;">
             <t-button t-class="external-class" data-name="jly" theme="danger" variant="outline" block size="small" bindtap="resign">

@@ -5,8 +5,7 @@
         "pages/list/list",
         "pages/index/index",
         "pages/details/details",
-        "pages/verify/verify",
-        "pages/logs/logs"
+        "pages/verify/verify"
     ],
     "window": {
         "backgroundTextStyle": "light",
