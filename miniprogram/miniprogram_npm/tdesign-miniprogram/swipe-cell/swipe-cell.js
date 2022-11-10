@@ -19,20 +19,23 @@ import config from '../common/config';
 import props from './props';
 let ARRAY = [];
 const { prefix } = config;
+const name = `${prefix}-swipe-cell`;
+const ContainerClass = `.${name}`;
 let SwiperCell = class SwiperCell extends SuperComponent {
     constructor() {
         super(...arguments);
         this.behaviors = [dom];
-        this.externalClasses = ['t-class'];
+        this.externalClasses = [`${prefix}-class`];
         this.options = {
             multipleSlots: true,
         };
         this.properties = props;
         this.data = {
+            prefix,
             wrapperStyle: '',
             closed: true,
             opened: false,
-            classPrefix: `.${prefix}-swipe-cell`,
+            classPrefix: name,
         };
     }
     attached() {
@@ -43,8 +46,8 @@ let SwiperCell = class SwiperCell extends SuperComponent {
     }
     setSwipeWidth() {
         return __awaiter(this, void 0, void 0, function* () {
-            const rightRect = yield this.gettingBoundingClientRect(`${this.data.classPrefix}__right`);
-            const leftRect = yield this.gettingBoundingClientRect(`${this.data.classPrefix}__left`);
+            const rightRect = yield this.gettingBoundingClientRect(`${ContainerClass}__right`);
+            const leftRect = yield this.gettingBoundingClientRect(`${ContainerClass}__left`);
             this.setData({
                 leftWidth: leftRect.width,
                 rightWidth: rightRect.width,

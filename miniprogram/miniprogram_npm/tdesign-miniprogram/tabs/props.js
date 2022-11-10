@@ -2,6 +2,10 @@ const props = {
     animation: {
         type: Object,
     },
+    customStyle: {
+        type: String,
+        value: '',
+    },
     externalClasses: {
         type: Array,
     },
@@ -10,6 +14,10 @@ const props = {
         value: 'top',
     },
     showBottomLine: {
+        type: Boolean,
+        value: true,
+    },
+    spaceEvenly: {
         type: Boolean,
         value: true,
     },
@@ -23,6 +31,10 @@ const props = {
     swipeable: {
         type: Boolean,
         value: true,
+    },
+    theme: {
+        type: String,
+        value: 'line',
     },
     value: {
         type: null,

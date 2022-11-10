@@ -10,6 +10,7 @@ export default class Picker extends SuperComponent {
         value(): void;
     };
     data: {
+        prefix: string;
         classPrefix: string;
     };
     methods: {

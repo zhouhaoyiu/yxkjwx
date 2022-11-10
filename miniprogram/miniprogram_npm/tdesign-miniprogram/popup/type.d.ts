@@ -16,6 +16,10 @@ export interface TdPopupProps {
         type: StringConstructor;
         value?: string;
     };
+    duration?: {
+        type: NumberConstructor;
+        value?: number;
+    };
     externalClasses?: {
         type: ArrayConstructor;
         value?: ['t-class', 't-class-overlay', 't-class-content'];
@@ -41,6 +45,10 @@ export interface TdPopupProps {
         value?: TdTransitionProps;
     };
     visible?: {
+        type: BooleanConstructor;
+        value?: boolean;
+    };
+    defaultVisible?: {
         type: BooleanConstructor;
         value?: boolean;
     };

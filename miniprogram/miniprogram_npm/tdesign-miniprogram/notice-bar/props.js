@@ -2,12 +2,18 @@ const props = {
     content: {
         type: String,
     },
+    customStyle: {
+        type: String,
+        value: '',
+    },
+    externalClasses: {
+        type: Array,
+    },
     extra: {
         type: String,
     },
     marquee: {
-        type: Object,
-        optionalTypes: [Boolean],
+        type: null,
         value: false,
     },
     prefixIcon: {
@@ -25,6 +31,10 @@ const props = {
     visible: {
         type: Boolean,
         value: null,
+    },
+    defaultVisible: {
+        type: Boolean,
+        value: false,
     },
 };
 export default props;

@@ -1,4 +1,8 @@
 export interface TdSearchProps {
+    customStyle?: {
+        type: StringConstructor;
+        value?: string;
+    };
     action?: {
         type: StringConstructor;
         value?: string;

@@ -3,6 +3,10 @@ export interface TdFabProps {
         type: ObjectConstructor;
         value?: object;
     };
+    customStyle?: {
+        type: StringConstructor;
+        value?: string;
+    };
     icon?: {
         type: StringConstructor;
         value?: string;

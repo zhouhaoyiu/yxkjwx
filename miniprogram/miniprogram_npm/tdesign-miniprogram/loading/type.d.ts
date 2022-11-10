@@ -1,4 +1,8 @@
 export interface TdLoadingProps {
+    customStyle?: {
+        type: StringConstructor;
+        value?: string;
+    };
     delay?: {
         type: NumberConstructor;
         value?: number;

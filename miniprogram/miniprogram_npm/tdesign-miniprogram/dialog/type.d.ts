@@ -9,8 +9,7 @@ export interface TdDialogProps {
         value?: 'horizontal' | 'vertical';
     };
     cancelBtn?: {
-        type: StringConstructor;
-        optionalTypes: Array<ObjectConstructor>;
+        type: null;
         value?: string | ButtonProps | null;
     };
     closeOnOverlayClick?: {
@@ -18,11 +17,14 @@ export interface TdDialogProps {
         value?: boolean;
     };
     confirmBtn?: {
-        type: StringConstructor;
-        optionalTypes: Array<ObjectConstructor>;
+        type: null;
         value?: string | ButtonProps | null;
     };
     content?: {
+        type: StringConstructor;
+        value?: string;
+    };
+    customStyle?: {
         type: StringConstructor;
         value?: string;
     };

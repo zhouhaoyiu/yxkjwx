@@ -7,8 +7,7 @@ const props = {
         value: 'horizontal',
     },
     cancelBtn: {
-        type: String,
-        optionalTypes: [Object],
+        type: null,
         value: '',
     },
     closeOnOverlayClick: {
@@ -17,11 +16,14 @@ const props = {
     },
     confirmBtn: {
         type: null,
-        optionalTypes: [Object],
         value: '',
     },
     content: {
         type: String,
+    },
+    customStyle: {
+        type: String,
+        value: '',
     },
     externalClasses: {
         type: Array,

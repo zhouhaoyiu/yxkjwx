@@ -21,6 +21,7 @@ let CountDown = class CountDown extends SuperComponent {
             },
         };
         this.data = {
+            prefix,
             classPrefix: name,
             timeData: parseTimeData(0),
             formattedTime: '0',

@@ -11,6 +11,10 @@ export interface TdInputProps {
         type: BooleanConstructor;
         value?: boolean;
     };
+    customStyle?: {
+        type: StringConstructor;
+        value?: string;
+    };
     disabled?: {
         type: BooleanConstructor;
         value?: boolean;

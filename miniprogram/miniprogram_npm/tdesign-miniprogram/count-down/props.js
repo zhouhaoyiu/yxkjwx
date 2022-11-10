@@ -7,6 +7,10 @@ const props = {
         type: String,
         value: 'default',
     },
+    customStyle: {
+        type: String,
+        value: '',
+    },
     format: {
         type: String,
         value: 'HH:mm:ss',
@@ -29,7 +33,6 @@ const props = {
     },
     time: {
         type: Number,
-        required: true,
     },
 };
 export default props;

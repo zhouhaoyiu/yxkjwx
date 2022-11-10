@@ -9,6 +9,10 @@ const props = {
     config: {
         type: Object,
     },
+    customStyle: {
+        type: String,
+        value: '',
+    },
     files: {
         type: Array,
         value: null,

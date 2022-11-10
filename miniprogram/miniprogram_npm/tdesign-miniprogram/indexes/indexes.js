@@ -8,7 +8,7 @@ import { SuperComponent, wxComponent } from '../common/src/index';
 import config from '../common/config';
 import props from './props';
 const { prefix } = config;
-const classPrefix = `${prefix}-indexes`;
+const name = `${prefix}-indexes`;
 const topOffset = 40;
 let IndexBar = class IndexBar extends SuperComponent {
     constructor() {
@@ -31,7 +31,7 @@ let IndexBar = class IndexBar extends SuperComponent {
         };
         this.data = {
             prefix,
-            classPrefix,
+            classPrefix: name,
             clientHeight: 0,
             groups: [],
             activeGroup: null,
@@ -58,8 +58,8 @@ let IndexBar = class IndexBar extends SuperComponent {
     }
     getDomInfo() {
         const query = this.createSelectorQuery();
-        query.select(`#id-${classPrefix}__bar`).boundingClientRect();
-        query.selectAll(`.${classPrefix}__group`).boundingClientRect();
+        query.select(`#id-${name}__bar`).boundingClientRect();
+        query.selectAll(`.${name}__group`).boundingClientRect();
         query.exec((res) => {
             if (!res[0])
                 return;

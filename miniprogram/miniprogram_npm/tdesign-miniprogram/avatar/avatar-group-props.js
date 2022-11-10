@@ -6,6 +6,10 @@ const props = {
     collapseAvatar: {
         type: String,
     },
+    customStyle: {
+        type: String,
+        value: '',
+    },
     externalClasses: {
         type: Array,
     },

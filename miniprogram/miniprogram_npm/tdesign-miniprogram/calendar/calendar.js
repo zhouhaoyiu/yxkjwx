@@ -21,7 +21,7 @@ let Calendar = class Calendar extends SuperComponent {
         this.properties = props;
         this.data = {
             prefix,
-            name,
+            classPrefix: name,
             months: [],
         };
         this.lifetimes = {

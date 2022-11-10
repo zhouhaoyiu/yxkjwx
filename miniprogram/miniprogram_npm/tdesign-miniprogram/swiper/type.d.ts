@@ -15,6 +15,10 @@ export interface TdSwiperProps {
         type: NumberConstructor;
         value?: number;
     };
+    customStyle?: {
+        type: StringConstructor;
+        value?: string;
+    };
     direction?: {
         type: StringConstructor;
         value?: 'horizontal' | 'vertical';
@@ -44,7 +48,14 @@ export interface TdSwiperProps {
         value?: 'top-left' | 'top' | 'top-right' | 'bottom-left' | 'bottom' | 'bottom-right';
     };
 }
+export interface TdSwiperItemProps {
+    customStyle?: {
+        type: StringConstructor;
+        value?: string;
+    };
+}
 export interface SwiperNavigation {
+    customStyle?: string;
     minShowNum?: number;
     showSlideBtn?: boolean;
     type?: SwiperNavigationType;

@@ -9,7 +9,7 @@ export default class Calendar extends SuperComponent {
     properties: TdCalendarProps;
     data: {
         prefix: string;
-        name: string;
+        classPrefix: string;
         months: any[];
     };
     lifetimes: {

@@ -15,6 +15,10 @@ const props = {
         type: Number,
         value: 0,
     },
+    customStyle: {
+        type: String,
+        value: '',
+    },
     direction: {
         type: String,
         value: 'horizontal',

@@ -12,7 +12,7 @@ const name = `${prefix}-image`;
 let Image = class Image extends SuperComponent {
     constructor() {
         super(...arguments);
-        this.externalClasses = ['t-class', 't-class-load'];
+        this.externalClasses = [`${prefix}-class`, `${prefix}-class-load`];
         this.options = {
             multipleSlots: true,
         };

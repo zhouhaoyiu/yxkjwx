@@ -9,6 +9,10 @@ const props = {
     customDataset: {
         type: null,
     },
+    customStyle: {
+        type: String,
+        value: '',
+    },
     disabled: {
         type: Boolean,
         value: false,

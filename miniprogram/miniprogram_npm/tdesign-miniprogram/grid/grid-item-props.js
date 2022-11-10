@@ -1,4 +1,8 @@
 const props = {
+    customStyle: {
+        type: String,
+        value: '',
+    },
     description: {
         type: String,
     },
@@ -7,6 +11,9 @@ const props = {
     },
     image: {
         type: String,
+    },
+    imageProps: {
+        type: Object,
     },
     jumpType: {
         type: String,

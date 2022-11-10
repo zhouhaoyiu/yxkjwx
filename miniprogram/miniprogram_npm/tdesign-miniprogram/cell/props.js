@@ -11,6 +11,10 @@ const props = {
         type: Boolean,
         value: true,
     },
+    customStyle: {
+        type: String,
+        value: '',
+    },
     description: {
         type: String,
     },

@@ -2,7 +2,7 @@ import { SuperComponent, RelationsOptions } from '../common/src/index';
 export default class Tabbar extends SuperComponent {
     relations: RelationsOptions;
     externalClasses: string[];
-    backupValue: 0;
+    backupValue: number;
     data: {
         prefix: string;
         classPrefix: string;

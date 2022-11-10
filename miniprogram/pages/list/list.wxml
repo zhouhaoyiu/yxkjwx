@@ -1,5 +1,5 @@
 <!-- {{tabBarIndex}} -->
-<t-tabs defaultValue="{{tabBarIndex}}" t-class="custom-tabs" bind:change="changeTabBar">
+<t-tabs sticky theme="card" defaultValue="{{tabBarIndex}}" t-class="custom-tabs" bind:change="changeTabBar">
     <t-tab-panel label="我发起的" value="0">
         <scroll-view class="page" scroll-y="true">
             <view wx:for="{{sendInfo}}" wx:key="index">

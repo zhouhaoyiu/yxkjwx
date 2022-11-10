@@ -15,16 +15,16 @@ const props = {
         type: Boolean,
         value: false,
     },
-    color: {
-        type: String,
-        value: '#0052d9',
-    },
     content: {
         type: String,
     },
     contentDisabled: {
         type: Boolean,
         value: false,
+    },
+    customStyle: {
+        type: String,
+        value: '',
     },
     disabled: {
         type: Boolean,
@@ -34,8 +34,7 @@ const props = {
         type: Array,
     },
     icon: {
-        type: String,
-        optionalTypes: [Array],
+        type: null,
         value: 'fill-circle',
     },
     label: {
@@ -54,8 +53,7 @@ const props = {
         value: '',
     },
     value: {
-        type: String,
-        optionalTypes: [Number, Boolean],
+        type: null,
         value: false,
     },
 };

@@ -15,6 +15,7 @@ export default class Navbar extends SuperComponent {
         'title,titleMaxLength'(this: any): void;
     };
     data: {
+        prefix: string;
         hasHomeIcon: boolean;
         hasBackIcon: boolean;
         classPrefix: string;

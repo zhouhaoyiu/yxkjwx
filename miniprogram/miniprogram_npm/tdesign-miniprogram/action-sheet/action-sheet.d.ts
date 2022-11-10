@@ -11,6 +11,14 @@ export default class ActionSheet extends SuperComponent {
             type: NumberConstructor;
             value?: number;
         };
+        customStyle?: {
+            type: StringConstructor;
+            value?: string;
+        };
+        externalClasses?: {
+            type: ArrayConstructor;
+            value?: ["t-class", "t-class-image", "t-class-content"];
+        };
         items: {
             type: ArrayConstructor;
             value?: (string | import("./type").ActionSheetItem)[];

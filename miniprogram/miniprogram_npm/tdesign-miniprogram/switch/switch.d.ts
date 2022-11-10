@@ -4,6 +4,7 @@ export default class Switch extends SuperComponent {
     behaviors: string[];
     properties: import("./type").TdSwitchProps;
     data: {
+        prefix: string;
         classPrefix: string;
         isActive: boolean;
         bodyStyle: string;

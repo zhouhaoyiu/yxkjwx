@@ -15,9 +15,10 @@ let default_1 = class extends SuperComponent {
         this.options = {
             multipleSlots: true,
         };
-        this.externalClasses = ['t-class', 't-class-description', 't-class-image'];
+        this.externalClasses = [`${prefix}-class`, `${prefix}-class-description`, `${prefix}-class-image`];
         this.properties = props;
         this.data = {
+            prefix,
             classPrefix: name,
         };
     }

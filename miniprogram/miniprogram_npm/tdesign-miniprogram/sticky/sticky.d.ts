@@ -11,9 +11,9 @@ export default class Sticky extends SuperComponent {
     };
     data: {
         prefix: string;
+        classPrefix: string;
         containerStyle: string;
         contentStyle: string;
-        classPrefix: string;
     };
     ready(): void;
     methods: {

@@ -2,6 +2,10 @@ import { SuperComponent } from '../common/src/index';
 export default class ImageViewer extends SuperComponent {
     externalClasses: string[];
     properties: {
+        customStyle?: {
+            type: StringConstructor;
+            value?: string;
+        };
         backgroundColor?: {
             type: StringConstructor;
             optionalTypes: NumberConstructor[];

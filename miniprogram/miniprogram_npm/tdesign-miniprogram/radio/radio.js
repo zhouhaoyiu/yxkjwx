@@ -24,9 +24,16 @@ let Radio = class Radio extends SuperComponent {
             `${prefix}-class-border`,
         ];
         this.behaviors = ['wx://form-field'];
+        this.parent = null;
         this.relations = {
             '../radio-group/radio-group': {
                 type: 'ancestor',
+                linked(parent) {
+                    this.parent = parent;
+                    if (parent.align) {
+                        this.setData({ align: parent.align });
+                    }
+                },
             },
         };
         this.options = {
@@ -83,8 +90,9 @@ let Radio = class Radio extends SuperComponent {
                 }
             },
             initStatus() {
+                var _a;
                 const { icon } = this.data;
-                const isIdArr = Array.isArray(icon);
+                const isIdArr = Array.isArray(((_a = this.parent) === null || _a === void 0 ? void 0 : _a.icon) || icon);
                 this.setData({
                     customIcon: isIdArr,
                     iconVal: !isIdArr ? iconDefault[icon] : this.data.icon,

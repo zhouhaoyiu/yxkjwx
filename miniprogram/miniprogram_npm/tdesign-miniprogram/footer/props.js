@@ -3,6 +3,10 @@ const props = {
         type: String,
         value: '',
     },
+    customStyle: {
+        type: String,
+        value: '',
+    },
     logo: {
         type: Object,
     },

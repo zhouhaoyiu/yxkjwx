@@ -3,6 +3,10 @@ export interface TdSwitchProps {
         type: ArrayConstructor;
         value?: string[];
     };
+    customStyle?: {
+        type: StringConstructor;
+        value?: string;
+    };
     customValue?: {
         type: ArrayConstructor;
         value?: Array<SwitchValue>;

@@ -9,7 +9,8 @@ import props from './props';
 import config from '../common/config';
 import { pageScrollMixin, getRect } from '../mixins/page-scroll';
 const { prefix } = config;
-const ContainerClass = `.${prefix}-sticky`;
+const name = `${prefix}-sticky`;
+const ContainerClass = `.${name}`;
 let Sticky = class Sticky extends SuperComponent {
     constructor() {
         super(...arguments);
@@ -27,9 +28,9 @@ let Sticky = class Sticky extends SuperComponent {
         };
         this.data = {
             prefix,
+            classPrefix: name,
             containerStyle: '',
             contentStyle: '',
-            classPrefix: `.${prefix}-sticky`,
         };
         this.methods = {
             onScroll(event) {
@@ -87,7 +88,7 @@ let Sticky = class Sticky extends SuperComponent {
                     let contentStyle = '';
                     if (isFixed) {
                         containerStyle += `height:${height}px;`;
-                        contentStyle += `position:fixed;top:${offsetTop}px`;
+                        contentStyle += `position:fixed;top:${offsetTop}px;`;
                     }
                     if (transform) {
                         const translate = `translate3d(0, ${transform}px, 0)`;

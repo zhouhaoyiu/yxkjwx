@@ -3,6 +3,10 @@ const props = {
         type: null,
         value: '',
     },
+    customStyle: {
+        type: String,
+        value: '',
+    },
     firstDayOfWeek: {
         type: Number,
         value: 0,
@@ -18,6 +22,7 @@ const props = {
     },
     title: {
         type: String,
+        value: '',
     },
     type: {
         type: String,

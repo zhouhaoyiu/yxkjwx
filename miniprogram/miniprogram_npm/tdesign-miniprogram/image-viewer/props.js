@@ -1,4 +1,8 @@
 const props = {
+    customStyle: {
+        type: String,
+        value: '',
+    },
     backgroundColor: {
         type: String,
         optionalTypes: [Number],

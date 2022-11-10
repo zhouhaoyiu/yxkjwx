@@ -11,6 +11,10 @@ const props = {
         type: Number,
         value: 4,
     },
+    customStyle: {
+        type: String,
+        value: '',
+    },
     externalClasses: {
         type: Array,
     },

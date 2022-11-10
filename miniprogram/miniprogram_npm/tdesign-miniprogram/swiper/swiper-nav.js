@@ -8,6 +8,7 @@ import { SuperComponent, wxComponent } from '../common/src/index';
 import config from '../common/config';
 import { DIRECTION } from './common/constants';
 const { prefix } = config;
+const name = `${prefix}-swiper-nav`;
 let SwiperNav = class SwiperNav extends SuperComponent {
     constructor() {
         super(...arguments);
@@ -36,7 +37,7 @@ let SwiperNav = class SwiperNav extends SuperComponent {
             total: 0,
             direction: DIRECTION.HOR,
             prefix,
-            classPrefix: `${prefix}-swiper-nav`,
+            classPrefix: name,
         };
     }
     ready() {

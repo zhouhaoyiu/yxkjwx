@@ -6,11 +6,11 @@ export default class StepItem extends SuperComponent {
     relations: RelationsOptions;
     externalClasses: string[];
     properties: import("./type").TdStepItemProps;
+    parent: any;
     data: {
         classPrefix: string;
         prefix: string;
         rootClassName: string;
-        parent: any;
         index: number;
         isDot: boolean;
         curStatus: string;

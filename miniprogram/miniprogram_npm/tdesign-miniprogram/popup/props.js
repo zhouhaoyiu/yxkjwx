@@ -13,6 +13,10 @@ const props = {
         type: String,
         value: '',
     },
+    duration: {
+        type: Number,
+        value: 240,
+    },
     externalClasses: {
         type: Array,
     },
@@ -38,6 +42,10 @@ const props = {
     visible: {
         type: Boolean,
         value: null,
+    },
+    defaultVisible: {
+        type: Boolean,
+        value: false,
     },
     zIndex: {
         type: Number,

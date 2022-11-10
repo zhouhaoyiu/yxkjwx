@@ -1,4 +1,8 @@
 const props = {
+    customStyle: {
+        type: String,
+        value: '',
+    },
     direction: {
         type: String,
         value: 'row',

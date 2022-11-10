@@ -13,14 +13,14 @@ let Navbar = class Navbar extends SuperComponent {
     constructor() {
         super(...arguments);
         this.externalClasses = [
-            't-class',
-            't-class-title',
-            't-class-left',
-            't-class-center',
-            't-class-left-icon',
-            't-class-home-icon',
-            't-class-capsule',
-            't-class-nav-btn',
+            `${prefix}-class`,
+            `${prefix}-class-title`,
+            `${prefix}-class-left`,
+            `${prefix}-class-center`,
+            `${prefix}-class-left-icon`,
+            `${prefix}-class-home-icon`,
+            `${prefix}-class-capsule`,
+            `${prefix}-class-nav-btn`,
         ];
         this.timer = null;
         this.options = {
@@ -74,6 +74,7 @@ let Navbar = class Navbar extends SuperComponent {
             },
         };
         this.data = {
+            prefix,
             hasHomeIcon: false,
             hasBackIcon: false,
             classPrefix: name,
@@ -132,6 +133,7 @@ let Navbar = class Navbar extends SuperComponent {
             return;
         wx.getSystemInfo({
             success: (res) => {
+                const { customStyle } = this.properties;
                 const ios = !!(res.system.toLowerCase().search('ios') + 1);
                 const navbarHeight = ios ? 44 : 48;
                 const boxStyleList = [];
@@ -144,7 +146,7 @@ let Navbar = class Navbar extends SuperComponent {
                 boxStyleList.push(`--navbar-height:${navbarHeight}px;`);
                 this.setData({
                     ios,
-                    boxStyle: boxStyleList.join(';'),
+                    boxStyle: `${boxStyleList.join(';')}${customStyle ? `;${customStyle}` : ''}`,
                 });
             },
             fail: (err) => {

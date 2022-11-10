@@ -1,5 +1,9 @@
 import { LoadingProps } from '../loading/index';
 export interface TdPullDownRefreshProps {
+    customStyle?: {
+        type: StringConstructor;
+        value?: string;
+    };
     externalClasses?: {
         type: ArrayConstructor;
         value?: ['t-class', 't-class-loading', 't-class-text', 't-class-indicator'];

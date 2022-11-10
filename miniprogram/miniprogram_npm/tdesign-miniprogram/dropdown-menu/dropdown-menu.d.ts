@@ -3,6 +3,7 @@ import type { TdDropdownMenuProps } from './type';
 export interface DropdownMenuProps extends TdDropdownMenuProps {
 }
 export default class DropdownMenu extends SuperComponent {
+    externalClasses: string[];
     properties: TdDropdownMenuProps;
     nodes: any;
     data: {

@@ -12,6 +12,10 @@ export interface TdUploadProps {
         type: ObjectConstructor;
         value?: UploadMpConfig;
     };
+    customStyle?: {
+        type: StringConstructor;
+        value?: string;
+    };
     files?: {
         type: ArrayConstructor;
         value?: Array<UploadFile>;

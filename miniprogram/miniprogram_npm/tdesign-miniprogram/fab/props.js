@@ -2,6 +2,10 @@ const props = {
     buttonProps: {
         type: Object,
     },
+    customStyle: {
+        type: String,
+        value: 'right: 16px; bottom: 32px;',
+    },
     icon: {
         type: String,
         value: '',

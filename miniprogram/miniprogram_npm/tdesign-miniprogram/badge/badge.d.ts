@@ -9,6 +9,7 @@ export default class Badge extends SuperComponent {
     externalClasses: string[];
     properties: TdBadgeProps;
     data: {
+        prefix: string;
         classPrefix: string;
         value: string;
     };

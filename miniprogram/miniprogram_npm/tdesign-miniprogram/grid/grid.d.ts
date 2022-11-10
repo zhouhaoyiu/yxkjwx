@@ -4,6 +4,7 @@ export default class Grid extends SuperComponent {
     relations: RelationsOptions;
     properties: import("./type").TdGridProps;
     data: {
+        prefix: string;
         classPrefix: string;
         contentStyle: string;
     };

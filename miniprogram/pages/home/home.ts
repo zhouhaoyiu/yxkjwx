@@ -478,7 +478,6 @@ Page({
         if (this.data[`${name}DrawOk`]) {
             return;
         }
-
         const canvasContext = this.data[`${name}SignContext`];
         canvasContext.beginPath();
         canvasContext.moveTo(e.touches[0].x, e.touches[0].y);
@@ -500,7 +499,6 @@ Page({
         var x = e.touches[0].x;
         var y = e.touches[0].y;
         let canvasContext = this.data[`${name}SignContext`];
-
         canvasContext.lineTo(x, y);
         canvasContext.stroke();
         this.setData({

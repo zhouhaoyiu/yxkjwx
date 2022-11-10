@@ -1,27 +1,26 @@
 export interface TdStickyProps {
     container?: {
-        type: null;
+        type: undefined;
         value?: null;
-        required?: boolean;
+    };
+    customStyle?: {
+        type: StringConstructor;
+        value?: string;
     };
     disabled?: {
         type: BooleanConstructor;
         value?: boolean;
-        required?: boolean;
     };
     externalClasses?: {
         type: ArrayConstructor;
         value?: ['t-class'];
-        required?: boolean;
     };
     offsetTop?: {
         type: NumberConstructor;
         value?: number;
-        required?: boolean;
     };
     zIndex?: {
         type: NumberConstructor;
         value?: number;
-        required?: boolean;
     };
 }

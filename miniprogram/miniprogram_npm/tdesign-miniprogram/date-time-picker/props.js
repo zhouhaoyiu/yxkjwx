@@ -7,11 +7,19 @@ const props = {
         type: String,
         value: '',
     },
+    customStyle: {
+        type: String,
+        value: '',
+    },
     end: {
         type: null,
     },
     externalClasses: {
         type: Array,
+    },
+    footer: {
+        type: Boolean,
+        value: true,
     },
     format: {
         type: String,

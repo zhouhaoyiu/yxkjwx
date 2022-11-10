@@ -15,7 +15,7 @@ const name = `${prefix}-popup`;
 let Popup = class Popup extends SuperComponent {
     constructor() {
         super(...arguments);
-        this.externalClasses = ['t-class', 't-class-content'];
+        this.externalClasses = [`${prefix}-class`, `${prefix}-class-content`];
         this.behaviors = [transition()];
         this.options = {
             multipleSlots: true,
@@ -41,6 +41,7 @@ let Popup = class Popup extends SuperComponent {
                     className,
                 });
             },
+            onStopPropagation() { },
             handleOverlayClick() {
                 const { closeOnOverlayClick } = this.properties;
                 if (closeOnOverlayClick) {

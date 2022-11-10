@@ -16,6 +16,7 @@ let Switch = class Switch extends SuperComponent {
         this.behaviors = ['wx://form-field'];
         this.properties = props;
         this.data = {
+            prefix,
             classPrefix: name,
             isActive: false,
             bodyStyle: '',

@@ -1,4 +1,8 @@
 export interface TdGridProps {
+    customStyle?: {
+        type: StringConstructor;
+        value?: string;
+    };
     align?: {
         type: StringConstructor;
         value?: 'left' | 'center';
@@ -35,6 +39,10 @@ export interface TdGridProps {
     };
 }
 export interface TdGridItemProps {
+    customStyle?: {
+        type: StringConstructor;
+        value?: string;
+    };
     description?: {
         type: StringConstructor;
         value?: string;
@@ -49,6 +57,10 @@ export interface TdGridItemProps {
         type: StringConstructor;
         value?: string;
         required?: boolean;
+    };
+    imageProps?: {
+        type: ObjectConstructor;
+        value?: object;
     };
     jumpType?: {
         type: StringConstructor;

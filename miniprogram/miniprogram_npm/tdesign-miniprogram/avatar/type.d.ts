@@ -8,9 +8,13 @@ export interface TdAvatarProps {
         type: ObjectConstructor;
         value?: BadgeProps;
     };
+    customStyle?: {
+        type: StringConstructor;
+        value?: string;
+    };
     externalClasses?: {
         type: ArrayConstructor;
-        value?: ['t-class'];
+        value?: ['t-class', 't-class-image', 't-class-icon', 't-class-alt', 't-class-content'];
     };
     hideOnLoadFailed?: {
         type: BooleanConstructor;
@@ -23,6 +27,10 @@ export interface TdAvatarProps {
     image?: {
         type: StringConstructor;
         value?: string;
+    };
+    imageProps?: {
+        type: ObjectConstructor;
+        value?: object;
     };
     shape?: {
         type: StringConstructor;
@@ -39,6 +47,10 @@ export interface TdAvatarGroupProps {
         value?: CascadingValue;
     };
     collapseAvatar?: {
+        type: StringConstructor;
+        value?: string;
+    };
+    customStyle?: {
         type: StringConstructor;
         value?: string;
     };

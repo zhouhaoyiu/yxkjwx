@@ -15,6 +15,9 @@ let TabPanel = class TabPanel extends SuperComponent {
         this.relations = {
             './tabs': {
                 type: 'ancestor',
+                linked(parent) {
+                    this.parent = parent;
+                },
             },
         };
         this.properties = props;

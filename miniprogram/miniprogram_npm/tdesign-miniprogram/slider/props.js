@@ -3,6 +3,10 @@ const props = {
         type: Array,
         value: ['#0052D9', 'rgba(220, 220, 220, 1)'],
     },
+    customStyle: {
+        type: String,
+        value: '',
+    },
     disabled: {
         type: Boolean,
         value: false,

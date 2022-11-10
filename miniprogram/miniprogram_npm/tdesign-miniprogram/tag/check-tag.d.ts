@@ -6,6 +6,7 @@ export default class CheckTag extends SuperComponent {
         className: string;
     };
     properties: import("./type").TdCheckTagProps;
+    externalClasses: string[];
     controlledProps: {
         key: string;
         event: string;

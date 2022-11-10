@@ -1,9 +1,13 @@
 const props = {
-    disabled: {
+    customStyle: {
+        type: String,
+        value: '',
+    },
+    disableInput: {
         type: Boolean,
         value: false,
     },
-    disableInput: {
+    disabled: {
         type: Boolean,
         value: false,
     },

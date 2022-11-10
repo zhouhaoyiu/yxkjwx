@@ -10,4 +10,10 @@ export default class Divider extends SuperComponent {
         prefix: string;
         classPrefix: string;
     };
+    observers: {
+        'lineColor, customStyle'(): void;
+    };
+    methods: {
+        setStyle(): void;
+    };
 }

@@ -7,6 +7,10 @@ export interface TdDateTimePickerProps {
         type: StringConstructor;
         value?: string;
     };
+    customStyle?: {
+        type: StringConstructor;
+        value?: string;
+    };
     end?: {
         type: StringConstructor;
         value?: string | number;
@@ -14,6 +18,10 @@ export interface TdDateTimePickerProps {
     externalClasses?: {
         type: ArrayConstructor;
         value?: ['t-class', 't-class-confirm', 't-class-cancel', 't-class-title'];
+    };
+    footer?: {
+        type: BooleanConstructor;
+        value?: boolean;
     };
     format?: {
         type: StringConstructor;

@@ -14,7 +14,13 @@ const SHOW_DURATION = 500;
 let Message = class Message extends SuperComponent {
     constructor() {
         super(...arguments);
-        this.externalClasses = ['t-class', 't-class-content', 't-class-icon', 't-class-action', 't-class-close-btn'];
+        this.externalClasses = [
+            `${prefix}-class`,
+            `${prefix}-class-content`,
+            `${prefix}-class-icon`,
+            `${prefix}-class-action`,
+            `${prefix}-class-close-btn`,
+        ];
         this.options = {
             styleIsolation: 'apply-shared',
             multipleSlots: true,

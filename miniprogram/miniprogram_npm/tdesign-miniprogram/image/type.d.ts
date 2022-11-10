@@ -1,4 +1,8 @@
 export interface TdImageProps {
+    customStyle?: {
+        type: StringConstructor;
+        value?: string;
+    };
     error?: {
         type: StringConstructor;
         value?: string;

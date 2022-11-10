@@ -7,39 +7,14 @@ export default class RadioGroup extends SuperComponent {
         radioOptions: any[];
     };
     relations: RelationsOptions;
-    properties: {
-        disabled?: {
-            type: BooleanConstructor;
-            value?: boolean;
-        };
-        name?: {
-            type: StringConstructor;
-            value?: string;
-        };
-        options?: {
-            type: ArrayConstructor;
-            value?: import("../radio/type").RadioOption[];
-        };
-        value?: {
-            type: StringConstructor;
-            optionalTypes: (NumberConstructor | BooleanConstructor)[];
-            value?: import("../radio/type").RadioValue;
-        };
-        defaultValue?: {
-            type: StringConstructor;
-            optionalTypes: (NumberConstructor | BooleanConstructor)[];
-            value?: import("../radio/type").RadioValue;
-        };
-    };
+    properties: import("./type").TdRadioGroupProps<import("../radio/type").RadioValue>;
     controlledProps: {
         key: string;
         event: string;
     }[];
-    lifetimes: {
-        attached(): void;
-    };
     observers: {
-        value(): void;
+        value(v: any): void;
+        options(): void;
     };
     methods: {
         getChilds(): any;

@@ -18,6 +18,7 @@ let Badge = class Badge extends SuperComponent {
         this.externalClasses = [`${prefix}-class`, `${prefix}-class-count`, `${prefix}-class-content`];
         this.properties = props;
         this.data = {
+            prefix,
             classPrefix: name,
             value: '',
         };

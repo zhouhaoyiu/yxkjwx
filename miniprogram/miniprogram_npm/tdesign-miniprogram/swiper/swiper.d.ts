@@ -44,6 +44,9 @@ export default class Swiper extends SuperComponent {
     attached(): void;
     detached(): void;
     ready(): void;
+    methods: {
+        init(): void;
+    };
     initItem(): void;
     initNav(): void;
     inited(): void;

@@ -12,7 +12,7 @@ const name = `${prefix}-back-top`;
 let BackTop = class BackTop extends SuperComponent {
     constructor() {
         super(...arguments);
-        this.externalClasses = ['t-class', 't-class-icon', 't-class-text'];
+        this.externalClasses = [`${prefix}-class`, `${prefix}-class-icon`, `${prefix}-class-text`];
         this.properties = props;
         this.data = {
             prefix,

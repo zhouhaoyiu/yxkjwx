@@ -8,10 +8,17 @@ export interface TdDropdownMenuProps {
         type: BooleanConstructor;
         value?: boolean;
     };
-    duration?: {
+    customStyle?: {
         type: StringConstructor;
-        optionalTypes: Array<NumberConstructor>;
+        value?: string;
+    };
+    duration?: {
+        type: null;
         value?: string | number;
+    };
+    externalClasses?: {
+        type: ArrayConstructor;
+        value?: ['t-class', 't-class-menu', 't-class-menu-item', 't-class-menu-label', 't-class-menu-icon'];
     };
     showOverlay?: {
         type: BooleanConstructor;
@@ -23,9 +30,29 @@ export interface TdDropdownMenuProps {
     };
 }
 export interface TdDropdownItemProps {
+    customStyle?: {
+        type: StringConstructor;
+        value?: string;
+    };
     disabled?: {
         type: BooleanConstructor;
         value?: boolean;
+    };
+    externalClasses?: {
+        type: ArrayConstructor;
+        value?: [
+            't-class',
+            't-class-content',
+            't-class-column',
+            't-class-column-item',
+            't-class-column-item-label',
+            't-class-tree',
+            't-class-tree-item',
+            't-class-tree-columns',
+            't-class-tree-columns-item',
+            't-class-tree-columns-item-label',
+            't-class-footer'
+        ];
     };
     keys?: {
         type: ObjectConstructor;
@@ -44,8 +71,7 @@ export interface TdDropdownItemProps {
         value?: Array<TdDropdownItemOption>;
     };
     optionsColumns?: {
-        type: StringConstructor;
-        optionalTypes: Array<NumberConstructor>;
+        type: null;
         value?: string | number;
     };
     optionsLayout?: {
@@ -53,13 +79,11 @@ export interface TdDropdownItemProps {
         value?: 'columns' | 'tree';
     };
     value?: {
-        type: StringConstructor;
-        optionalTypes: Array<NumberConstructor | ArrayConstructor>;
+        type: null;
         value?: TdDropdownItemOptionValueType | Array<TdDropdownItemOptionValueType>;
     };
     defaultValue?: {
-        type: StringConstructor;
-        optionalTypes: Array<NumberConstructor | ArrayConstructor>;
+        type: null;
         value?: TdDropdownItemOptionValueType | Array<TdDropdownItemOptionValueType>;
     };
 }

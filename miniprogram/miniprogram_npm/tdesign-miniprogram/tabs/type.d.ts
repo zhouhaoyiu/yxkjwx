@@ -4,6 +4,10 @@ export interface TdTabsProps {
         type: ObjectConstructor;
         value?: TabAnimation;
     };
+    customStyle?: {
+        type: StringConstructor;
+        value?: string;
+    };
     externalClasses?: {
         type: ArrayConstructor;
         value?: ['t-class', 't-class-item', 't-class-active', 't-class-track'];
@@ -13,6 +17,10 @@ export interface TdTabsProps {
         value?: 'left' | 'top';
     };
     showBottomLine?: {
+        type: BooleanConstructor;
+        value?: boolean;
+    };
+    spaceEvenly?: {
         type: BooleanConstructor;
         value?: boolean;
     };
@@ -28,6 +36,10 @@ export interface TdTabsProps {
         type: BooleanConstructor;
         value?: boolean;
     };
+    theme?: {
+        type: StringConstructor;
+        value?: 'line' | 'tag' | 'card';
+    };
     value?: {
         type: null;
         value?: TabValue;
@@ -38,6 +50,14 @@ export interface TdTabsProps {
     };
 }
 export interface TdTabPanelProps {
+    badgeProps?: {
+        type: ObjectConstructor;
+        value?: object;
+    };
+    customStyle?: {
+        type: StringConstructor;
+        value?: string;
+    };
     destroyOnHide?: {
         type: BooleanConstructor;
         value?: boolean;

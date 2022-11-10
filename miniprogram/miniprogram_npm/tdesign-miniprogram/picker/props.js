@@ -15,6 +15,14 @@ const props = {
         type: null,
         value: true,
     },
+    customStyle: {
+        type: String,
+        value: '',
+    },
+    footer: {
+        type: Boolean,
+        value: true,
+    },
     header: {
         type: Boolean,
         value: true,

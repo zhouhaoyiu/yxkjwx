@@ -12,6 +12,13 @@ const name = `${prefix}-dropdown-menu`;
 let DropdownMenu = class DropdownMenu extends SuperComponent {
     constructor() {
         super(...arguments);
+        this.externalClasses = [
+            `${prefix}-class`,
+            `${prefix}-class-menu`,
+            `${prefix}-class-menu-item`,
+            `${prefix}-class-menu-label`,
+            `${prefix}-class-menu-icon`,
+        ];
         this.properties = props;
         this.nodes = null;
         this.data = {

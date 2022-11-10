@@ -7,10 +7,16 @@ const props = {
         type: Boolean,
         value: true,
     },
-    duration: {
+    customStyle: {
         type: String,
-        optionalTypes: [Number],
+        value: '',
+    },
+    duration: {
+        type: null,
         value: 200,
+    },
+    externalClasses: {
+        type: Array,
     },
     showOverlay: {
         type: Boolean,

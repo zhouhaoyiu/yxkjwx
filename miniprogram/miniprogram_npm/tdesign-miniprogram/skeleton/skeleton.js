@@ -27,6 +27,11 @@ let Skeleton = class Skeleton extends SuperComponent {
         super(...arguments);
         this.externalClasses = [`${prefix}-class`, `${prefix}-class-col`, `${prefix}-class-row`];
         this.properties = props;
+        this.data = {
+            prefix,
+            classPrefix: name,
+            parsedRowcols: [],
+        };
         this.observers = {
             rowCol() {
                 this.init();
@@ -99,11 +104,6 @@ let Skeleton = class Skeleton extends SuperComponent {
                 });
                 return style;
             },
-        };
-        this.data = {
-            prefix,
-            classPrefix: name,
-            parsedRowcols: [],
         };
     }
 };

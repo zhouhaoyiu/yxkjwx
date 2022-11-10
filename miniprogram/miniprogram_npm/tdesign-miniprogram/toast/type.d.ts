@@ -1,4 +1,8 @@
 export interface TdToastProps {
+    customStyle?: {
+        type: StringConstructor;
+        value?: string;
+    };
     direction?: {
         type: StringConstructor;
         value?: 'row' | 'column';

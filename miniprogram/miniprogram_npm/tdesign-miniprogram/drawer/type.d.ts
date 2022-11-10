@@ -3,6 +3,10 @@ export interface TdDrawerProps {
         type: BooleanConstructor;
         value?: boolean;
     };
+    customStyle?: {
+        type: StringConstructor;
+        value?: string;
+    };
     destroyOnClose?: {
         type: BooleanConstructor;
         value?: boolean;

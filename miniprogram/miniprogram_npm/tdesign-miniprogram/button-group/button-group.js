@@ -6,6 +6,10 @@ const name = `${prefix}-button-group`;
 TComponent({
     behaviors: canIUseFormFieldButton() ? ['wx://form-field-button'] : [],
     properties: {
+        customStyle: {
+            type: String,
+            value: '',
+        },
         type: {
             type: String,
             value: 'default',

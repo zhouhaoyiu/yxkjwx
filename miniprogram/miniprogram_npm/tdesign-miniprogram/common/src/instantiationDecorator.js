@@ -60,11 +60,13 @@ export const toComponent = function toComponent(options) {
             controlledProps.forEach(({ key }) => {
                 const defaultKey = `default${key.replace(/^(\w)/, (m, m1) => m1.toUpperCase())}`;
                 const props = this.properties;
+                if (props[key] == null) {
+                    this._selfControlled = true;
+                }
                 if (props[key] == null && props[defaultKey] != null) {
                     this.setData({
                         [key]: props[defaultKey],
                     });
-                    this._controlled = true;
                 }
             });
         };
@@ -72,7 +74,7 @@ export const toComponent = function toComponent(options) {
             const target = controlledProps.find((item) => item.event == evtName);
             if (target) {
                 const { key } = target;
-                if (this._controlled) {
+                if (this._selfControlled) {
                     this.setData({
                         [key]: detail[key],
                     });

@@ -8,6 +8,7 @@ import { wxComponent, SuperComponent } from '../common/src/index';
 import config from '../common/config';
 import props from './step-item-props';
 const { prefix } = config;
+const name = `${prefix}-steps-item`;
 let StepItem = class StepItem extends SuperComponent {
     constructor() {
         super(...arguments);
@@ -31,11 +32,11 @@ let StepItem = class StepItem extends SuperComponent {
             `${prefix}-class-sub-content`,
         ];
         this.properties = props;
+        this.parent = null;
         this.data = {
-            classPrefix: `${prefix}-steps-item`,
+            classPrefix: name,
             prefix,
             rootClassName: '',
-            parent: null,
             index: 0,
             isDot: false,
             curStatus: '',
@@ -59,9 +60,7 @@ let StepItem = class StepItem extends SuperComponent {
             ready() {
                 const [parent] = this.getRelationNodes('./steps') || [];
                 if (parent) {
-                    this.setData({
-                        parent,
-                    });
+                    this.parent = parent;
                 }
             },
         };
@@ -141,7 +140,7 @@ let StepItem = class StepItem extends SuperComponent {
                 });
             },
             click() {
-                this.data.parent.handleClick(this.data.index);
+                this.parent.handleClick(this.data.index);
             },
         };
     }

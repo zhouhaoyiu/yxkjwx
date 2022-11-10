@@ -6,7 +6,7 @@ export default class PickerItem extends SuperComponent {
         options(this: PickerItem): void;
     };
     data: {
-        prefix: string;
+        classPrefix: string;
         offset: number;
         duration: number;
         value: string;

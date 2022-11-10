@@ -2,66 +2,61 @@ export interface TdMessageProps {
     action?: {
         type: StringConstructor;
         value?: string;
-        required?: boolean;
     };
     align?: {
         type: StringConstructor;
-        value?: 'left' | 'center';
-        required?: boolean;
+        value?: MessageAlignType;
     };
     closeBtn?: {
-        type: StringConstructor;
-        optionalTypes: Array<BooleanConstructor>;
+        type: null;
         value?: string | boolean;
-        required?: boolean;
     };
     content?: {
         type: StringConstructor;
         value?: string;
-        required?: boolean;
+    };
+    customStyle?: {
+        type: StringConstructor;
+        value?: string;
     };
     duration?: {
         type: NumberConstructor;
         value?: number;
-        required?: boolean;
     };
     externalClasses?: {
         type: ArrayConstructor;
         value?: ['t-class', 't-class-content', 't-class-icon', 't-class-action', 't-class-close-btn'];
-        required?: boolean;
     };
     icon?: {
-        type: StringConstructor;
-        optionalTypes: Array<BooleanConstructor>;
+        type: null;
         value?: boolean | 'info' | 'bell';
-        required?: boolean;
     };
     marquee?: {
         type: null;
-        value?: DrawMarquee | boolean;
-        required?: boolean;
+        value?: boolean | DrawMarquee;
     };
     offset?: {
         type: ArrayConstructor;
         value?: Array<string | number>;
-        required?: boolean;
     };
     theme?: {
         type: StringConstructor;
         value?: MessageThemeList;
-        required?: boolean;
     };
     visible?: {
         type: BooleanConstructor;
         value?: boolean;
-        required?: boolean;
+    };
+    defaultVisible?: {
+        type: BooleanConstructor;
+        value?: boolean;
     };
     zIndex?: {
         type: NumberConstructor;
         value?: number;
-        required?: boolean;
     };
 }
+export declare type MessageAlignType = 'left' | 'center';
 export interface DrawMarquee {
     speed?: number;
     loop?: number;

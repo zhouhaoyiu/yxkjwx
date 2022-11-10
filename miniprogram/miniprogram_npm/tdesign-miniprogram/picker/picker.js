@@ -13,7 +13,7 @@ let Picker = class Picker extends SuperComponent {
     constructor() {
         super(...arguments);
         this.properties = props;
-        this.externalClasses = ['t-class', 't-class-confirm', 't-class-cancel', 't-class-title'];
+        this.externalClasses = [`${prefix}-class`, `${prefix}-class-confirm`, `${prefix}-class-cancel`, `${prefix}-class-title`];
         this.options = {
             multipleSlots: true,
         };
@@ -31,6 +31,7 @@ let Picker = class Picker extends SuperComponent {
             },
         };
         this.data = {
+            prefix,
             classPrefix: name,
         };
         this.methods = {

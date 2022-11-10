@@ -3,6 +3,10 @@ const props = {
         type: Boolean,
         value: true,
     },
+    customStyle: {
+        type: String,
+        value: '',
+    },
     destroyOnClose: {
         type: Boolean,
         value: false,

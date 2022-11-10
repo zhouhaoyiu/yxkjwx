@@ -7,9 +7,16 @@ const props = {
         type: Number,
         value: 5,
     },
+    customStyle: {
+        type: String,
+        value: '',
+    },
     disabled: {
         type: Boolean,
         value: false,
+    },
+    externalClasses: {
+        type: Array,
     },
     gap: {
         type: Number,

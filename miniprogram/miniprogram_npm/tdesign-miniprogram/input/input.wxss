@@ -45,7 +45,7 @@ page {
   right: 0;
   left: 0;
   bottom: 0;
-  border-bottom: 1px solid var(--td-input-border-color);
+  border-bottom: 1px solid var(--td-input-border-color, #e7e7e7);
   transform: scaleY(0.5);
   left: 32rpx;
 }
@@ -53,11 +53,11 @@ page {
   position: relative;
   display: flex;
   padding: 24rpx 32rpx;
-  background: var(--td-input-bg-color);
+  background: var(--td-input-bg-color, #fff);
 }
 .t-input__label {
   width: 164rpx;
-  color: var(--td-input-label-color);
+  color: var(--td-input-label-color, #000);
   margin-right: 32rpx;
   flex: none;
 }
@@ -85,7 +85,7 @@ page {
 .t-input__wrap--icon {
   flex: 0 0 auto;
   margin-left: 24rpx;
-  color: var(--td-input-icon-color);
+  color: var(--td-input-icon-color, #bbbbbb);
   font-size: 32rpx;
 }
 .t-input__wrap--suffix:empty,
@@ -110,7 +110,7 @@ page {
 .t-input__wrap--suffix-text {
   position: relative;
   padding-left: 24rpx;
-  color: var(--td-input-suffix-text-color);
+  color: var(--td-input-suffix-text-color, #000000);
 }
 .t-input__control {
   display: block;
@@ -119,7 +119,7 @@ page {
   min-width: 0;
   margin: 0;
   padding: 0;
-  color: var(--td-input-text-color);
+  color: var(--td-input-text-color, #000000);
   line-height: inherit;
   text-align: left;
   background-color: transparent;
@@ -128,16 +128,15 @@ page {
   font-size: inherit;
 }
 .t-input__control::placeholder {
-  color: var(--td-input-placeholder-text-color);
+  color: var(--td-input-placeholder-text-color, rgba(0, 0, 0, 0.4));
 }
-.t-input__control:disabled {
-  color: var(--td-input-disabled-text-color);
-  background-color: transparent;
+.t-input__control--disabled {
+  color: var(--td-input-disabled-text-color, #000000);
   cursor: not-allowed;
   opacity: 1;
   -webkit-text-fill-color: currentColor;
 }
-.t-input__control:read-only {
+.t-input__control--read-only {
   cursor: default;
 }
 .t-input__control--right {
@@ -147,26 +146,26 @@ page {
   text-align: center;
 }
 .t-input__placeholder {
-  color: var(--td-input-placeholder-text-color);
+  color: var(--td-input-placeholder-text-color, rgba(0, 0, 0, 0.4));
 }
 .t-input.t-is-error {
   align-items: flex-start;
 }
 .t-input.t-is-error .t-input__control {
-  color: var(--td-input-error-text-color);
+  color: var(--td-input-error-text-color, #e34d59);
 }
 .t-input.t-is-error .t-input__control::placeholder {
-  color: var(--td-input-error-text-color);
+  color: var(--td-input-error-text-color, #e34d59);
 }
 .t-input.t-is-error .t-input__placeholder {
-  color: var(--td-input-error-text-color);
+  color: var(--td-input-error-text-color, #e34d59);
 }
 .t-input.t-is-error .t-input__error-msg {
   text-align: left;
   padding-top: 24rpx;
   font-size: 24rpx;
   line-height: 1;
-  color: var(--td-input-error-msg-color);
+  color: var(--td-input-error-msg-color, rgba(0, 0, 0, 0.4));
   width: 100%;
 }
 .t-input--size-medium {

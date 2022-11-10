@@ -8,7 +8,7 @@ import { SuperComponent, wxComponent } from '../common/src/index';
 import config from '../common/config';
 import Props from './props';
 const { prefix } = config;
-const classPrefix = `${prefix}-checkbox`;
+const name = `${prefix}-checkbox`;
 let CheckBox = class CheckBox extends SuperComponent {
     constructor() {
         super(...arguments);
@@ -49,7 +49,7 @@ let CheckBox = class CheckBox extends SuperComponent {
             } });
         this.data = {
             prefix,
-            classPrefix,
+            classPrefix: name,
         };
         this.controlledProps = [
             {

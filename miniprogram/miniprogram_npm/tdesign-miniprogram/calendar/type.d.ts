@@ -4,6 +4,10 @@ export interface TdCalendarProps {
         type: null;
         value?: string | ButtonProps | null;
     };
+    customStyle?: {
+        type: StringConstructor;
+        value?: string;
+    };
     firstDayOfWeek?: {
         type: NumberConstructor;
         value?: number;

@@ -7,6 +7,13 @@ const props = {
         type: Number,
         value: 8,
     },
+    customStyle: {
+        type: String,
+        value: '',
+    },
+    externalClasses: {
+        type: Array,
+    },
     items: {
         type: Array,
     },

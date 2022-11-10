@@ -20,6 +20,7 @@ import config from '../common/config';
 import { DIRECTION } from './common/constants';
 import props from './props';
 const { prefix } = config;
+const name = `${prefix}-swiper`;
 const easings = {
     linear: 'linear',
     easeInCubic: 'cubic-bezier(0.32, 0, 0.67, 0)',
@@ -105,7 +106,29 @@ let Swiper = class Swiper extends SuperComponent {
             inited: false,
             currentInited: false,
             prefix,
-            classPrefix: `${prefix}-swiper`,
+            classPrefix: name,
+        };
+        this.methods = {
+            init() {
+                if (this.hasInited)
+                    return;
+                wx.createSelectorQuery()
+                    .in(this)
+                    .select('#swiper')
+                    .boundingClientRect((rect) => {
+                    if (rect.width === 0)
+                        return;
+                    this.hasInited = true;
+                    this.setData({
+                        _width: rect.width,
+                        _height: rect.height,
+                    });
+                    this.initItem();
+                    this.initNav();
+                    this.initCurrent();
+                })
+                    .exec();
+            },
         };
     }
     attached() {
@@ -118,18 +141,7 @@ let Swiper = class Swiper extends SuperComponent {
         this.pause();
     }
     ready() {
-        this.createSelectorQuery()
-            .select('#swiper')
-            .boundingClientRect((rect) => {
-            this.setData({
-                _width: rect.width,
-                _height: rect.height,
-            });
-            this.initItem();
-            this.initNav();
-            this.initCurrent();
-        })
-            .exec();
+        this.init();
     }
     initItem() {
         const { direction } = this.properties;

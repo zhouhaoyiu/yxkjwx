@@ -18,10 +18,7 @@ let Textarea = class Textarea extends SuperComponent {
         };
         this.behaviors = ['wx://form-field'];
         this.externalClasses = [`${prefix}-class`, `${prefix}-class-textarea`, `${prefix}-class-label`];
-        this.properties = Object.assign(Object.assign({}, props), { cursorSpacing: {
-                type: Number,
-                value: 0,
-            } });
+        this.properties = props;
         this.data = {
             prefix,
             classPrefix: name,

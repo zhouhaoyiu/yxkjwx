@@ -53,11 +53,12 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad() {
-        // if (login) {
-        //     wx.switchTab({
-        //         url: "/pages/home/home",
-        //     });
-        // }
+        const login = wx.getStorageSync('login') || false
+        if (login) {
+            wx.switchTab({
+                url: "/pages/home/home",
+            });
+        }
     },
 
     /**

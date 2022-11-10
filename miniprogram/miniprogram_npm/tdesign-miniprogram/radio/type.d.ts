@@ -1,4 +1,4 @@
-export interface TdRadioProps {
+export interface TdRadioProps<T = RadioValue> {
     align?: {
         type: StringConstructor;
         value?: 'left' | 'right';
@@ -15,10 +15,6 @@ export interface TdRadioProps {
         type: BooleanConstructor;
         value?: boolean;
     };
-    color?: {
-        type: StringConstructor;
-        value?: string;
-    };
     content?: {
         type: StringConstructor;
         value?: string;
@@ -26,6 +22,10 @@ export interface TdRadioProps {
     contentDisabled?: {
         type: BooleanConstructor;
         value?: boolean;
+    };
+    customStyle?: {
+        type: StringConstructor;
+        value?: string;
     };
     disabled?: {
         type: BooleanConstructor;
@@ -36,8 +36,7 @@ export interface TdRadioProps {
         value?: ['t-class', 't-class-icon', 't-class-label', 't-class-content', 't-class-border'];
     };
     icon?: {
-        type: StringConstructor;
-        optionalTypes: Array<ArrayConstructor>;
+        type: null;
         value?: 'fill-circle' | 'stroke-line' | Array<string>;
     };
     label?: {
@@ -57,39 +56,8 @@ export interface TdRadioProps {
         value?: string;
     };
     value?: {
-        type: StringConstructor;
-        optionalTypes: Array<NumberConstructor | BooleanConstructor>;
-        value?: RadioValue;
-    };
-}
-export interface TdRadioGroupProps {
-    disabled?: {
-        type: BooleanConstructor;
-        value?: boolean;
-    };
-    name?: {
-        type: StringConstructor;
-        value?: string;
-    };
-    options?: {
-        type: ArrayConstructor;
-        value?: Array<RadioOption>;
-    };
-    value?: {
-        type: StringConstructor;
-        optionalTypes: Array<NumberConstructor | BooleanConstructor>;
-        value?: RadioValue;
-    };
-    defaultValue?: {
-        type: StringConstructor;
-        optionalTypes: Array<NumberConstructor | BooleanConstructor>;
-        value?: RadioValue;
+        type: null;
+        value?: T;
     };
 }
 export declare type RadioValue = string | number | boolean;
-export declare type RadioOption = string | number | RadioOptionObj;
-export interface RadioOptionObj {
-    label?: string;
-    value?: string | number;
-    disabled?: boolean;
-}

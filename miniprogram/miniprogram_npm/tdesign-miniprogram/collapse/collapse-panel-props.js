@@ -2,6 +2,10 @@ const props = {
     content: {
         type: String,
     },
+    customStyle: {
+        type: String,
+        value: '',
+    },
     disabled: {
         type: Boolean,
         value: null,

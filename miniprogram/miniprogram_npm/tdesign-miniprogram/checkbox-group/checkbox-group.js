@@ -6,13 +6,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 import { SuperComponent, wxComponent } from '../common/src/index';
 import config from '../common/config';
-import Props from '../checkbox/checkbox-group-props';
+import props from '../checkbox/checkbox-group-props';
 const { prefix } = config;
 const name = `${prefix}-checkbox-group`;
 let CheckBoxGroup = class CheckBoxGroup extends SuperComponent {
     constructor() {
         super(...arguments);
-        this.externalClasses = ['t-class'];
+        this.externalClasses = [`${prefix}-class`];
         this.relations = {
             '../checkbox/checkbox': {
                 type: 'descendant',
@@ -23,7 +23,7 @@ let CheckBoxGroup = class CheckBoxGroup extends SuperComponent {
             classPrefix: name,
             checkboxOptions: [],
         };
-        this.properties = Object.assign(Object.assign({}, Props), { customStyle: String });
+        this.properties = props;
         this.observers = {
             value() {
                 this.updateChildren();

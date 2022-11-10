@@ -3,6 +3,10 @@ const props = {
         type: Boolean,
         value: false,
     },
+    customStyle: {
+        type: String,
+        value: '',
+    },
     disabled: {
         type: Boolean,
         value: false,

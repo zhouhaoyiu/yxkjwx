@@ -1,4 +1,8 @@
 const props = {
+    customStyle: {
+        type: String,
+        value: '',
+    },
     description: {
         type: String,
     },
@@ -12,13 +16,13 @@ const props = {
     image: {
         type: String,
     },
-    title: {
-        type: String,
-        value: '',
-    },
     theme: {
         type: String,
         value: 'default',
+    },
+    title: {
+        type: String,
+        value: '',
     },
 };
 export default props;

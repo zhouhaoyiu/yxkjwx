@@ -27,6 +27,10 @@ export interface TdCheckboxProps {
         type: BooleanConstructor;
         value?: boolean;
     };
+    customStyle?: {
+        type: StringConstructor;
+        value?: string;
+    };
     disabled?: {
         type: BooleanConstructor;
         value?: boolean;
@@ -64,12 +68,15 @@ export interface TdCheckboxProps {
         value?: boolean;
     };
     value?: {
-        type: StringConstructor;
-        optionalTypes: Array<NumberConstructor>;
+        type: null;
         value?: string | number;
     };
 }
 export interface TdCheckboxGroupProps {
+    customStyle?: {
+        type: StringConstructor;
+        value?: string;
+    };
     disabled?: {
         type: BooleanConstructor;
         value?: boolean;

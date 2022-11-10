@@ -1,17 +1,19 @@
 const props = {
     current: {
-        type: String,
-        optionalTypes: [Number],
+        type: null,
         value: null,
     },
     defaultCurrent: {
-        type: String,
-        optionalTypes: [Number],
+        type: null,
         value: 0,
     },
     currentStatus: {
         type: String,
         value: 'process',
+    },
+    customStyle: {
+        type: String,
+        value: '',
     },
     externalClasses: {
         type: Array,
@@ -23,6 +25,10 @@ const props = {
     readonly: {
         type: Boolean,
         value: false,
+    },
+    separator: {
+        type: String,
+        value: 'line',
     },
     theme: {
         type: String,

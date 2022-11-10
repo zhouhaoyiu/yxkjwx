@@ -1,4 +1,3 @@
-import dayjs from 'dayjs';
 import type { Dayjs } from 'dayjs';
 import { SuperComponent } from '../common/src/index';
 declare enum ModeItem {
@@ -6,7 +5,8 @@ declare enum ModeItem {
     MONTH = "month",
     DATE = "date",
     HOUR = "hour",
-    MINUTE = "minute"
+    MINUTE = "minute",
+    SECOND = "second"
 }
 interface ColumnItemValue {
     value: string | number;
@@ -32,9 +32,10 @@ export default class DateTimePicker extends SuperComponent {
         locale: {
             year: string;
             month: string;
-            day: string;
+            date: string;
             hour: string;
             minute: string;
+            second: string;
             am: string;
             pm: string;
             confirm: string;
@@ -50,44 +51,19 @@ export default class DateTimePicker extends SuperComponent {
         getParseDate(): Dayjs;
         getMinDate(): Dayjs;
         getMaxDate(): Dayjs;
-        getMinYear(): number;
-        getMaxYear(): number;
-        getMinMonth(): number;
-        getMaxMonth(): number;
-        getMinDay(): number;
-        getMaxDay(): number;
-        getMinHour(): number;
-        getMaxHour(): number;
-        getMinMinute(): number;
-        getMaxMinute(): number;
+        getDateRect(type?: string): any[];
         getDate(): Dayjs;
         clipDate(date: Dayjs): Dayjs;
         setYear(date: Dayjs, year: number): Dayjs;
         setMonth(date: Dayjs, month: number): Dayjs;
         getColumnOptions(): any[];
-        getCommonDateParams(): {
-            date: dayjs.Dayjs;
-            selYear: number;
-            selMonth: number;
-            selDate: number;
-            selHour: number;
-            minDateYear: any;
-            maxDateYear: any;
-            minDateMonth: any;
-            maxDateMonth: any;
-            minDateDay: any;
-            maxDateDay: any;
-            minDateHour: any;
-            maxDateHour: any;
-            minDateMinute: any;
-            maxDateMinute: any;
-        };
-        getOptionByType(type: any, dateParams: any): any;
+        getOptionByType(type: any): ColumnItemValue[];
         getYearOptions(dateParams: any): ColumnItemValue[];
-        getMonthOptions(dateParams: any): ColumnItemValue[];
-        getDayOptions(dateParams: any): ColumnItemValue[];
-        getHourOptions(dateParams: any): ColumnItemValue[];
-        getMinuteOptions(dateParams: any): ColumnItemValue[];
+        getOptionEdge(minOrMax: 'min' | 'max', type: any): any;
+        getMonthOptions(): ColumnItemValue[];
+        getDayOptions(): ColumnItemValue[];
+        getHourOptions(): ColumnItemValue[];
+        getMinuteOptions(): ColumnItemValue[];
         getValueCols(this: DateTimePicker): {
             columns: any;
             columnsValue: any;

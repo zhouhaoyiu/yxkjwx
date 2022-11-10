@@ -1,9 +1,13 @@
 export interface TdStepperProps {
-    disabled?: {
+    customStyle?: {
+        type: StringConstructor;
+        value?: string;
+    };
+    disableInput?: {
         type: BooleanConstructor;
         value?: boolean;
     };
-    disableInput?: {
+    disabled?: {
         type: BooleanConstructor;
         value?: boolean;
     };

@@ -1,8 +1,10 @@
+<wxs src="./popup.wxs" module="utils" />
 <view
   wx:if="{{realVisible}}"
-  style="{{customStyle + ';z-index:' + zIndex + ';'}}"
+  style="{{ utils.getPopupStyles(zIndex, customStyle) }}"
   class="{{className}} {{transitionClass}} {{prefix}}-class"
   bind:transitionend="onTransitionEnd"
+  catch:touchmove="onStopPropagation"
 >
   <view class="{{classPrefix}}__content {{prefix}}-class-content">
     <view class="{{classPrefix}}__close" bind:tap="handleClose">

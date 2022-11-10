@@ -4,6 +4,10 @@ export interface TdTabBarProps {
         type: BooleanConstructor;
         value?: boolean;
     };
+    customStyle?: {
+        type: StringConstructor;
+        value?: string;
+    };
     externalClasses?: {
         type: ArrayConstructor;
         value?: ['t-class'];
@@ -16,9 +20,21 @@ export interface TdTabBarProps {
         type: BooleanConstructor;
         value?: boolean;
     };
+    shape?: {
+        type: StringConstructor;
+        value?: 'normal' | 'round';
+    };
     split?: {
         type: BooleanConstructor;
         value?: boolean;
+    };
+    style?: {
+        type: StringConstructor;
+        value?: string;
+    };
+    theme?: {
+        type: StringConstructor;
+        value?: 'normal' | 'tag';
     };
     value?: {
         type: null;
@@ -34,7 +50,15 @@ export interface TdTabBarItemProps {
         type: ObjectConstructor;
         value?: BadgeProps;
     };
+    customStyle?: {
+        type: StringConstructor;
+        value?: string;
+    };
     icon?: {
+        type: StringConstructor;
+        value?: string;
+    };
+    style?: {
         type: StringConstructor;
         value?: string;
     };

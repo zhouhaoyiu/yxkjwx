@@ -1,12 +1,22 @@
 const props = {
     animation: {
         type: String,
+        value: 'none',
+    },
+    customStyle: {
+        type: String,
+        value: '',
+    },
+    delay: {
+        type: Number,
+        value: 0,
     },
     externalClasses: {
         type: Array,
     },
     loading: {
         type: Boolean,
+        value: true,
     },
     rowCol: {
         type: Array,

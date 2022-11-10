@@ -1,4 +1,8 @@
 export interface TdCollapseProps {
+    customStyle?: {
+        type: StringConstructor;
+        value?: string;
+    };
     defaultExpandAll?: {
         type: BooleanConstructor;
         value?: boolean;
@@ -26,6 +30,10 @@ export interface TdCollapseProps {
 }
 export interface TdCollapsePanelProps {
     content?: {
+        type: StringConstructor;
+        value?: string;
+    };
+    customStyle?: {
         type: StringConstructor;
         value?: string;
     };

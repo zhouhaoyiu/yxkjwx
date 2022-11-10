@@ -8,6 +8,7 @@ import { SuperComponent, wxComponent } from '../common/src/index';
 import { DIRECTION } from './common/constants';
 import config from '../common/config';
 const { prefix } = config;
+const name = `${prefix}-swiper-item`;
 let SwiperItem = class SwiperItem extends SuperComponent {
     constructor() {
         super(...arguments);
@@ -18,7 +19,7 @@ let SwiperItem = class SwiperItem extends SuperComponent {
         };
         this.data = {
             index: 0,
-            classPrefix: `${prefix}-swiper-item`,
+            classPrefix: name,
             translate: '',
         };
     }

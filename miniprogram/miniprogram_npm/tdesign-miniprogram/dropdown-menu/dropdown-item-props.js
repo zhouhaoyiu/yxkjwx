@@ -1,7 +1,14 @@
 const props = {
+    customStyle: {
+        type: String,
+        value: '',
+    },
     disabled: {
         type: Boolean,
         value: false,
+    },
+    externalClasses: {
+        type: Array,
     },
     keys: {
         type: Object,
@@ -19,8 +26,7 @@ const props = {
         value: [],
     },
     optionsColumns: {
-        type: String,
-        optionalTypes: [Number],
+        type: null,
         value: 1,
     },
     optionsLayout: {
@@ -29,13 +35,11 @@ const props = {
     },
     value: {
         type: null,
-        optionalTypes: [Number, Array],
-        value: null,
+        value: undefined,
     },
     defaultValue: {
         type: null,
-        optionalTypes: [Number, Array],
-        value: null,
+        value: undefined,
     },
 };
 export default props;

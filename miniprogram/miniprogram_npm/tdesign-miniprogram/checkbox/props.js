@@ -25,6 +25,10 @@ const props = {
     contentDisabled: {
         type: Boolean,
     },
+    customStyle: {
+        type: String,
+        value: '',
+    },
     disabled: {
         type: Boolean,
         value: undefined,
@@ -59,8 +63,7 @@ const props = {
         value: false,
     },
     value: {
-        type: String,
-        optionalTypes: [Number],
+        type: null,
     },
 };
 export default props;

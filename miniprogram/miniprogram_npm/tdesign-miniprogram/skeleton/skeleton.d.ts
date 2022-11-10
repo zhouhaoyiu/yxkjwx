@@ -4,6 +4,11 @@ import { ClassName, Styles } from '../common/common';
 export default class Skeleton extends SuperComponent {
     externalClasses: string[];
     properties: import("./type").TdSkeletonProps;
+    data: {
+        prefix: string;
+        classPrefix: string;
+        parsedRowcols: any[];
+    };
     observers: {
         rowCol(): void;
     };
@@ -14,10 +19,5 @@ export default class Skeleton extends SuperComponent {
         init(): void;
         getColItemClass(obj: SkeletonRowColObj): ClassName;
         getColItemStyle(obj: SkeletonRowColObj): Styles;
-    };
-    data: {
-        prefix: string;
-        classPrefix: string;
-        parsedRowcols: any[];
     };
 }

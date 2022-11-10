@@ -7,6 +7,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 import { SuperComponent, wxComponent } from '../common/src/index';
 import config from '../common/config';
 import props from './picker-item-props';
+const { prefix } = config;
+const name = `${prefix}-picker-item`;
 const itemHeight = 80;
 const DefaultDuration = 240;
 const { windowWidth } = wx.getSystemInfoSync();
@@ -32,7 +34,7 @@ let PickerItem = class PickerItem extends SuperComponent {
             },
         };
         this.data = {
-            prefix: `${config.prefix}-picker-item`,
+            classPrefix: name,
             offset: 0,
             duration: 0,
             value: '',

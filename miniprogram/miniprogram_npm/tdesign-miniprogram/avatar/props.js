@@ -6,6 +6,10 @@ const props = {
     badgeProps: {
         type: Object,
     },
+    customStyle: {
+        type: String,
+        value: '',
+    },
     externalClasses: {
         type: Array,
     },
@@ -19,6 +23,9 @@ const props = {
     image: {
         type: String,
         value: '',
+    },
+    imageProps: {
+        type: Object,
     },
     shape: {
         type: String,

@@ -19,6 +19,7 @@ let CheckTag = class CheckTag extends SuperComponent {
             className: '',
         };
         this.properties = props;
+        this.externalClasses = [`${prefix}-class`];
         this.controlledProps = [
             {
                 key: 'checked',

@@ -39,7 +39,7 @@ let Icon = class Icon extends SuperComponent {
                 const fontStyle = size ? { 'font-size': sizeValue } : {};
                 this.setData({
                     isImage,
-                    iconStyle: styles(Object.assign(Object.assign(Object.assign({}, colorStyle), fontStyle), sizeStyle)) + customStyle,
+                    iconStyle: `${styles(Object.assign(Object.assign(Object.assign({}, colorStyle), fontStyle), sizeStyle))}${customStyle ? `;${customStyle}` : ''}`,
                 });
             },
         };

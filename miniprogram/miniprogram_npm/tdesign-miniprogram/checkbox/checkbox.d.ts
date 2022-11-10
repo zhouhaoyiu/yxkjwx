@@ -41,6 +41,10 @@ export default class CheckBox extends SuperComponent {
             type: BooleanConstructor;
             value?: boolean;
         };
+        customStyle?: {
+            type: StringConstructor;
+            value?: string;
+        };
         disabled?: {
             type: BooleanConstructor;
             value?: boolean;
@@ -78,8 +82,7 @@ export default class CheckBox extends SuperComponent {
             value?: boolean;
         };
         value?: {
-            type: StringConstructor;
-            optionalTypes: NumberConstructor[];
+            type: null;
             value?: string | number;
         };
     };

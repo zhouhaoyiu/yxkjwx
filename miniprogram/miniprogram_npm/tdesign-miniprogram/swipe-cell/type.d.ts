@@ -1,13 +1,15 @@
 export interface TdSwipeCellProps {
+    customStyle?: {
+        type: StringConstructor;
+        value?: string;
+    };
     disabled?: {
         type: BooleanConstructor;
         value?: boolean;
-        required?: boolean;
     };
     left?: {
         type: ArrayConstructor;
         value?: Array<SwipeActionItem>;
-        required?: boolean;
     };
     opened?: {
         type: BooleanConstructor;
@@ -18,7 +20,6 @@ export interface TdSwipeCellProps {
     right?: {
         type: ArrayConstructor;
         value?: Array<SwipeActionItem>;
-        required?: boolean;
     };
 }
 export interface SwipeActionItem {

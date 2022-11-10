@@ -3,10 +3,19 @@ import type { TdDropdownItemProps } from './type';
 export interface DropdownItemProps extends TdDropdownItemProps {
 }
 export default class DropdownMenuItem extends SuperComponent {
+    externalClasses: string[];
     properties: {
+        customStyle?: {
+            type: StringConstructor;
+            value?: string;
+        };
         disabled?: {
             type: BooleanConstructor;
             value?: boolean;
+        };
+        externalClasses?: {
+            type: ArrayConstructor;
+            value?: ["t-class", "t-class-content", "t-class-column", "t-class-column-item", "t-class-column-item-label", "t-class-tree", "t-class-tree-item", "t-class-tree-columns", "t-class-tree-columns-item", "t-class-tree-columns-item-label", "t-class-footer"];
         };
         keys?: {
             type: ObjectConstructor;
@@ -25,8 +34,7 @@ export default class DropdownMenuItem extends SuperComponent {
             value?: import("./type").TdDropdownItemOption[];
         };
         optionsColumns?: {
-            type: StringConstructor;
-            optionalTypes: NumberConstructor[];
+            type: null;
             value?: string | number;
         };
         optionsLayout?: {
@@ -34,13 +42,11 @@ export default class DropdownMenuItem extends SuperComponent {
             value?: "columns" | "tree";
         };
         value?: {
-            type: StringConstructor;
-            optionalTypes: (ArrayConstructor | NumberConstructor)[];
+            type: null;
             value?: import("./type").TdDropdownItemOptionValueType | import("./type").TdDropdownItemOptionValueType[];
         };
         defaultValue?: {
-            type: StringConstructor;
-            optionalTypes: (ArrayConstructor | NumberConstructor)[];
+            type: null;
             value?: import("./type").TdDropdownItemOptionValueType | import("./type").TdDropdownItemOptionValueType[];
         };
     };

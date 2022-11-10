@@ -19,6 +19,14 @@ const props = {
         type: String,
         value: 'done',
     },
+    cursorSpacing: {
+        type: Number,
+        value: 0,
+    },
+    customStyle: {
+        type: String,
+        value: '',
+    },
     disabled: {
         type: Boolean,
         value: false,
@@ -46,6 +54,10 @@ const props = {
     value: {
         type: String,
         value: null,
+    },
+    defaultValue: {
+        type: String,
+        value: '',
     },
 };
 export default props;

@@ -1,17 +1,19 @@
 export interface TdStepsProps {
     current?: {
-        type: StringConstructor;
-        optionalTypes: Array<NumberConstructor>;
+        type: null;
         value?: string | number;
     };
     defaultCurrent?: {
-        type: StringConstructor;
-        optionalTypes: Array<NumberConstructor>;
+        type: null;
         value?: string | number;
     };
     currentStatus?: {
         type: StringConstructor;
         value?: 'default' | 'process' | 'finish' | 'error';
+    };
+    customStyle?: {
+        type: StringConstructor;
+        value?: string;
     };
     externalClasses?: {
         type: ArrayConstructor;
@@ -25,6 +27,10 @@ export interface TdStepsProps {
         type: BooleanConstructor;
         value?: boolean;
     };
+    separator?: {
+        type: StringConstructor;
+        value?: 'line' | 'dashed' | 'arrow';
+    };
     theme?: {
         type: StringConstructor;
         value?: 'default' | 'dot';
@@ -32,6 +38,10 @@ export interface TdStepsProps {
 }
 export interface TdStepItemProps {
     content?: {
+        type: StringConstructor;
+        value?: string;
+    };
+    customStyle?: {
         type: StringConstructor;
         value?: string;
     };

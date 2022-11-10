@@ -16,6 +16,14 @@ export interface TdPickerProps {
         type: null;
         value?: boolean | string | ButtonProps;
     };
+    customStyle?: {
+        type: StringConstructor;
+        value?: string;
+    };
+    footer?: {
+        type: BooleanConstructor;
+        value?: boolean;
+    };
     header?: {
         type: BooleanConstructor;
         value?: boolean;
@@ -42,6 +50,10 @@ export interface TdPickerProps {
     };
 }
 export interface TdPickerItemProps {
+    customStyle?: {
+        type: StringConstructor;
+        value?: string;
+    };
     format?: {
         type: null;
         value?: (option: PickerColumnItem) => string;

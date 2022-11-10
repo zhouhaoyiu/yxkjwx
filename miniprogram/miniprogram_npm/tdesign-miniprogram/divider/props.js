@@ -6,6 +6,10 @@ const props = {
     content: {
         type: String,
     },
+    customStyle: {
+        type: String,
+        value: '',
+    },
     dashed: {
         type: Boolean,
         value: false,

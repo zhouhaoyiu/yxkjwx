@@ -1,4 +1,12 @@
 const props = {
+    badgeProps: {
+        type: Object,
+        value: null,
+    },
+    customStyle: {
+        type: String,
+        value: '',
+    },
     destroyOnHide: {
         type: Boolean,
         value: true,

@@ -1,10 +1,11 @@
 import { SuperComponent, RelationsOptions } from '../common/src/index';
-export default class TabbarItem extends SuperComponent {
+export default class TabBarItem extends SuperComponent {
     parent: any;
     relations: RelationsOptions;
     options: {
         multipleSlots: boolean;
     };
+    behaviors: string[];
     data: {
         prefix: string;
         classPrefix: string;
@@ -13,10 +14,17 @@ export default class TabbarItem extends SuperComponent {
         hasChildren: boolean;
         currentName: string;
         split: boolean;
+        iconOnly: boolean;
+        theme: string;
+        crowded: boolean;
+        shape: string;
     };
     properties: import("./type").TdTabBarItemProps;
     observers: {
         subTabBar(value: Record<string, any>[]): void;
+    };
+    lifetimes: {
+        attached(): Promise<void>;
     };
     methods: {
         showSpread(): void;

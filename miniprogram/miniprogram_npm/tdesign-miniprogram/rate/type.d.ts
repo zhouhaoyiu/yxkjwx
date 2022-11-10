@@ -7,9 +7,17 @@ export interface TdRateProps {
         type: NumberConstructor;
         value?: number;
     };
+    customStyle?: {
+        type: StringConstructor;
+        value?: string;
+    };
     disabled?: {
         type: BooleanConstructor;
         value?: boolean;
+    };
+    externalClasses?: {
+        type: ArrayConstructor;
+        value?: ['t-class', 't-class-icon', 't-class-text'];
     };
     gap?: {
         type: NumberConstructor;

@@ -2,6 +2,7 @@ import { SuperComponent, RelationsOptions } from '../common/src/index';
 export default class Radio extends SuperComponent {
     externalClasses: string[];
     behaviors: string[];
+    parent: any;
     relations: RelationsOptions;
     options: {
         multipleSlots: boolean;
@@ -30,10 +31,6 @@ export default class Radio extends SuperComponent {
             type: BooleanConstructor;
             value?: boolean;
         };
-        color?: {
-            type: StringConstructor;
-            value?: string;
-        };
         content?: {
             type: StringConstructor;
             value?: string;
@@ -41,6 +38,10 @@ export default class Radio extends SuperComponent {
         contentDisabled?: {
             type: BooleanConstructor;
             value?: boolean;
+        };
+        customStyle?: {
+            type: StringConstructor;
+            value?: string;
         };
         disabled?: {
             type: BooleanConstructor;
@@ -51,8 +52,7 @@ export default class Radio extends SuperComponent {
             value?: ["t-class", "t-class-icon", "t-class-label", "t-class-content", "t-class-border"];
         };
         icon?: {
-            type: StringConstructor;
-            optionalTypes: ArrayConstructor[];
+            type: null;
             value?: string[] | "fill-circle" | "stroke-line";
         };
         label?: {
@@ -72,8 +72,7 @@ export default class Radio extends SuperComponent {
             value?: string;
         };
         value?: {
-            type: StringConstructor;
-            optionalTypes: (NumberConstructor | BooleanConstructor)[];
+            type: null;
             value?: import("./type").RadioValue;
         };
     };

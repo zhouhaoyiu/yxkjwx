@@ -3,9 +3,17 @@ export interface TdProgressProps {
         type: null;
         value?: string | Array<string> | Record<string, string>;
     };
+    customStyle?: {
+        type: StringConstructor;
+        value?: string;
+    };
+    externalClasses?: {
+        type: ArrayConstructor;
+        value?: ['t-class', 't-class-bar', 't-class-label'];
+    };
     label?: {
-        type: BooleanConstructor;
-        value?: boolean;
+        type: null;
+        value?: string | boolean;
     };
     percentage?: {
         type: NumberConstructor;
@@ -16,9 +24,12 @@ export interface TdProgressProps {
         value?: StatusEnum;
     };
     strokeWidth?: {
-        type: StringConstructor;
-        optionalTypes: Array<NumberConstructor>;
+        type: null;
         value?: string | number;
+    };
+    theme?: {
+        type: StringConstructor;
+        value?: ThemeEnum;
     };
     trackColor?: {
         type: StringConstructor;

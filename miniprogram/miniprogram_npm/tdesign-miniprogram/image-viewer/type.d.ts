@@ -1,4 +1,8 @@
 export interface TdImageViewerProps {
+    customStyle?: {
+        type: StringConstructor;
+        value?: string;
+    };
     backgroundColor?: {
         type: StringConstructor;
         optionalTypes: Array<NumberConstructor>;

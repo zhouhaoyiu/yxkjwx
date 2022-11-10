@@ -20,6 +20,7 @@ let Grid = class Grid extends SuperComponent {
         };
         this.properties = props;
         this.data = {
+            prefix,
             classPrefix: name,
             contentStyle: '',
         };

@@ -18,6 +18,7 @@ let Tabbar = class Tabbar extends SuperComponent {
             },
         };
         this.externalClasses = [`${prefix}-class`];
+        this.backupValue = -1;
         this.data = {
             prefix,
             classPrefix,
@@ -43,6 +44,7 @@ let Tabbar = class Tabbar extends SuperComponent {
                     items.forEach((child) => {
                         if (child.properties.value === value) {
                             child.showSpread();
+                            child.setData({ crowded: len > 3 });
                         }
                     });
                 }

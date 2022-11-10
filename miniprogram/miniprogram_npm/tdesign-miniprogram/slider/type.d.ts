@@ -3,6 +3,10 @@ export interface TdSliderProps {
         type: ArrayConstructor;
         value?: Array<string>;
     };
+    customStyle?: {
+        type: StringConstructor;
+        value?: string;
+    };
     disabled?: {
         type: BooleanConstructor;
         value?: boolean;

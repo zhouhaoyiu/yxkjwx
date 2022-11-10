@@ -2,13 +2,16 @@ const props = {
     bordered: {
         type: Boolean,
     },
+    customStyle: {
+        type: String,
+        value: '',
+    },
     externalClasses: {
         type: Array,
     },
     title: {
         type: String,
         value: '',
-        required: true,
     },
 };
 export default props;

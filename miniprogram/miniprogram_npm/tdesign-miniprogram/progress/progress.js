@@ -10,7 +10,7 @@ import props from './props';
 import { getBackgroundColor } from './utils';
 import { isNumber } from '../common/utils';
 const { prefix } = config;
-const classPrefix = `${prefix}-progress`;
+const name = `${prefix}-progress`;
 let Progress = class Progress extends SuperComponent {
     constructor() {
         super(...arguments);
@@ -21,7 +21,7 @@ let Progress = class Progress extends SuperComponent {
         this.properties = props;
         this.data = {
             prefix,
-            classPrefix,
+            classPrefix: name,
             colorBar: '',
             heightBar: '',
             computedStatus: '',

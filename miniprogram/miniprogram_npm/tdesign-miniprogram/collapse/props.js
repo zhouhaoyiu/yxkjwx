@@ -1,4 +1,8 @@
 const props = {
+    customStyle: {
+        type: String,
+        value: '',
+    },
     defaultExpandAll: {
         type: Boolean,
         value: false,
@@ -8,7 +12,7 @@ const props = {
     },
     expandIcon: {
         type: Boolean,
-        value: null,
+        value: true,
     },
     expandMutex: {
         type: Boolean,
@@ -20,6 +24,7 @@ const props = {
     },
     defaultValue: {
         type: Array,
+        value: [],
     },
 };
 export default props;

@@ -80,8 +80,8 @@
         <t-textarea align="right" data-inputfield="sprbz" onchange="setInputData" autosize value="{{sprbz}}" label="审批备注" placeholder="请输入文字" />
     </view>
     <view style="display: flex;justify-content: space-between;margin-top: 20rpx;">
-        <t-button t-class="external-class" theme="danger" bindtap="refuse">拒绝</t-button>
-        <t-button t-class="external-class" theme="primary" bindtap="accept">同意</t-button>
+        <t-button t-class="external-class" style="width: 300rpx;" theme="danger" bindtap="refuse">拒绝</t-button>
+        <t-button t-class="external-class" style="width: 300rpx;" theme="primary" bindtap="accept">同意</t-button>
     </view>
     <t-toast id="toast" />
 </scroll-view>

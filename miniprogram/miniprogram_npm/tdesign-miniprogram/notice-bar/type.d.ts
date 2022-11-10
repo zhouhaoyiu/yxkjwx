@@ -3,14 +3,21 @@ export interface TdNoticeBarProps {
         type: StringConstructor;
         value?: string;
     };
+    customStyle?: {
+        type: StringConstructor;
+        value?: string;
+    };
+    externalClasses?: {
+        type: ArrayConstructor;
+        value?: ['t-class', 't-class-content', 't-class-prefix-icon', 't-class-extra', 't-class-suffix-icon'];
+    };
     extra?: {
         type: StringConstructor;
         value?: string;
     };
     marquee?: {
-        type: ObjectConstructor;
-        optionalTypes: Array<BooleanConstructor>;
-        value?: DrawMarquee | boolean;
+        type: null;
+        value?: boolean | DrawMarquee;
     };
     prefixIcon?: {
         type: StringConstructor;
@@ -25,6 +32,10 @@ export interface TdNoticeBarProps {
         value?: 'info' | 'success' | 'warning' | 'error';
     };
     visible?: {
+        type: BooleanConstructor;
+        value?: boolean;
+    };
+    defaultVisible?: {
         type: BooleanConstructor;
         value?: boolean;
     };

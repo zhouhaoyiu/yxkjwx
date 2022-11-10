@@ -7,6 +7,10 @@ const props = {
         type: String,
         value: '',
     },
+    customStyle: {
+        type: String,
+        value: '',
+    },
     delta: {
         type: Number,
         value: 1,
@@ -20,9 +24,11 @@ const props = {
     },
     homeIcon: {
         type: String,
+        value: '',
     },
     leftIcon: {
         type: String,
+        value: '',
     },
     title: {
         type: String,

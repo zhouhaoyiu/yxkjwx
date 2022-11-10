@@ -15,12 +15,20 @@ const props = {
         type: String,
         optionalTypes: [Number],
     },
+    customStyle: {
+        type: String,
+        value: '',
+    },
     disabled: {
         type: Boolean,
         value: false,
     },
+    externalClasses: {
+        type: Array,
+    },
     icon: {
         type: String,
+        value: '',
     },
     shape: {
         type: String,

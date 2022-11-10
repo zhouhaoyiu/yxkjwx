@@ -2,6 +2,10 @@ const props = {
     colors: {
         type: Array,
     },
+    customStyle: {
+        type: String,
+        value: '',
+    },
     customValue: {
         type: Array,
         value: [true, false],
