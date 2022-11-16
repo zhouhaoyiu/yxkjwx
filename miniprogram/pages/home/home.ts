@@ -164,7 +164,7 @@ Page({
     logWorkIn() {
         console.log(this.data);
     },
-    openSign(e: any) {
+    openSign(e) {
         const name = e.target.dataset.name
         if (!this.data[`${name}SignContext`]) {
             const query = wx.createSelectorQuery();
@@ -243,7 +243,8 @@ Page({
             },
             fail(e) {
                 that.handleToast({
-                    message: '图片上传失败，请重试'
+                    message: '图片上传失败，请重试',
+                    theme: "fail"
                 });
             }
         });
@@ -539,11 +540,13 @@ Page({
         if (!this.data[`${name}HasDraw`]) {
             this.handleToast({
                 message: `请${chineseName}完成签字`,
+                theme: "fail"
             });
             return;
         } else {
             this.handleToast({
                 message: `${chineseName}签字成功`,
+                theme: "fail"
             });
         }
 
@@ -573,42 +576,49 @@ Page({
         if (!this.data.jobContent) {
             this.handleToast({
                 message: "请填写作业内容",
+                theme: 'fail'
             });
             return;
         }
         if (!this.data.jobGroup.toString()) {
             this.handleToast({
                 message: "请选择作业班组",
+                theme: 'fail'
             });
             return;
         }
         if (!this.data.dateText) {
             this.handleToast({
                 message: "请选择作业日期",
+                theme: 'fail'
             });
             return;
         }
         if (!this.data.jobPosition) {
             this.handleToast({
                 message: "请选择作业地点",
+                theme: 'fail'
             });
             return;
         }
         if (!this.data.jobPersonValue) {
             this.handleToast({
                 message: "请输入作业人数",
+                theme: 'fail'
             });
             return;
         }
         if (!this.data.startTimeHour) {
             this.handleToast({
                 message: "请输入作业开始小时",
+                theme: 'fail'
             });
             return;
         }
         if (!this.data.startTimeMinute) {
             this.handleToast({
                 message: "请输入作业开始分钟",
+                theme: 'fail'
             });
             return;
         }
@@ -621,12 +631,14 @@ Page({
         if (!this.data.endTimeHour) {
             this.handleToast({
                 message: "请输入作业结束小时",
+                theme: 'fail'
             });
             return;
         }
         if (!this.data.endTimeMinute) {
             this.handleToast({
                 message: "请输入作业结束分钟",
+                theme: 'fail'
             });
             return;
         }
@@ -639,66 +651,77 @@ Page({
         if (this.data.isInterrupt && !this.data.pauseTime) {
             this.handleToast({
                 message: "请输入中断时间",
+                theme: 'fail'
             });
             return;
         }
         if (!this.data.gasDetectionBase64Arr.length) {
             this.handleToast({
                 message: "请上传气体检测照片",
+                theme: 'fail'
             });
             return;
         }
         if (!this.data.signBoardBase64Arr.length) {
             this.handleToast({
                 message: "请上传作业标识照片",
+                theme: 'fail'
             });
             return;
         }
         if (!this.data.aqy) {
             this.handleToast({
                 message: "请输入安全员名称",
+                theme: 'fail'
             });
             return;
         }
         if (!this.data.aqyDrawOk) {
             this.handleToast({
                 message: "请安全员签字",
+                theme: 'fail'
             });
             return;
         }
         if (!this.data.xcfzr) {
             this.handleToast({
                 message: "请输入现场负责人名称",
+                theme: 'fail'
             });
             return;
         }
         if (!this.data.xcfzrDrawOk) {
             this.handleToast({
                 message: "请现场负责人签字",
+                theme: 'fail'
             });
             return;
         }
         if (!this.data.jcy) {
             this.handleToast({
                 message: "请输入检查员名称",
+                theme: 'fail'
             });
             return;
         }
         if (!this.data.jcyDrawOk) {
             this.handleToast({
                 message: "请检测员签字",
+                theme: 'fail'
             });
             return;
         }
         if (!this.data.jly) {
             this.handleToast({
                 message: "请输入记录员名称",
+                theme: 'fail'
             });
             return;
         }
         if (!this.data.jlyDrawOk) {
             this.handleToast({
                 message: "请记录员签字",
+                theme: 'fail'
             });
             return;
         }
@@ -750,11 +773,13 @@ Page({
             success(res) {
                 that.handleToast({
                     message: res.data == 1 ? "提交成功" : "提交失败",
+                    theme: res.data == 1 ? "success" : "fail",
                 });
             },
             fail(res) {
                 that.handleToast({
                     message: res.data,
+                    theme: "fail"
                 });
             }
         });
@@ -768,9 +793,11 @@ Page({
         });
     },
 
-    handleToast(message: string | ToastOptionsType) {
+    handleToast(message: string | ToastOptionsType, theme: string) {
         this.toast({
             message: typeof message === "string" ? message : message.message,
+            theme: typeof message === "string" ? theme : message.theme,
+            direction: 'column',
         });
     },
 
