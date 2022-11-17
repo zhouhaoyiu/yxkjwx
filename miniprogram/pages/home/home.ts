@@ -775,6 +775,88 @@ Page({
                     message: res.data == 1 ? "提交成功" : "提交失败",
                     theme: res.data == 1 ? "success" : "fail",
                 });
+                that.setData({
+                    xcfzr: "",
+                    aqyHasDraw: false,
+                    aqyDrawOk: false,
+                    aqyDrawShow: false,
+                    aqySrc: null,
+                    aqyBase64: null,
+
+                    xcfzrHasDraw: false,
+                    xcfzrDrawOk: false, // 现场负责人签字完成
+                    xcfzrDrawShow: false,
+                    xzfzrSrc: null,
+                    xcfzrBase64: null,
+
+                    jcyHasDraw: false,
+                    jcyDrawOk: false,
+                    jcyDrawShow: false,
+                    jcySrc: null,
+                    jcyBase64: null,
+
+                    jlyHasDraw: false,
+                    jlyDrawOk: false,
+                    jlyDrawShow: false,
+                    jlySrc: null,
+                    jlyBase64: null,
+
+                    jobGroupPick: false,
+                    // 作业日期的选择
+                    mode: "",
+                    dateVisible: false,
+                    date: new Date().getTime(), // 支持时间戳传入
+
+                    jobContent: "", // 作业内容
+                    jobGroup: [], // 作业段组
+                    dateText: "", // 作业日期
+                    jobPosition: "", // 作业地点
+
+                    latitude: 0, //首次加载维度
+                    longitude: 0, //首次加载的经度
+                    jobPersonValue: 1, // 作业人员数量
+
+                    // 安全选项
+                    safetyDisclosureValue: true, // 安全交底
+                    inspectionEquipmentValue: true, // 检测设备情况
+                    ventedExhaustValue: true, //通风排气情况
+                    personalProtectionValue: true, // 个人防护用品
+                    gasDetectionValue: true, // 气体检测情况
+                    safetyProtectionValue: true, // 安全防护设备
+
+                    otherInfo: "", // 其他补充措施
+                    /* 开始时间 */
+                    startTimeHour: null,
+                    startTimeMinute: null,
+                    startTimeSecond: null,
+                    /* 结束时间 */
+                    endTimeHour: null,
+                    endTimeMinute: null,
+                    endTimeSecond: null,
+
+                    isInterrupt: false, // 是否中断
+                    pauseTime: "", // 中断时长
+                    reDetectionValue: true, // 再次检测情况
+
+                    gasDetectionImgArr: [] as string[], // 气体检测图片数组
+                    gasDetectionBase64Arr: [] as (string | ArrayBuffer)[], // 气体检测图片base64数组
+
+                    signBoardImgArr: [] as string[], // 标志牌图片数组
+                    signBoardBase64Arr: [] as (string | ArrayBuffer)[],
+
+                    exhaustAirImgArr: [] as string[], // 排气图片数组
+                    exhaustAirBase64Arr: [] as (string | ArrayBuffer)[], // 排气图片base64数组
+                    imgPreview: "", // 图片预览
+
+                    positionList: wellPostion as Record<any, any>[],
+
+                    aqy: "",
+
+                    jcy: "", // 检测人员
+                    jly: "", // 记录人员
+                    cleaningInspection: true,
+                    confinedSpaceType: false, // 有限空间类型                    
+                })
             },
             fail(res) {
                 that.handleToast({
@@ -790,6 +872,7 @@ Page({
             context: this,
             selector: "#t-toast",
             ...option,
+            direction: "column"
         });
     },
 
