@@ -5,6 +5,7 @@ import Toast from 'tdesign-miniprogram/toast/index';
 const width = wx.getSystemInfoSync().windowWidth;
 const wellPostion = [
     {
+        detectionTime: "",
         key: '井口',
         CO: '',
         H2S: '',
@@ -13,6 +14,7 @@ const wellPostion = [
         detectionResult: true
     },
     {
+        detectionTime: "",
         key: '井中',
         CO: '',
         H2S: '',
@@ -21,6 +23,7 @@ const wellPostion = [
         detectionResult: true
     },
     {
+        detectionTime: "",
         key: '井底',
         CO: '',
         H2S: '',
@@ -31,6 +34,7 @@ const wellPostion = [
 ] as Record<string, string | boolean | number>[];
 const roomPosition = [
     {
+        detectionTime: "",
         key: '表房外',
         CO: '',
         H2S: '',
@@ -39,6 +43,7 @@ const roomPosition = [
         detectionResult: true
     },
     {
+        detectionTime: "",
         key: '表房内',
         CO: '',
         H2S: '',
@@ -77,6 +82,7 @@ Page({
         // 作业日期的选择
         mode: '',
         dateVisible: false,
+        timeVisible: false,
         date: new Date().getTime(), // 支持时间戳传入
         time: new Date().getHours() + ':' + new Date().getMinutes(),
 
@@ -96,7 +102,7 @@ Page({
 
         otherInfo: '', // 其他补充措施
 
-        //  通风开始 默认当前时+分 例如 10:30
+        //  通风开始
         ventilationStartsTime: "",
         ventilationEndTime: "", // 通风结束
 
@@ -105,7 +111,7 @@ Page({
 
         isInterrupt: false, // 是否中断
         interruptStartTime: "", // 中断开始时间
-        interruptStartTime: "", // 中断结束时间
+        interruptEndTime: "", // 中断结束时间
 
         gasDetectionImgArr: [] as string[], // 气体检测图片数组
         gasDetectionBase64Arr: [] as (string | ArrayBuffer)[], // 气体检测图片base64数组
@@ -122,7 +128,7 @@ Page({
 
         xzfzr: '',
         jcjly: '', // 检测人员
-        cleaningInspection: true,
+
         confinedSpaceType: false // 有限空间类型
     },
     logWorkIn() {
@@ -311,13 +317,22 @@ Page({
 
     showPicker(e: { currentTarget: { dataset: { mode: any } } }) {
         const { mode, key } = e?.currentTarget?.dataset;
-        console.log(mode);
 
         this.setData({
             mode,
             [`${mode}Visible`]: true,
             dateTimekey: key
         });
+    },
+    showPositionPicker(e: any) {
+        const { mode, index } = e?.currentTarget?.dataset;
+        console.log(index);
+
+        this.setData({
+            mode,
+            positionTimeVisible: true,
+            positionTimeIndex: index
+        })
     },
     hidePicker() {
         const { mode } = this.data;
@@ -328,13 +343,22 @@ Page({
     onConfirm(e: { detail: { value: any } }) {
         const { value } = e?.detail;
         console.log(value);
-        const { mode, dateTimekey } = this.data;
+        const { dateTimekey } = this.data;
         this.setData({
-            [mode]: value,
             [dateTimekey]: value
         });
         this.hidePicker();
     },
+
+    onPositionConfirm(e: any) {
+        const { value } = e?.detail;
+        let { positionTimeIndex, positionList } = this.data;
+        positionList[positionTimeIndex].detectionTime = value;
+        this.setData({
+            positionList
+        })
+    },
+
     moveToLocation() {
         let that = this;
         wx.chooseLocation({

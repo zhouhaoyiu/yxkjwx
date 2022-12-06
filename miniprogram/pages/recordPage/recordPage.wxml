@@ -101,9 +101,9 @@
         <view class="pannel" wx:if="{{isPause}}">
             <view>
                 <!-- <text>作业开始时间<text style="color: #e34d59"> *</text></text> -->
-                <t-cell title="中断开始" hover note="{{timeText || '时 分'}}" arrow data-mode="time" bindtap="showPicker" t-class="pannel-item" t-class-note="{{timeText ? 'sub-text' : 'empty'}}" />
+                <t-cell title="中断开始" hover note="{{interruptStartTime || '时 分'}}" arrow data-mode="time" data-key="interruptStartTime" bindtap="showPicker" t-class="pannel-item" t-class-note="{{interruptStartTime ? 'sub-text' : 'empty'}}" />
                 <!-- <text>作业结束时间<text style="color: #e34d59"> *</text></text> -->
-                <t-cell title="中断结束" hover note="{{timeText || '时 分'}}" arrow data-mode="time" bindtap="showPicker" t-class="pannel-item" t-class-note="{{timeText ? 'sub-text' : 'empty'}}" />
+                <t-cell title="中断结束" hover note="{{interruptEndTime || '时 分'}}" arrow data-mode="time" data-key="interruptEndTime" bindtap="showPicker" t-class="pannel-item" t-class-note="{{interruptEndTime ? 'sub-text' : 'empty'}}" />
             </view>
         </view>
         <view class="box">
@@ -122,6 +122,7 @@
             <view class="position-list">
                 <view class="position-item" wx:for="{{positionList}}" wx:key="index">
                     <view style="color: #999999;" class="pl-32 mt-20">{{item.key}}</view>
+                    <t-cell data-index="{{index}}" title="检测时间" hover note="{{item.detectionTime || '时 分'}}" arrow data-mode="time" bindtap="showPositionPicker" t-class="pannel-item" t-class-note="{{item.detectionTime ? 'sub-text' : 'empty'}}" />
                     <t-input align="right" size="small" value="{{item.CO}}" data-index="{{index}}" data-key="CO" onchange="setPositionData" label="slot" placeholder="小于24">
                         <text slot="label">CO(一氧化碳)<text style="color: #e34d59"> *</text> </text>
                         <view slot="suffix">ppm</view>
@@ -279,4 +280,5 @@
 <t-date-time-picker title="选择日期" visible="{{dateVisible}}" mode="date" defaultValue="{{date}}" format="YYYY-MM-DD" bindchange="onConfirm" bindpick="onColumnChange" bindcancel="hidePicker" start="{{start}}" end="{{end}}"></t-date-time-picker>
 
 <t-date-time-picker title="选择时间" visible="{{timeVisible}}" mode="{{['null', 'minute']}}" value="{{time}}" format="HH:mm" bindchange="onConfirm" bindpick="onColumnChange" bindcancel="hidePicker"></t-date-time-picker>
+<t-date-time-picker title="选择检测时间" visible="{{positionTimeVisible}}" mode="{{['null', 'minute']}}" value="{{time}}" format="HH:mm" bindchange="onPositionConfirm" bindpick="onColumnChange" bindcancel="hidePicker"></t-date-time-picker>
 <t-toast id="t-toast" />
