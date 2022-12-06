@@ -44,13 +44,13 @@ Page({
         const openId = wx.getStorageSync("openId");
         const that = this;
         this.getTabBar().setData({
-            selected: 1,
+            selected: 2,
         });
         try {
             wx.request({
                 method: "GET",
-                url: "https://zhouhaoyiu.oicp.vip/Job/getSendJobByPage",
-                // url: "http://localhost:8092/Job/getSendJobByPage",
+                // url: "https://zhouhaoyiu.oicp.vip/Job/getSendJobByPage",
+                url: "http://localhost:8092/Job/getSendJobByPage",
                 data: {
                     page: this.data.sendPage,
                     sendOpenId: openId,
@@ -92,8 +92,8 @@ Page({
             });
             wx.request({
                 method: "GET",
-                url: "https://zhouhaoyiu.oicp.vip/Job/getVerifyJobByPage",
-                // url: "http://localhost:8092/Job/getVerifyJobByPage",
+                // url: "https://zhouhaoyiu.oicp.vip/Job/getVerifyJobByPage",
+                url: "http://localhost:8092/Job/getVerifyJobByPage",
                 data: {
                     page: this.data.verifyPage,
                     verifyOpenId: openId,
@@ -167,9 +167,12 @@ Page({
             [pageName]: 1,
         });
         const url =
+            // this.data.tabBarIndex == 0
+            //     ? "https://zhouhaoyiu.oicp.vip/Job/getSendJobByPage"
+            //     : "https://zhouhaoyiu.oicp.vip/Job/getVerifyJobByPage";
             this.data.tabBarIndex == 0
-                ? "https://zhouhaoyiu.oicp.vip/Job/getSendJobByPage"
-                : "https://zhouhaoyiu.oicp.vip/Job/getVerifyJobByPage";
+                ? "http://localhost:8092/Job/getSendJobByPage"
+                : "http://localhost:8092/Job/getVerifyJobByPage";
         wx.showLoading({
             title: "加载中",
         });
@@ -225,9 +228,12 @@ Page({
         const openId = wx.getStorageSync("openId");
         const pageName = this.data.tabBarIndex == 0 ? "sendPage" : "verifyPage";
         const url =
+            // this.data.tabBarIndex == 0
+            //     ? "https://zhouhaoyiu.oicp.vip/Job/getSendJobByPage"
+            //     : "https://zhouhaoyiu.oicp.vip/Job/getVerifyJobByPage";
             this.data.tabBarIndex == 0
-                ? "https://zhouhaoyiu.oicp.vip/Job/getSendJobByPage"
-                : "https://zhouhaoyiu.oicp.vip/Job/getVerifyJobByPage";
+                ? "http://localhost:8092/Job/getSendJobByPage"
+                : "http://localhost:8092/Job/getVerifyJobByPage";
         const that = this;
         this.setData({
             [pageName]: this.data[pageName] + 1,

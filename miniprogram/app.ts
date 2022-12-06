@@ -30,8 +30,8 @@ App<IAppOption>({
                     return;
                 }
                 wx.request({
-                    url: "https://zhouhaoyiu.oicp.vip/Wx/login",
-                    // url: "http://localhost:8092/Wx/login",
+                    // url: "https://zhouhaoyiu.oicp.vip/Wx/login",
+                    url: "http://localhost:8092/Wx/login",
                     data: {
                         code: res.code
                     },

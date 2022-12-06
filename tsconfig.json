@@ -22,6 +22,6 @@
             "tdesign-miniprogram/*": ["./miniprogram/miniprogram_npm/tdesign-miniprogram/*"]
         }
     },
-    "include": ["./**/*.ts", "miniprogram/pages/home/home.wxs"],
+    "include": ["./**/*.ts", "miniprogram/pages/recod/home.wxs"],
     "exclude": ["node_modules"]
 }

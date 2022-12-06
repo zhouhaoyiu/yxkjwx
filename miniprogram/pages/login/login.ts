@@ -8,7 +8,7 @@ Page({
     },
     setInputData(e: any) {
         this.setData({
-            [e.target.dataset.inputfield]: e.detail.value,
+            [e.target.dataset.inputfield]: e.detail.value
         });
     },
     wxLogin() {
@@ -23,13 +23,12 @@ Page({
         // });
         if (this.data.pin == "tygscbyx") {
             wx.switchTab({
-                url: "/pages/home/home",
+                url: "/pages/recordPage/recordPage"
             });
             wx.setStorageSync("login", true);
-        }
-        else {
+        } else {
             this.handleToast({
-                message: `pin码错误`,
+                message: `pin码错误`
             });
         }
     },
@@ -40,23 +39,23 @@ Page({
         Toast({
             context: this,
             selector: "#t-toast",
-            ...option,
+            ...option
         });
     },
 
     handleToast(message: string | ToastOptionsType) {
         this.toast({
-            message: typeof message === "string" ? message : message.message,
+            message: typeof message === "string" ? message : message.message
         });
     },
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad() {
-        const login = wx.getStorageSync('login') || false
+        const login = wx.getStorageSync("login") || false;
         if (login) {
             wx.switchTab({
-                url: "/pages/home/home",
+                url: "/pages/recordPage/recordPage"
             });
         }
     },
@@ -64,35 +63,35 @@ Page({
     /**
      * 生命周期函数--监听页面初次渲染完成
      */
-    onReady() { },
+    onReady() {},
 
     /**
      * 生命周期函数--监听页面显示
      */
-    onShow() { },
+    onShow() {},
 
     /**
      * 生命周期函数--监听页面隐藏
      */
-    onHide() { },
+    onHide() {},
 
     /**
      * 生命周期函数--监听页面卸载
      */
-    onUnload() { },
+    onUnload() {},
 
     /**
      * 页面相关事件处理函数--监听用户下拉动作
      */
-    onPullDownRefresh() { },
+    onPullDownRefresh() {},
 
     /**
      * 页面上拉触底事件的处理函数
      */
-    onReachBottom() { },
+    onReachBottom() {},
 
     /**
      * 用户点击右上角分享
      */
-    onShareAppMessage() { },
+    onShareAppMessage() {}
 });

@@ -18,8 +18,8 @@ Page({
         });
         wx.request({
             method: "GET",
-            url: "https://zhouhaoyiu.oicp.vip/Job/getInfoByJobUuid",
-            // url:"http://localhost:8092/Job/getInfoByJobUuid",
+            // url: "https://zhouhaoyiu.oicp.vip/Job/getInfoByJobUuid",
+            url:"http://localhost:8092/Job/getInfoByJobUuid",
             data: {
                 jobUuid: this.data.jobUuid,
             },
