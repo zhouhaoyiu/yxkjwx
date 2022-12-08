@@ -1,7 +1,5 @@
-// pages/home/home.ts
 // @ts-nocheck
 import Toast from 'tdesign-miniprogram/toast/index';
-
 const width = wx.getSystemInfoSync().windowWidth;
 const wellPostion = [
     {
@@ -52,6 +50,53 @@ const roomPosition = [
         detectionResult: true
     }
 ] as Record<string, string | boolean | number>[];
+
+const wellInterruptTemplate = [{
+    detectionTime: "",
+    key: '井口',
+    CO: '',
+    H2S: '',
+    O2: '',
+    combustibleGas: '',
+    detectionResult: true
+},
+{
+    detectionTime: "",
+    key: '井中',
+    CO: '',
+    H2S: '',
+    O2: '',
+    combustibleGas: '',
+    detectionResult: true
+},
+{
+    detectionTime: "",
+    key: '井底',
+    CO: '',
+    H2S: '',
+    O2: '',
+    combustibleGas: '',
+    detectionResult: true
+}]
+
+const roomInterruptTemplate = [{
+    detectionTime: "",
+    key: '表房外',
+    CO: '',
+    H2S: '',
+    O2: '',
+    combustibleGas: '',
+    detectionResult: true,
+}, {
+    detectionTime: "",
+    key: '表房内',
+    CO: '',
+    H2S: '',
+    O2: '',
+    combustibleGas: '',
+    detectionResult: true
+}
+]
 Page({
     /**
      * 页面的初始数据
@@ -78,6 +123,8 @@ Page({
         // 位置表单信息
         wellPostion,
         roomPosition,
+        wellInterruptTemplate,
+        roomInterruptTemplate,
 
         // 作业日期的选择
         mode: '',
@@ -99,15 +146,12 @@ Page({
         inspectionEquipmentValue: true, // 检测设备情况
         safetyProtectionValue: true, // 安全防护设备
         emerRescueValue: true, // 应急救援装备
-
         otherInfo: '', // 其他补充措施
 
-        //  通风开始
-        ventilationStartsTime: "",
+        ventilationStartsTime: "", //  通风开始
         ventilationEndTime: "", // 通风结束
-
-        jobStartTime: "",
-        jobEndTime: "",
+        jobStartTime: "", // 作业开始
+        jobEndTime: "", // 作业结束
 
         isInterrupt: false, // 是否中断
         interruptStartTime: "", // 中断开始时间
@@ -124,9 +168,11 @@ Page({
 
         imgPreview: '', // 图片预览
 
-        positionList: wellPostion as Record<any, any>[],
+        positionList: wellPostion as Record<string, string | boolean | number>[],
+        interruptList: wellInterruptTemplate,
+        interruptTestPositionIndex: 0,
 
-        xzfzr: '',
+        xzfzr: '', // 现场负责人
         jcjly: '', // 检测人员
 
         confinedSpaceType: false // 有限空间类型
@@ -168,17 +214,13 @@ Page({
             positionList: e.target.dataset.positon
         });
     },
-    jobGroupVisible() {
-        this.setData({
-            jobGroupPick: !this.data.jobGroupPick
-        });
-    },
+
     setPositionData(e: any) {
         let value = e.detail.value;
-        if (!value) {
+        const key = e.target.dataset.key;
+        if (!value && key === "detectionResult") {
             value = e.target.dataset.textvalue === "true"
         }
-        const key = e.target.dataset.key;
         const index = e.target.dataset.index;
         const { positionList } = this.data;
         positionList[index][key] = value;
@@ -221,9 +263,8 @@ Page({
         });
     },
 
-    udf() {
-        void 0;
-    },
+
+
     previewImg(e: any) {
         const arrname = e.target.dataset.arrname;
         const index = e.target.dataset.index;
@@ -272,10 +313,12 @@ Page({
         });
         if (valueName === 'confinedSpaceType') {
             this.setData({
-                positionList: e.detail.value ? roomPosition : wellPostion
+                positionList: e.detail.value ? roomPosition : wellPostion,
+                interruptList: e.detail.value ? roomInterruptTemplate : wellInterruptTemplate
             });
         }
     },
+
     onClickSwitchText(e: any) {
         const valueName = e.target.dataset.valuename;
         let textValue = e.target.dataset.textvalue;
@@ -283,15 +326,10 @@ Page({
             [valueName]: textValue == 'true' ? true : false
         });
     },
-    // 点击选择
+ 
     handleGroupChange(event) {
         this.setData({
             jobGroup: event.detail.value
-        });
-    },
-    onChangeJobPerson(e: { detail: { value: any } }) {
-        this.setData({
-            jobPersonValue: e.detail.value
         });
     },
 
@@ -324,25 +362,34 @@ Page({
             dateTimekey: key
         });
     },
+
     showPositionPicker(e: any) {
         const { mode, index } = e?.currentTarget?.dataset;
-        console.log(index);
-
         this.setData({
             mode,
             positionTimeVisible: true,
             positionTimeIndex: index
         })
     },
+
+    showInterruptPicker(e: any) {
+        const { mode, index } = e?.currentTarget?.dataset;
+        this.setData({
+            mode,
+            interruptTimeVisible: true,
+            interruptTimeIndex: index
+        })
+    },
+
     hidePicker() {
         const { mode } = this.data;
         this.setData({
             [`${mode}Visible`]: false
         });
     },
+
     onConfirm(e: { detail: { value: any } }) {
         const { value } = e?.detail;
-        console.log(value);
         const { dateTimekey } = this.data;
         this.setData({
             [dateTimekey]: value
@@ -356,6 +403,15 @@ Page({
         positionList[positionTimeIndex].detectionTime = value;
         this.setData({
             positionList
+        })
+    },
+
+    onInterruptConfirm(e: any) {
+        const { value } = e?.detail;
+        let { interruptTimeIndex, interruptList } = this.data;
+        interruptList[interruptTimeIndex].detectionTime = value;
+        this.setData({
+            interruptList
         })
     },
 
@@ -375,36 +431,16 @@ Page({
         });
     },
 
-    /**
-     * 生命周期函数--监听页面加载
-     */
     onLoad() {
         this.getTabBar().setData({
             selected: 1
         });
-        // wx.request({
-        //     url: "http://localhost:8092/Job/getUuid",
-        //     method: "GET",
-        //     success: (res) => {
-        //         console.log(res);
-
-        //         this.setData({
-        //             uuid: res.data
-        //         })
-        //     },
-        //     fail: (e) => {
-        //         console.log(e);
-
-        //     }
-        // })
         const query = wx.createSelectorQuery();
 
         query
             .select('.xcfzrSign')
             .fields({ node: true })
             .exec(res => {
-                console.log(res);
-
                 const canvas = res[0].node;
                 canvas.width = width;
                 canvas.height = '250';
@@ -420,8 +456,6 @@ Page({
             .select('.jcjlySign')
             .fields({ node: true })
             .exec(res => {
-                console.log(res);
-
                 const canvas = res[1].node;
                 canvas.width = width;
                 canvas.height = '250';
@@ -486,7 +520,7 @@ Page({
                 chineseName = '现场负责人';
                 break;
             case 'jcjly':
-                chineseName = '检查员';
+                chineseName = '检测记录员';
                 break;
         }
         if (!this.data[`${name}HasDraw`]) {
@@ -521,7 +555,6 @@ Page({
                     console.log(e);
                 }
             },
-            this
         );
     },
 
@@ -586,14 +619,14 @@ Page({
         }
         if (!this.data.jcjly) {
             this.handleToast({
-                message: '请输入检查员名称',
+                message: '请输入检测记录员名称',
                 theme: 'fail'
             });
             return;
         }
         if (!this.data.jcjlyDrawOk) {
             this.handleToast({
-                message: '请检测员签字',
+                message: '请检测记录员签字',
                 theme: 'fail'
             });
             return;
@@ -604,25 +637,32 @@ Page({
             jobDate: this.data.dateText,
             jobPosition: this.data.jobPosition,
 
+            riskFactorsValue: this.data.riskFactorsValue, //
             safetyDisclosureValue: this.data.safetyDisclosureValue, //
             inspectionEquipmentValue: this.data.inspectionEquipmentValue, //
-            ventedExhaustValue: this.data.ventedExhaustValue, //
-            personalProtectionValue: this.data.personalProtectionValue, //
-            gasDetectionValue: this.data.gasDetectionValue, //
             safetyProtectionValue: this.data.safetyProtectionValue, //
+            emerRescueValue: this.data.emerRescueValue, //
             otherInfo: this.data.otherInfo, //
+
+            ventilationStartsTime: this.data.ventilationStartsTime, //  通风开始
+            ventilationEndTime: this.data.ventilationEndTime, // 通风结束
+
+            jobStartTime: this.data.jobStartTime,
+            jobEndTime: this.data.jobEndTime,
+
             isInterrupt: this.data.isInterrupt, //
-            pauseTime: this.data.pauseTime,
-            reDetectionValue: this.data.reDetectionValue, //
-            confinedSpaceType: this.data.confinedSpaceType, //
+            interruptStartTime: this.data.interruptStartTime, // 中断开始时间
+            interruptEndTime: this.data.interruptEndTime, // 中断结束时间
+
+            confinedSpaceType: this.data.confinedSpaceType, 
+
             positionList: JSON.stringify(this.data.positionList),
+            interruptList: JSON.stringify(this.data.interruptList),
+
             gasDetectionBase64Arr: this.data.gasDetectionBase64Arr.toString(),
             signBoardBase64Arr: this.data.signBoardBase64Arr.toString(),
             exhaustBase64Arr: this.data.exhaustAirBase64Arr.toString(),
-            endTimeHour: this.data.endTimeHour,
-            endTimeMinute: this.data.endTimeMinute,
-            endTimeSecond: this.data.endTimeSecond,
-            cleaningInspection: this.data.cleaningInspection, //
+
             xcfzr: this.data.xcfzr,
             xcfzrBase64: this.data.xcfzrBase64,
             jcjly: this.data.jcjly,
@@ -632,7 +672,7 @@ Page({
         const that = this;
         wx.request({
             // url: 'https://zhouhaoyiu.oicp.vip/Job/addJob',
-            url: "http://localhost:8092/Job/addJob",
+            url: "http://localhost:8092/recordJob/addRecordJob",
             method: 'POST',
             data: data,
             success(res) {
@@ -642,45 +682,45 @@ Page({
                 });
                 that.setData({
                     xcfzr: '',
-
                     xcfzrHasDraw: false,
                     xcfzrDrawOk: false, // 现场负责人签字完成
                     xcfzrDrawShow: false,
                     xzfzrSrc: null,
                     xcfzrBase64: null,
 
+                    jcjly: '', // 检测人员
                     jcjlyHasDraw: false,
                     jcjlyDrawOk: false,
                     jcjlyDrawShow: false,
                     jcjlySrc: null,
                     jcjlyBase64: null,
-
-                    jobGroupPick: false,
                     // 作业日期的选择
                     mode: '',
                     dateVisible: false,
+                    timeVisible: false,
                     date: new Date().getTime(), // 支持时间戳传入
+                    time: new Date().getHours() + ':' + new Date().getMinutes(),
 
                     jobContent: '', // 作业内容
                     dateText: '', // 作业日期
                     jobPosition: '', // 作业地点
 
-                    latitude: 0, //首次加载维度
-                    longitude: 0, //首次加载的经度
-
                     // 安全选项
+                    riskFactorsValue: true, // 危险因素
                     safetyDisclosureValue: true, // 安全交底
                     inspectionEquipmentValue: true, // 检测设备情况
-                    ventedExhaustValue: true, //通风排气情况
-                    personalProtectionValue: true, // 个人防护用品
-                    gasDetectionValue: true, // 气体检测情况
                     safetyProtectionValue: true, // 安全防护设备
-
+                    emerRescueValue: true, // 应急救援装备
                     otherInfo: '', // 其他补充措施
 
+                    ventilationStartsTime: "", //  通风开始
+                    ventilationEndTime: "", // 通风结束
+                    jobStartTime: "", // 作业开始
+                    jobEndTime: "", // 作业结束
+
                     isInterrupt: false, // 是否中断
-                    pauseTime: '', // 中断时长
-                    reDetectionValue: true, // 再次检测情况
+                    interruptStartTime: "", // 中断开始时间
+                    interruptEndTime: "", // 中断结束时间
 
                     gasDetectionImgArr: [] as string[], // 气体检测图片数组
                     gasDetectionBase64Arr: [] as (string | ArrayBuffer)[], // 气体检测图片base64数组
@@ -693,9 +733,9 @@ Page({
                     imgPreview: '', // 图片预览
 
                     positionList: wellPostion as Record<any, any>[],
+                    interruptList: wellInterruptTemplate,
+                    interruptTestPositionIndex: 0,
 
-                    jcjly: '', // 检测人员
-                    cleaningInspection: true,
                     confinedSpaceType: false // 有限空间类型
                 });
             },
@@ -706,6 +746,54 @@ Page({
                 });
             }
         });
+    },
+
+
+    setInterruptInputData(e) {
+        let value = e.detail.value;
+        const key = e.target.dataset.key;
+        if (!value && key === "detectionResult") {
+            value = e.target.dataset.textvalue === "true"
+        }
+        const index = e.target.dataset.index;
+        const { interruptList } = this.data;
+        interruptList[index][key] = value;
+        this.setData({
+            interruptList
+        });
+    },
+
+    /**
+     * 生命周期函数--监听页面初次渲染完成
+     */
+    onReady() { },
+
+    /**
+     * 生命周期函数--监听页面显示
+     */
+    onShow() { },
+
+    /**
+     * 页面相关事件处理函数--监听用户下拉动作
+     */
+    onPullDownRefresh() { },
+
+    /**
+     * 页面上拉触底事件的处理函数
+     */
+    onReachBottom() { },
+
+    /**
+     * 用户点击右上角分享
+     */
+    onShareAppMessage() { },
+
+    udf() {
+        void 0;
+    },
+
+    test() {
+        console.log('test');
     },
 
     toast(option: ToastOptionsType) {
@@ -724,41 +812,4 @@ Page({
         });
     },
 
-    test() {
-        console.log('test');
-    },
-    /**
-     * 生命周期函数--监听页面初次渲染完成
-     */
-    onReady() { },
-
-    /**
-     * 生命周期函数--监听页面显示
-     */
-    onShow() { },
-
-    /**
-     * 生命周期函数--监听页面隐藏
-     */
-    onHide() { },
-
-    /**
-     * 生命周期函数--监听页面卸载
-     */
-    onUnload() { },
-
-    /**
-     * 页面相关事件处理函数--监听用户下拉动作
-     */
-    onPullDownRefresh() { },
-
-    /**
-     * 页面上拉触底事件的处理函数
-     */
-    onReachBottom() { },
-
-    /**
-     * 用户点击右上角分享
-     */
-    onShareAppMessage() { }
 });

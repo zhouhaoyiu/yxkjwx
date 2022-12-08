@@ -6,7 +6,7 @@
         "pages/home/home",
         "pages/list/list",
         "pages/index/index",
-        "pages/details/details",
+        "pages/recordDetails/recordDetails",
         "pages/verify/verify"
     ],
     "window": {

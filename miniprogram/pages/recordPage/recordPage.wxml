@@ -77,7 +77,7 @@
         </view>
     </view>
     <view class="box">
-        <view class="workBefore" bindtap="logWorkIn">作业中</view>
+        <view class="workBefore" bindtap="logWorkIn">作业前检测</view>
         <t-divider></t-divider>
         <view>
             <t-cell title="通风开始" hover note="{{ventilationStartsTime || '时 分'}}" arrow data-mode="time" data-key="ventilationStartsTime" bindtap="showPicker" t-class="pannel-item" t-class-note="{{ventilationStartsTime ? 'sub-text' : 'empty'}}" />
@@ -89,16 +89,16 @@
         </view>
         <view class="pannel-item">
             <view class="pannel-label">是否中断<text style="color: #e34d59"> *</text></view>
-            <view class="pannel-text {{isPause.length ? '' : 'empty'}}"></view>
-            <view class="switch-text-left" data-textValue="false" data-valueName="isPause" bindtap="onClickSwitchText" style="color:{{isPause ? 'rgb(153,153,153)':'red'}}">
+            <view class="pannel-text {{isInterrupt.length ? '' : 'empty'}}"></view>
+            <view class="switch-text-left" data-textValue="false" data-valueName="isInterrupt" bindtap="onClickSwitchText" style="color:{{isInterrupt ? 'rgb(153,153,153)':'red'}}">
                 否
             </view>
-            <t-switch value="{{isPause}}" data-valueName="isPause" bindchange="onChangeSwitch" />
-            <view class="switch-text-right" data-textValue="true" data-valueName="isPause" bindtap="onClickSwitchText" style="color:{{isPause ? 'green' :'rgb(153,153,153)'}}">
+            <t-switch value="{{isInterrupt}}" data-valueName="isInterrupt" bindchange="onChangeSwitch" />
+            <view class="switch-text-right" data-textValue="true" data-valueName="isInterrupt" bindtap="onClickSwitchText" style="color:{{isInterrupt ? 'green' :'rgb(153,153,153)'}}">
                 是
             </view>
         </view>
-        <view class="pannel" wx:if="{{isPause}}">
+        <view class="pannel" wx:if="{{isInterrupt}}">
             <view>
                 <!-- <text>作业开始时间<text style="color: #e34d59"> *</text></text> -->
                 <t-cell title="中断开始" hover note="{{interruptStartTime || '时 分'}}" arrow data-mode="time" data-key="interruptStartTime" bindtap="showPicker" t-class="pannel-item" t-class-note="{{interruptStartTime ? 'sub-text' : 'empty'}}" />
@@ -124,7 +124,8 @@
                     <view style="color: #999999;" class="pl-32 mt-20">{{item.key}}</view>
                     <t-cell data-index="{{index}}" title="检测时间" hover note="{{item.detectionTime || '时 分'}}" arrow data-mode="time" bindtap="showPositionPicker" t-class="pannel-item" t-class-note="{{item.detectionTime ? 'sub-text' : 'empty'}}" />
                     <t-input align="right" size="small" value="{{item.CO}}" data-index="{{index}}" data-key="CO" onchange="setPositionData" label="slot" placeholder="小于24">
-                        <text slot="label">CO(一氧化碳)<text style="color: #e34d59"> *</text> </text>
+                        <text slot="label">CO(一氧化碳)<text style="color: #e34d59"> *</text>
+                        </text>
                         <view slot="suffix">ppm</view>
                     </t-input>
                     <t-input align="right" size="small" value="{{item.H2S}}" data-index="{{index}}" data-key="H2S" onchange="setPositionData" label="slot" placeholder="小于10">
@@ -150,13 +151,11 @@
                             合格
                         </view>
                     </view>
-                    <!-- <t-input align="right" size="small" value="{{item.detectionResult}}" data-index="{{index}}" data-key="detectionResult" onchange="setPositionData" label="检测结果" placeholder="请输入结果"></t-input> -->
                 </view>
             </view>
             <view class="wrapper pt-20">
                 <view class="pb-20">现场气体检测情况附图<text style="color: #e34d59"> *</text></view>
                 <view class="main pb-20">
-                    <!-- {{!imgArr.length}} -->
                     <view class="content" wx:if="{{!gasDetectionImgArr.length}}" data-arrname="gasDetection" bindtap="handleUploadImg">
                         <text class="plus">+</text>
                     </view>
@@ -197,6 +196,44 @@
                             </view>
                             <image class="img" data-index="{{index}}" src="{{exhaustAirImgArr[index]}}" data-arrname="exhaustAir" bindtap="previewImg"></image>
                         </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view class="box" wx:if="{{isInterrupt}}">
+        <view class="workBefore" bindtap="logWorkIn">中断检测</view>
+        <t-divider></t-divider>
+        <view wx:for="{{interruptList}}" wx:key="index">
+            <view>
+                <view style="color: #999999;" class="pl-32 mt-20">{{item.key}}</view>
+                <t-cell data-index="{{index}}" title="检测时间" hover note="{{item.detectionTime || '时 分'}}" arrow data-mode="time" bindtap="showInterruptPicker" t-class="pannel-item" t-class-note="{{item.detectionTime ? 'sub-text' : 'empty'}}" />
+                <t-input align="right" size="small" value="{{item.CO}}" data-index="{{index}}" data-key="CO" onchange="setInterruptInputData" label="slot" placeholder="小于24">
+                    <text slot="label"> CO(一氧化碳) <text style="color: #e34d59"> *</text>
+                    </text>
+                    <view slot="suffix">ppm</view>
+                </t-input>
+                <t-input align="right" size="small" value="{{item.H2S}}" data-index="{{index}}" data-key="H2S" onchange="setInterruptInputData" label="slot" placeholder="小于10">
+                    <text slot="label">H2S(硫化氢)<text style="color: #e34d59"> *</text> </text>
+                    <view slot="suffix">ppm</view>
+                </t-input>
+                <t-input align="right" size="small" value="{{item.O2}}" data-index="{{index}}" data-key="O2" onchange="setInterruptInputData" label="slot" placeholder="19.5~23">
+                    <text slot="label">O2(氧气)<text style="color: #e34d59"> *</text> </text>
+                    <view slot="suffix">%</view>
+                </t-input>
+                <t-input align="right" size="small" value="{{item.combustibleGas}}" data-index="{{index}}" data-key="combustibleGas" onchange="setInterruptInputData" label="slot" placeholder="小于等于0">
+                    <text slot="label">可燃气体<text style="color: #e34d59"> *</text> </text>
+                    <view slot="suffix">%</view>
+                </t-input>
+                <view class="pannel-item">
+                    <view class="pannel-label">是否合格</view>
+                    <view class="pannel-text"></view>
+                    <view class="switch-text-left" data-index="{{index}}" data-textValue="false" data-key="detectionResult" bindtap="setInterruptInputData" style="color:{{item.detectionResult ? 'rgb(153,153,153)':'red'}}">
+                        不合格
+                    </view>
+                    <t-switch data-index="{{index}}" data-key="detectionResult" value="{{item.detectionResult}}" bindchange="setInterruptInputData" />
+                    <view data-index="{{index}}" data-textValue="true" data-key="detectionResult" bindtap="setInterruptInputData" class="switch-text-right" style="color:{{item.detectionResult ? 'green' :'rgb(153,153,153)'}}">
+                        合格
                     </view>
                 </view>
             </view>
@@ -281,4 +318,6 @@
 
 <t-date-time-picker title="选择时间" visible="{{timeVisible}}" mode="{{['null', 'minute']}}" value="{{time}}" format="HH:mm" bindchange="onConfirm" bindpick="onColumnChange" bindcancel="hidePicker"></t-date-time-picker>
 <t-date-time-picker title="选择检测时间" visible="{{positionTimeVisible}}" mode="{{['null', 'minute']}}" value="{{time}}" format="HH:mm" bindchange="onPositionConfirm" bindpick="onColumnChange" bindcancel="hidePicker"></t-date-time-picker>
+
+<t-date-time-picker title="选择检测时间" visible="{{interruptTimeVisible}}" mode="{{['null', 'minute']}}" value="{{time}}" format="HH:mm" bindchange="onInterruptConfirm" bindpick="onColumnChange" bindcancel="hidePicker"></t-date-time-picker>
 <t-toast id="t-toast" />
