@@ -667,7 +667,7 @@ Page({
             xcfzrBase64: this.data.xcfzrBase64,
             jcjly: this.data.jcjly,
             jcjlyBase64: this.data.jcjlyBase64,
-            sendOpenId: openId
+            sendOpenId: openId,
         };
         const that = this;
         wx.request({
@@ -680,64 +680,64 @@ Page({
                     message: res.data == 1 ? '提交成功' : '提交失败',
                     theme: res.data == 1 ? 'success' : 'fail'
                 });
-                that.setData({
-                    xcfzr: '',
-                    xcfzrHasDraw: false,
-                    xcfzrDrawOk: false, // 现场负责人签字完成
-                    xcfzrDrawShow: false,
-                    xzfzrSrc: null,
-                    xcfzrBase64: null,
+                // that.setData({
+                //     xcfzr: '',
+                //     xcfzrHasDraw: false,
+                //     xcfzrDrawOk: false, // 现场负责人签字完成
+                //     xcfzrDrawShow: false,
+                //     xzfzrSrc: null,
+                //     xcfzrBase64: null,
 
-                    jcjly: '', // 检测人员
-                    jcjlyHasDraw: false,
-                    jcjlyDrawOk: false,
-                    jcjlyDrawShow: false,
-                    jcjlySrc: null,
-                    jcjlyBase64: null,
-                    // 作业日期的选择
-                    mode: '',
-                    dateVisible: false,
-                    timeVisible: false,
-                    date: new Date().getTime(), // 支持时间戳传入
-                    time: new Date().getHours() + ':' + new Date().getMinutes(),
+                //     jcjly: '', // 检测人员
+                //     jcjlyHasDraw: false,
+                //     jcjlyDrawOk: false,
+                //     jcjlyDrawShow: false,
+                //     jcjlySrc: null,
+                //     jcjlyBase64: null,
+                //     // 作业日期的选择
+                //     mode: '',
+                //     dateVisible: false,
+                //     timeVisible: false,
+                //     date: new Date().getTime(), // 支持时间戳传入
+                //     time: new Date().getHours() + ':' + new Date().getMinutes(),
 
-                    jobContent: '', // 作业内容
-                    dateText: '', // 作业日期
-                    jobPosition: '', // 作业地点
+                //     jobContent: '', // 作业内容
+                //     dateText: '', // 作业日期
+                //     jobPosition: '', // 作业地点
 
-                    // 安全选项
-                    riskFactorsValue: true, // 危险因素
-                    safetyDisclosureValue: true, // 安全交底
-                    inspectionEquipmentValue: true, // 检测设备情况
-                    safetyProtectionValue: true, // 安全防护设备
-                    emerRescueValue: true, // 应急救援装备
-                    otherInfo: '', // 其他补充措施
+                //     // 安全选项
+                //     riskFactorsValue: true, // 危险因素
+                //     safetyDisclosureValue: true, // 安全交底
+                //     inspectionEquipmentValue: true, // 检测设备情况
+                //     safetyProtectionValue: true, // 安全防护设备
+                //     emerRescueValue: true, // 应急救援装备
+                //     otherInfo: '', // 其他补充措施
 
-                    ventilationStartsTime: "", //  通风开始
-                    ventilationEndTime: "", // 通风结束
-                    jobStartTime: "", // 作业开始
-                    jobEndTime: "", // 作业结束
+                //     ventilationStartsTime: "", //  通风开始
+                //     ventilationEndTime: "", // 通风结束
+                //     jobStartTime: "", // 作业开始
+                //     jobEndTime: "", // 作业结束
 
-                    isInterrupt: false, // 是否中断
-                    interruptStartTime: "", // 中断开始时间
-                    interruptEndTime: "", // 中断结束时间
+                //     isInterrupt: false, // 是否中断
+                //     interruptStartTime: "", // 中断开始时间
+                //     interruptEndTime: "", // 中断结束时间
 
-                    gasDetectionImgArr: [] as string[], // 气体检测图片数组
-                    gasDetectionBase64Arr: [] as (string | ArrayBuffer)[], // 气体检测图片base64数组
+                //     gasDetectionImgArr: [] as string[], // 气体检测图片数组
+                //     gasDetectionBase64Arr: [] as (string | ArrayBuffer)[], // 气体检测图片base64数组
 
-                    signBoardImgArr: [] as string[], // 标志牌图片数组
-                    signBoardBase64Arr: [] as (string | ArrayBuffer)[],
+                //     signBoardImgArr: [] as string[], // 标志牌图片数组
+                //     signBoardBase64Arr: [] as (string | ArrayBuffer)[],
 
-                    exhaustAirImgArr: [] as string[], // 排气图片数组
-                    exhaustAirBase64Arr: [] as (string | ArrayBuffer)[], // 排气图片base64数组
-                    imgPreview: '', // 图片预览
+                //     exhaustAirImgArr: [] as string[], // 排气图片数组
+                //     exhaustAirBase64Arr: [] as (string | ArrayBuffer)[], // 排气图片base64数组
+                //     imgPreview: '', // 图片预览
 
-                    positionList: wellPostion as Record<any, any>[],
-                    interruptList: wellInterruptTemplate,
-                    interruptTestPositionIndex: 0,
+                //     positionList: wellPostion as Record<any, any>[],
+                //     interruptList: wellInterruptTemplate,
+                //     interruptTestPositionIndex: 0,
 
-                    confinedSpaceType: false // 有限空间类型
-                });
+                //     confinedSpaceType: false // 有限空间类型
+                // });
             },
             fail(res) {
                 that.handleToast({

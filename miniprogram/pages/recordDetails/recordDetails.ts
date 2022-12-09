@@ -12,14 +12,14 @@ Page({
      */
     onLoad(opt: any) {
         console.log(opt);
+        wx.hideShareMenu({});
         const that = this;
         this.setData({
             jobUuid: opt.jobUuid,
         });
         wx.request({
             method: "GET",
-            // url: "https://zhouhaoyiu.oicp.vip/Job/getInfoByJobUuid",
-            url:"http://localhost:8092/Job/getInfoByJobUuid",
+            url: "http://localhost:8092/recordJob/getInfoByRecordJobUuid",
             data: {
                 jobUuid: this.data.jobUuid,
             },
@@ -27,9 +27,8 @@ Page({
                 console.log(res);
 
                 res.data[0].positionList = JSON.parse(res.data[0].positionList)
-                if (res.data[0].status != 1) {
-                    wx.hideShareMenu({});
-                }
+                res.data[0].interruptList = JSON.parse(res.data[0].interruptList)
+
                 that.setData({
                     info: res.data[0],
                 });

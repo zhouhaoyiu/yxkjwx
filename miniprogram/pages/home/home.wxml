@@ -1,2 +1,35 @@
-<!--pages/home/home.wxml-->
-<text>pages/home/home.wxml</text>
+<scroll-view class="page" scroll-y="false">
+    <view class="box">
+        <t-cell required title="作业时间" hover note="{{dateText || '年 月 日'}}" arrow data-mode="date" data-key="dateText" bindtap="showPicker" class="test" t-class="pannel-item" t-class-note="{{dateText ? 'sub-text' : 'empty'}}" />
+
+        <view>
+            <view wx:for="{{workList}}" wx:key="id">
+                <view style="padding:6rpx 0rpx 6px 16rpx">
+                    序号:{{index+1}}
+                </view>
+                <t-input align="right" size="small" data-inputfield="jobContent" onchange="setWorkListInputData" value="{{jobContent}}" label="slot" placeholder="请输入作业内容">
+                    <text slot="label">作业内容<text style="color: #e34d59"> *</text> </text>
+                </t-input>
+                <t-input align="right" size="small" data-inputfield="jobPosition" onchange="setWorkListInputData" value="{{jobPosition}}" label="slot" placeholder="请输入作业地点">
+                    <text slot="label">作业地点<text style="color: #e34d59"> *</text> </text>
+                </t-input>
+                <view style="height: 10rpx;"> </view>
+                <t-button block size="small" bindtap="deleteWork" data-id="{{item.id}}" theme="danger">删除作业</t-button>
+                <view style="height: 6rpx;"> </view>
+            </view>
+            <t-button bindtap="addWork" theme="primary" block>新增作业</t-button>
+        </view>
+        <view>
+            <t-input align="right" size="small" label="slot" placeholder="请输入作业负责人">
+                <text slot="label">作业负责人 </text>
+            </t-input>
+            <t-input align="right" size="small" label="slot">
+                <text slot="label">监护人员 </text>
+            </t-input>
+            <t-input align="right" size="small" label="slot">
+                <text slot="label">作业人员 </text>
+
+            </t-input>
+        </view>
+    </view>
+</scroll-view>

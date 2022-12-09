@@ -1,9 +1,27 @@
+import Toast, { ToastOptionsType } from "tdesign-miniprogram/toast";
+
 // pages/recordList/recordList.ts
 Page({
     /**
      * 页面的初始数据
      */
-    data: {},
+    data: {
+        sendPage: 1,
+        sendInfo: [] as any[]
+    },
+    toast(option: ToastOptionsType) {
+        Toast({
+            context: this,
+            selector: "#toast",
+            ...option,
+        });
+    },
+
+    handleToast(message: string | ToastOptionsType) {
+        this.toast({
+            message: typeof message === "string" ? message : message.message,
+        });
+    },
 
     /**
      * 生命周期函数--监听页面加载
@@ -12,40 +30,90 @@ Page({
         this.getTabBar().setData({
             selected: 3
         });
+        const openId = wx.getStorageSync("openId");
+        const that = this;
+        try {
+            wx.request({
+                method: "GET",
+                url: "http://localhost:8092/recordJob/getSendRecordJobByPage",
+                data: {
+                    page: this.data.sendPage,
+                    sendOpenId: openId,
+                },
+                success: res => {
+                    if (res.data instanceof Array) {
+                        let infoDate = new Set() as Set<string>;
+                        res.data.forEach((ele: { jobDate: string }) => {
+                            infoDate.add(String(ele.jobDate))
+                        })
+                        let info: any[] = [];
+                        infoDate.forEach((element) => {
+                            let jobInfo: any[] = [];
+                            (res.data as Array<any>).forEach((item: { jobDate: string }) => {
+                                if (item.jobDate === element) {
+                                    jobInfo.push(item);
+                                }
+                            });
+                            info.push({
+                                jobDate: element,
+                                jobInfo: jobInfo,
+                            });
+                        });
+                        that.setData({
+                            sendInfo: info,
+                        });
+                    }
+                }
+            })
+        } catch (e) {
+            this.handleToast({
+                message: "网络错误",
+            });
+        } finally {
+
+        }
+    },
+
+    goDetails(e: any) {
+        console.log(e.currentTarget.dataset.jobuuid);
+
+        wx.navigateTo({
+            url: "/pages/recordDetails/recordDetails?jobUuid=" + e.currentTarget.dataset.jobuuid,
+        });
     },
 
     /**
      * 生命周期函数--监听页面初次渲染完成
      */
-    onReady() {},
+    onReady() { },
 
     /**
      * 生命周期函数--监听页面显示
      */
-    onShow() {},
+    onShow() { },
 
     /**
      * 生命周期函数--监听页面隐藏
      */
-    onHide() {},
+    onHide() { },
 
     /**
      * 生命周期函数--监听页面卸载
      */
-    onUnload() {},
+    onUnload() { },
 
     /**
      * 页面相关事件处理函数--监听用户下拉动作
      */
-    onPullDownRefresh() {},
+    onPullDownRefresh() { },
 
     /**
      * 页面上拉触底事件的处理函数
      */
-    onReachBottom() {},
+    onReachBottom() { },
 
     /**
      * 用户点击右上角分享
      */
-    onShareAppMessage() {}
+    onShareAppMessage() { }
 });

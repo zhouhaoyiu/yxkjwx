@@ -1,6 +1,6 @@
 <scroll-view class="page" scroll-y="false">
     <view class="box">
-        <t-cell required title="作业日期" hover note="{{dateText || '年 月 日'}}" arrow data-mode="date" data-key="dateText" bindtap="showPicker" class="test" t-class="pannel-item" t-class-note="{{dateText ? 'sub-text' : 'empty'}}" />
+        <t-cell required title="作业时间" hover note="{{dateText || '年 月 日'}}" arrow data-mode="date" data-key="dateText" bindtap="showPicker" class="test" t-class="pannel-item" t-class-note="{{dateText ? 'sub-text' : 'empty'}}" />
         <t-input align="right" size="small" value="{{jobContent}}" data-inputfield="jobContent" label="slot" onchange="setInputData" placeholder="请输入作业内容">
             <text slot="label">作业内容<text style="color: #e34d59"> *</text> </text>
         </t-input>
@@ -54,11 +54,11 @@
             <view class="pannel-label">安全防护设备</view>
             <view class="pannel-text {{safetyProtectionValue.length ? '' : 'empty'}}"></view>
             <view class="switch-text-left" data-textValue="false" data-valueName="safetyProtectionValue" bindtap="onClickSwitchText" style="color:{{safetyProtectionValue ? 'rgb(153,153,153)':'red'}}">
-                未完成
+                不合格
             </view>
             <t-switch value="{{safetyProtectionValue}}" data-valueName="safetyProtectionValue" bindchange="onChangeSwitch" />
             <view class="switch-text-right" data-textValue="true" data-valueName="safetyProtectionValue" bindtap="onClickSwitchText" style="color:{{safetyProtectionValue ? 'green' :'rgb(153,153,153)'}}">
-                完成
+                合格
             </view>
         </view>
         <view class="pannel-item">

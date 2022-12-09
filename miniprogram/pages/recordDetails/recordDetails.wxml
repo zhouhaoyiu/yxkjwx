@@ -1,39 +1,31 @@
 <scroll-view class="page" scroll-y="true">
     <t-cell title="作业内容" hover note="{{info.jobContent}}" />
-    <t-cell title="作业段组" hover note="{{info.jobGroup}}" />
     <t-cell title="作业日期" hover note="{{info.jobDate}}" />
-    <t-cell title="作业人数" hover note="{{info.jobPersonValue}}" />
     <t-cell title="作业位置" hover description="{{info.jobPosition}}" />
+    <t-cell title="危险因素" hover note="{{info.riskFactorsValue?'不存在':'存在'}}" />
     <t-cell title="安全交底" hover note="{{info.safetyDisclosureValue?'完成':'未完成'}}" />
-    <t-cell title="检测设备情况" hover note="{{info.inspectionEquipmentValue?'合格':'不合格'}}" />
-    <t-cell title="通风排气情况" hover note="{{info.ventedExhaustValue?'完成':'未完成'}}" />
-    <t-cell title="气体检测情况" hover note="{{info.gasDetectionValue?'合格':'不合格'}}" />
-    <t-cell title="安全防护设备" hover note="{{info.safetyProtectionValue?'完成':'未完成'}}" />
-    <t-cell title="个人防护用品" hover note="{{info.personalProtectionValue?'完成':'未完成'}}" />
+    <t-cell title="设备情况" hover note="{{info.inspectionEquipmentValue?'合格':'不合格'}}" />
+    <t-cell title="安全防护设备" hover note="{{info.safetyProtectionValue?'合格':'不合格'}}" />
+    <t-cell title="应急救援装备" hover note="{{info.emerRescueValue?'合格':'不合格'}}" />
     <t-cell title="其他补充措施" hover description="{{info.otherInfo}}" />
-    <t-cell title="开始时间" hover note="{{info.startTimeHour}}时{{info.startTimeMinute}}分" />
+    <t-cell title="通风开始" hover note="{{info.ventilationStartsTime}}" />
+    <t-cell title="通风结束" hover note="{{info.ventilationEndTime}}" />
+    <t-cell title="作业开始" hover note="{{info.jobStartTime}}" />
+    <t-cell title="作业结束" hover note="{{info.jobEndTime}}" />
     <t-cell title="是否中断" hover note="{{info.isInterrupt?'是':'否'}}" />
-    <t-cell wx:if="{{info.isInterrupt}}" title="中断时长" hover note="{{info.pauseTime}}分钟" />
-    <t-cell wx:if="{{info.isInterrupt}}" title="再次检测情况" hover note="{{info.reDetectionValue?'合格':'不合格'}}" />
+    <t-cell wx:if="{{info.isInterrupt}}" title="中断开始" hover note="{{info.interruptStartTime}}分钟" />
     <!-- {{info.positionList}} -->
-    <t-cell wx:key="index" wx:for="{{info.positionList}}" title="{{item.key}}" hover description="一氧化碳：{{item.CO}}ppm\n 硫化氢：{{item.H2S}}ppm 氧气：{{item.O2}}% 可燃气体：{{item.combustibleGas}}%" />
-    <t-cell title="结束时间" hover note="{{info.endTimeHour}}时{{info.endTimeMinute}}分" />
-    <t-cell title="清理检查情况" hover note="{{info.cleaningInspection?'合格':'不合格'}}" />
-    <t-cell title="安全员" hover note="{{info.aqy}}" />
-    <view style="background: white;">
-        <image src="data:image/jpeg;base64,{{info.aqyBase64}}"></image>
-    </view>
+    <view>作业前检测</view>
+    <t-cell wx:key="index" wx:for="{{info.positionList}}" title="{{item.key}}" hover description="检测时间：{{item.detectionTime}} 一氧化碳：{{item.CO}}ppm\n 硫化氢：{{item.H2S}}ppm 氧气：{{item.O2}}% 可燃气体：{{item.combustibleGas}}% 是否合格：{{item.detectionResult?'是':'否'}} " />
+    <view wx:if="{{info.isInterrupt}}">中断检测</view>
+    <t-cell wx:if="{{info.isInterrupt}}" wx:key="index" wx:for="{{info.interruptList}}" title="{{item.key}}" hover description="检测时间：{{item.detectionTime}} 一氧化碳：{{item.CO}}ppm\n 硫化氢：{{item.H2S}}ppm 氧气：{{item.O2}}% 可燃气体：{{item.combustibleGas}}% 是否合格：{{item.detectionResult?'是':'否'}} " />
     <t-cell title="现场负责人" hover note="{{info.xcfzr}}" />
     <view style="background: white;">
         <image src="data:image/jpeg;base64,{{info.xcfzrBase64}}"></image>
     </view>
-    <t-cell title="检测员" hover note="{{info.jcy}}" />
+    <t-cell title="检测员" hover note="{{info.jcjly}}" />
     <view style="background: white;">
-        <image src="data:image/jpeg;base64,{{info.jcyBase64}}"></image>
-    </view>
-    <t-cell title="记录员" hover note="{{info.jly}}" />
-    <view style="background: white;">
-        <image src="data:image/jpeg;base64,{{info.jlyBase64}}"></image>
+        <image src="data:image/jpeg;base64,{{info.jcjlyBase64}}"></image>
     </view>
     <t-cell title="现场气体检测情况附图" hover />
     <view style="background: white;">

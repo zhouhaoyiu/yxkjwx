@@ -17,8 +17,6 @@ Page({
         });
     },
     goDetails(e: any) {
-        console.log(e);
-
         wx.navigateTo({
             url: "/pages/details/details?jobUuid=" + e.currentTarget.dataset.jobuuid,
         });
@@ -58,7 +56,7 @@ Page({
                 success(res) {
                     if (res.data instanceof Array) {
                         let infoDate = new Set() as Set<string>;
-                        res.data.forEach((element: { jobDate: unknown }) => {
+                        res.data.forEach((element: { jobDate: string }) => {
                             infoDate.add(String(element.jobDate));
                         });
 
