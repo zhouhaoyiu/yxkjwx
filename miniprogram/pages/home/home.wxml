@@ -1,10 +1,9 @@
 <scroll-view class="page" scroll-y="false">
     <view class="box">
-        <t-cell required title="作业时间" hover note="{{dateText || '年 月 日'}}" arrow data-mode="date" data-key="dateText" bindtap="showPicker" class="test" t-class="pannel-item" t-class-note="{{dateText ? 'sub-text' : 'empty'}}" />
-
+        <t-cell title="选择日期(年月日)" hover note="{{dateText || '年 月 日'}}" arrow data-mode="date" bindtap="showWorkDatePicker" class="test" t-class="pannel-item" t-class-note="{{dateText ? 'sub-text' : 'empty'}}" />
         <view>
             <view wx:for="{{workList}}" wx:key="id">
-                <view style="padding:6rpx 0rpx 6px 16rpx">
+                <view style="padding:6rpx 0rpx 0px 30rpx" class="gray">
                     序号:{{index+1}}
                 </view>
                 <t-input align="right" size="small" data-inputfield="jobContent" onchange="setWorkListInputData" value="{{jobContent}}" label="slot" placeholder="请输入作业内容">
@@ -17,19 +16,35 @@
                 <t-button block size="small" bindtap="deleteWork" data-id="{{item.id}}" theme="danger">删除作业</t-button>
                 <view style="height: 6rpx;"> </view>
             </view>
-            <t-button bindtap="addWork" theme="primary" block>新增作业</t-button>
+            <view style="height: 10rpx;"></view>
+            <t-button bindtap="addWork" variant="outline" theme="primary" block>新增作业</t-button>
+            <view style="height: 6rpx;"></view>
         </view>
         <view>
-            <t-input align="right" size="small" label="slot" placeholder="请输入作业负责人">
+            <t-input align="right" data-key="zyfzr" size="small" label="slot" placeholder="请输入作业负责人">
                 <text slot="label">作业负责人 </text>
             </t-input>
-            <t-input align="right" size="small" label="slot">
+            <t-input align="right" data-key="jhry" size="small" label="slot" placeholder="请输入监护人员">
                 <text slot="label">监护人员 </text>
             </t-input>
-            <t-input align="right" size="small" label="slot">
+            <t-input align="right" data-key="zyry" size="small" label="slot" placeholder="请输入作业人员">
                 <text slot="label">作业人员 </text>
-
             </t-input>
+        </view>
+        <view>
+            <view class="title">
+                防护措施
+            </view>
+            <t-checkbox-group value="{{protectiveMeasureGroups}}" bind:change="handleGroupChange">
+                <t-checkbox value="step1" label="安全防护设备、个人防护用品、作业设备和工器具齐全有效，满足要求" />
+                <t-checkbox value="step2" label="应急救援装备满足要求" />
+            </t-checkbox-group>
+        </view>
+        <view>
+            <view style="height: 10rpx;"></view>
+            <t-button theme="primary" block bindtap="submitWork">提交</t-button>
         </view>
     </view>
 </scroll-view>
+
+<t-date-time-picker title="选择日期" visible="{{dateVisible}}" mode="date" defaultValue="{{date}}" format="YYYY-MM-DD" bindchange="onConfirm" bindpick="onColumnChange" bindcancel="hidePicker"></t-date-time-picker>

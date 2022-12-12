@@ -326,7 +326,7 @@ Page({
             [valueName]: textValue == 'true' ? true : false
         });
     },
- 
+
     handleGroupChange(event) {
         this.setData({
             jobGroup: event.detail.value
@@ -559,7 +559,7 @@ Page({
     },
 
     submitJob() {
-        const openId = wx.getStorageSync('openId');
+        const openId = wx.getStorageSync("openId");
         if (!this.data.dateText) {
             this.handleToast({
                 message: '请选择作业日期',
@@ -654,7 +654,7 @@ Page({
             interruptStartTime: this.data.interruptStartTime, // 中断开始时间
             interruptEndTime: this.data.interruptEndTime, // 中断结束时间
 
-            confinedSpaceType: this.data.confinedSpaceType, 
+            confinedSpaceType: this.data.confinedSpaceType,
 
             positionList: JSON.stringify(this.data.positionList),
             interruptList: JSON.stringify(this.data.interruptList),

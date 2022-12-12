@@ -48,12 +48,14 @@ Page({
             wx.request({
                 method: "GET",
                 // url: "https://zhouhaoyiu.oicp.vip/Job/getSendJobByPage",
-                url: "http://localhost:8092/Job/getSendJobByPage",
+                url: "http://localhost:8092/workJob/getSendWorkJobByPage",
                 data: {
                     page: this.data.sendPage,
                     sendOpenId: openId,
                 },
                 success(res) {
+                    console.log(res);
+                    
                     if (res.data instanceof Array) {
                         let infoDate = new Set() as Set<string>;
                         res.data.forEach((element: { jobDate: string }) => {
@@ -91,12 +93,14 @@ Page({
             wx.request({
                 method: "GET",
                 // url: "https://zhouhaoyiu.oicp.vip/Job/getVerifyJobByPage",
-                url: "http://localhost:8092/Job/getVerifyJobByPage",
+                url: "http://localhost:8092/workJob/getVerifyWorkJobByPage",
                 data: {
                     page: this.data.verifyPage,
                     verifyOpenId: openId,
                 },
                 success(res) {
+                    console.log(res);
+                    
                     if (res.data instanceof Array) {
                         let infoDate = new Set() as Set<string>;
                         res.data.forEach((element: { jobDate: unknown }) => {
