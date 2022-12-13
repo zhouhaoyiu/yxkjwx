@@ -218,10 +218,10 @@ Page({
     setPositionData(e: any) {
         let value = e.detail.value;
         const key = e.target.dataset.key;
+        const index = e.target.dataset.index;
         if (!value && key === "detectionResult") {
             value = e.target.dataset.textvalue === "true"
         }
-        const index = e.target.dataset.index;
         const { positionList } = this.data;
         positionList[index][key] = value;
         this.setData({
@@ -388,7 +388,7 @@ Page({
         });
     },
 
-    onConfirm(e: { detail: { value: any } }) {
+    onConfirm(e: { detail: { value: string } }) {
         const { value } = e?.detail;
         const { dateTimekey } = this.data;
         this.setData({
@@ -532,7 +532,7 @@ Page({
         } else {
             this.handleToast({
                 message: `${chineseName}签字成功`,
-                theme: 'fail'
+                theme: 'success'
             });
         }
         wx.canvasToTempFilePath(

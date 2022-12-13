@@ -17,8 +17,10 @@ Page({
         });
     },
     goDetails(e: any) {
+        console.log(e);
+        
         wx.navigateTo({
-            url: "/pages/details/details?jobUuid=" + e.currentTarget.dataset.jobuuid,
+            url: "/pages/workDetails/workDetails?workUuid=" + e.currentTarget.dataset.workuuid,
         });
     },
     toast(option: ToastOptionsType) {
@@ -53,26 +55,25 @@ Page({
                     page: this.data.sendPage,
                     sendOpenId: openId,
                 },
-                success(res) {
+                success(res: any) {
                     console.log(res);
-                    
                     if (res.data instanceof Array) {
                         let infoDate = new Set() as Set<string>;
-                        res.data.forEach((element: { jobDate: string }) => {
-                            infoDate.add(String(element.jobDate));
+                        res.data.forEach((element: { workDate: string }) => {
+                            infoDate.add(String(element.workDate));
                         });
 
-                        let info: { jobDate: string; jobInfo: any[] }[] = [];
+                        let info: { workDate: string; workInfo: any[] }[] = [];
                         infoDate.forEach((element) => {
-                            let jobInfo: any[] = [];
-                            res.data.forEach((item: { jobDate: string }) => {
-                                if (item.jobDate === element) {
-                                    jobInfo.push(item);
+                            let workInfo: any[] = [];
+                            res.data.forEach((item: { workDate: string }) => {
+                                if (item.workDate === element) {
+                                    workInfo.push(item);
                                 }
                             });
                             info.push({
-                                jobDate: element,
-                                jobInfo: jobInfo,
+                                workDate: element,
+                                workInfo: workInfo,
                             });
                         });
                         that.setData({
@@ -98,35 +99,31 @@ Page({
                     page: this.data.verifyPage,
                     verifyOpenId: openId,
                 },
-                success(res) {
-                    console.log(res);
-                    
+                success(res: any) {
                     if (res.data instanceof Array) {
-                        let infoDate = new Set() as Set<string>;
-                        res.data.forEach((element: { jobDate: unknown }) => {
-                            infoDate.add(String(element.jobDate));
-                        });
-
-                        let info: { jobDate: string; jobInfo: any[] }[] = [];
-                        infoDate.forEach((element) => {
-                            let jobInfo: any[] = [];
-                            res.data.forEach((item: { jobDate: string }) => {
-                                if (item.jobDate === element) {
-                                    jobInfo.push(item);
-                                }
+                        if (res.data) {
+                            let infoDate = new Set() as Set<string>;
+                            res.data.forEach((element: { workDate: string }) => {
+                                infoDate.add(String(element.workDate));
                             });
-                            info.push({
-                                jobDate: element,
-                                jobInfo: jobInfo,
-                            });
-                        });
-                        that.setData({
-                            verifyInfo: info,
-                        });
 
-                        // that.setData({
-                        //     verifyInfo: res.data,
-                        // });
+                            let info: { workDate: string; workInfo: any[] }[] = [];
+                            infoDate.forEach((element) => {
+                                let workInfo: any[] = [];
+                                res.data.forEach((item: { workDate: string }) => {
+                                    if (item.workDate === element) {
+                                        workInfo.push(item);
+                                    }
+                                });
+                                info.push({
+                                    workDate: element,
+                                    workInfo: workInfo,
+                                });
+                            });
+                            that.setData({
+                                verifyInfo: info,
+                            });
+                        }
                     }
                 },
             });
@@ -135,6 +132,7 @@ Page({
                 message: "网络错误",
             });
         } finally {
+            console.log("success");
         }
     },
 
@@ -186,25 +184,25 @@ Page({
                     page: this.data[pageName],
                     [this.data.tabBarIndex == 0 ? "sendOpenId" : "verifyOpenId"]: openId,
                 },
-                success(res) {
+                success(res: any) {
                     console.log(res);
                     if (res.data instanceof Array) {
                         let infoDate = new Set() as Set<string>;
-                        res.data.forEach((element: { jobDate: unknown }) => {
-                            infoDate.add(String(element.jobDate));
+                        res.data.forEach((element: { workDate: unknown }) => {
+                            infoDate.add(String(element.workDate));
                         });
 
-                        let info: { jobDate: string; jobInfo: any[] }[] = [];
+                        let info: { workDate: string; workInfo: any[] }[] = [];
                         infoDate.forEach((element) => {
-                            let jobInfo: any[] = [];
-                            res.data.forEach((item: { jobDate: string }) => {
-                                if (item.jobDate === element) {
-                                    jobInfo.push(item);
+                            let workInfo: any[] = [];
+                            res.data.forEach((item: { workDate: string }) => {
+                                if (item.workDate === element) {
+                                    workInfo.push(item);
                                 }
                             });
                             info.push({
-                                jobDate: element,
-                                jobInfo: jobInfo,
+                                workDate: element,
+                                workInfo: workInfo,
                             });
                         });
                         that.setData({
@@ -259,32 +257,32 @@ Page({
                 }
                 if (res.data instanceof Array) {
                     let infoDate = new Set() as Set<string>;
-                    res.data.forEach((element: { jobDate: unknown }) => {
-                        infoDate.add(String(element.jobDate));
+                    res.data.forEach((element: { workDate: unknown }) => {
+                        infoDate.add(String(element.workDate));
                     });
 
                     let currentInfo =
                         that.data.tabBarIndex == 0
                             ? that.data.sendInfo
                             : (that.data.verifyInfo as Array<{
-                                jobDate: string;
-                                jobInfo: any[];
+                                workDate: string;
+                                workInfo: any[];
                             }>);
 
-                    res.data.forEach((element: { jobDate: string }) => {
+                    res.data.forEach((element: { workDate: string }) => {
                         let flag = false;
                         currentInfo.forEach(
-                            (item: { jobDate: string; jobInfo: { jobDate: string }[] }) => {
-                                if (item.jobDate === element.jobDate) {
-                                    item.jobInfo.push(element);
+                            (item: { workDate: string; workInfo: { workDate: string }[] }) => {
+                                if (item.workDate === element.workDate) {
+                                    item.workInfo.push(element);
                                     flag = true;
                                 }
                             }
                         );
                         if (!flag) {
                             currentInfo.push({
-                                jobDate: element.jobDate,
-                                jobInfo: [element],
+                                workDate: element.workDate,
+                                workInfo: [element],
                             });
                         }
                     });

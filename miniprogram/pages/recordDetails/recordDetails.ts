@@ -11,7 +11,6 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad(opt: any) {
-        console.log(opt);
         wx.hideShareMenu({});
         const that = this;
         this.setData({
@@ -23,12 +22,9 @@ Page({
             data: {
                 jobUuid: this.data.jobUuid,
             },
-            success(res: any) {
-                console.log(res);
-
+            success(res: any) {              
                 res.data[0].positionList = JSON.parse(res.data[0].positionList)
                 res.data[0].interruptList = JSON.parse(res.data[0].interruptList)
-
                 that.setData({
                     info: res.data[0],
                 });

@@ -1,3 +1,5 @@
+import Toast, { ToastOptionsType } from "tdesign-miniprogram/toast";
+
 // pages/home/home.ts
 Page({
     /**
@@ -14,12 +16,28 @@ Page({
                 workContent: "",
                 workPosition: ""
             }
-        ],
+        ] as any[],
         workListIndex: 1,
         protectiveMeasureGroups: [] as any,
         zyfzr: "",
         jhry: "",
         zyry: ""
+    },
+
+    toast(option: ToastOptionsType) {
+        Toast({
+            context: this,
+            selector: '#t-toast',
+            ...option,
+            direction: 'column'
+        });
+    },
+
+    handleToast(message: string | ToastOptionsType, theme: "loading" | "success" | "fail") {
+        this.toast({
+            message: typeof message === 'string' ? message : message.message,
+            theme: typeof message === 'string' ? theme : message.theme || undefined
+        });
     },
 
     showWorkDatePicker(e: { currentTarget: { dataset: { mode: string; }; }; }) {
@@ -97,66 +115,85 @@ Page({
         });
     },
 
+    setInputData(e: any) {
+        this.setData({
+            [e.target.dataset.inputfield]: e.detail.value
+        });
+    },
+
+    setWorkListInputData(e: { target: { dataset: { index: number, inputfield: string }; }; detail: { value: string } }) {
+        const value = e.detail.value;
+        const { index, inputfield } = e.target.dataset;
+        let { workList } = this.data;
+        workList[index][inputfield] = value
+        console.log(workList);
+
+        this.setData({
+            workList
+        })
+
+    },
+
     submitWork() {
         const openId = wx.getStorageSync("openId");
         // console.log(this.data.dateText);
 
-        // // 对数据进行检查，如果有空值，提示用户
-        // if (this.data.dateText == "") {
-        //     wx.showToast({
-        //         title: '请选择日期',
-        //         icon: 'none'
-        //     })
-        //     return;
-        // }
-        // if (this.data.zyfzr == "") {
-        //     wx.showToast({
-        //         title: '请填写作业负责人',
-        //         icon: 'none'
-        //     })
-        //     return;
-        // }
-        // if (this.data.jhry == "") {
-        //     wx.showToast({
-        //         title: '请填写监护人员',
-        //         icon: 'none'
-        //     })
-        //     return;
-        // }
-        // if (this.data.zyry == "") {
-        //     wx.showToast({
-        //         title: '请填写作业人员',
-        //         icon: 'none'
-        //     })
-        //     return;
-        // }
-        // if (this.data.protectiveMeasureGroups.length == 0) {
-        //     wx.showToast({
-        //         title: '请选择防护措施',
-        //         icon: 'none'
-        //     })
-        //     return;
-        // }
+        // 对数据进行检查，如果有空值，提示用户
+        if (this.data.dateText == "") {
+            wx.showToast({
+                title: '请选择日期',
+                icon: 'none'
+            })
+            return;
+        }
+        if (this.data.zyfzr == "") {
+            wx.showToast({
+                title: '请填写作业负责人',
+                icon: 'none'
+            })
+            return;
+        }
+        if (this.data.jhry == "") {
+            wx.showToast({
+                title: '请填写监护人员',
+                icon: 'none'
+            })
+            return;
+        }
+        if (this.data.zyry == "") {
+            wx.showToast({
+                title: '请填写作业人员',
+                icon: 'none'
+            })
+            return;
+        }
+        if (this.data.protectiveMeasureGroups.length == 0) {
+            wx.showToast({
+                title: '请选择防护措施',
+                icon: 'none'
+            })
+            return;
+        }
 
-        // // 检查工作内容是否为空
-        // let workList = this.data.workList;
-        // for (let i = 0; i < workList.length; i++) {
-        //     if (workList[i].workContent == "") {
-        //         wx.showToast({
-        //             title: '请填写工作内容',
-        //             icon: 'none'
-        //         })
-        //         return;
-        //     }
-        //     if (workList[i].workPosition == "") {
-        //         wx.showToast({
-        //             title: '请填写工作地点',
-        //             icon: 'none'
-        //         })
-        //         return;
-        //     }
-        // }
-        
+        // 检查工作内容是否为空
+        let workList = this.data.workList;
+        for (let i = 0; i < workList.length; i++) {
+            if (workList[i].workContent == "") {
+                wx.showToast({
+                    title: '请填写工作内容',
+                    icon: 'none'
+                })
+                return;
+            }
+            if (workList[i].workPosition == "") {
+                wx.showToast({
+                    title: '请填写工作地点',
+                    icon: 'none'
+                })
+                return;
+            }
+        }
+
 
         wx.request({
             url: "http://localhost:8092/workJob/test",

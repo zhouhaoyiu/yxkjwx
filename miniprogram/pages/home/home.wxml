@@ -6,10 +6,10 @@
                 <view style="padding:6rpx 0rpx 0px 30rpx" class="gray">
                     序号:{{index+1}}
                 </view>
-                <t-input align="right" size="small" data-inputfield="jobContent" onchange="setWorkListInputData" value="{{jobContent}}" label="slot" placeholder="请输入作业内容">
+                <t-input align="right" size="small" data-index="{{index}}" data-inputfield="workContent" onchange="setWorkListInputData" value="{{workContent}}" label="slot" placeholder="请输入作业内容">
                     <text slot="label">作业内容<text style="color: #e34d59"> *</text> </text>
                 </t-input>
-                <t-input align="right" size="small" data-inputfield="jobPosition" onchange="setWorkListInputData" value="{{jobPosition}}" label="slot" placeholder="请输入作业地点">
+                <t-input align="right" size="small" data-index="{{index}}" data-inputfield="workPosition" onchange="setWorkListInputData" value="{{workPosition}}" label="slot" placeholder="请输入作业地点">
                     <text slot="label">作业地点<text style="color: #e34d59"> *</text> </text>
                 </t-input>
                 <view style="height: 10rpx;"> </view>
@@ -21,13 +21,13 @@
             <view style="height: 6rpx;"></view>
         </view>
         <view>
-            <t-input align="right" data-key="zyfzr" size="small" label="slot" placeholder="请输入作业负责人">
+            <t-input align="right" onchange="setInputData" data-inputfield="zyfzr" size="small" label="slot" placeholder="请输入作业负责人">
                 <text slot="label">作业负责人 </text>
             </t-input>
-            <t-input align="right" data-key="jhry" size="small" label="slot" placeholder="请输入监护人员">
+            <t-input align="right" onchange="setInputData" data-inputfield="jhry" size="small" label="slot" placeholder="请输入监护人员">
                 <text slot="label">监护人员 </text>
             </t-input>
-            <t-input align="right" data-key="zyry" size="small" label="slot" placeholder="请输入作业人员">
+            <t-input align="right" onchange="setInputData" data-inputfield="zyry" size="small" label="slot" placeholder="请输入作业人员">
                 <text slot="label">作业人员 </text>
             </t-input>
         </view>

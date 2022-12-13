@@ -1,0 +1,4 @@
+<!--pages/workDetails/workDetails.wxml-->
+<view>
+    {{workUuid}}
+</view>

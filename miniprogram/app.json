@@ -7,7 +7,8 @@
         "pages/list/list",
         "pages/index/index",
         "pages/recordDetails/recordDetails",
-        "pages/verify/verify"
+        "pages/verify/verify",
+        "pages/workDetails/workDetails"
     ],
     "window": {
         "backgroundTextStyle": "light",
