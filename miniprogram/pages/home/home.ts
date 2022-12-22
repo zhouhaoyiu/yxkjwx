@@ -196,7 +196,7 @@ Page({
 
 
         wx.request({
-            url: "http://localhost:8092/workJob/test",
+            url: "http://localhost:8092/workJob/addWorkJob",
             method: "POST",
             data: {
                 workDate: this.data.dateText,

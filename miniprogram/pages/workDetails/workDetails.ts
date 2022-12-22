@@ -6,14 +6,32 @@ Page({
      */
     data: {
         workUuid: "",
+
+        workDate: ""
     },
 
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad(opt: Record<string, string>) {
+        const openId = wx.getStorageSync("openId");
         this.setData({
             workUuid: opt.workUuid,
+        })
+
+        wx.request({
+            url: "http://localhost:8092/workJob/getInfoByWorkJobUuid",
+            data: {
+                workUuid: this.data.workUuid
+            },
+            method: "GET",
+            success: (_res: any) => {
+                console.log(_res);
+                console.log(JSON.parse(_res.data[0].workList));
+                this.setData({
+                    workDate: _res.data[0].workDate
+                })
+            }
         })
     },
 

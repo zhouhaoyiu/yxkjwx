@@ -1,4 +1,5 @@
 <!--pages/workDetails/workDetails.wxml-->
 <view>
-    {{workUuid}}
+    <!-- {{workDate}} -->
+    <t-cell title="作业日期" hover note="{{workDate}}" />
 </view>
