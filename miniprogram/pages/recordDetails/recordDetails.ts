@@ -75,10 +75,6 @@ Page({
     /**
      * 用户点击右上角分享
      */
-    onShareAppMessage() {
-        return {
-            title: "邀请您进行审批",
-            path: "pages/verify/verify?jobUuid=" + this.data.jobUuid,
-        };
+    onShareAppMessage() {        
     },
 });

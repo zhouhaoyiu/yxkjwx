@@ -1,5 +1,7 @@
 {
     "usingComponents": {
-        "t-cell": "tdesign-miniprogram/cell/cell"
+        "t-cell": "tdesign-miniprogram/cell/cell",
+        "t-input": "tdesign-miniprogram/input/input",
+        "t-textarea": "tdesign-miniprogram/textarea/textarea"
     }
 }

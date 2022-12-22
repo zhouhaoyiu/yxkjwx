@@ -41,6 +41,7 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad() {
+        wx.hideShareMenu({});
         const openId = wx.getStorageSync("openId");
         const that = this;
         this.getTabBar().setData({

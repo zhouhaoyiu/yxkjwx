@@ -1,5 +1,25 @@
 <!--pages/workDetails/workDetails.wxml-->
-<view>
+<scroll-view class="page" scroll-y="false">
     <!-- {{workDate}} -->
     <t-cell title="作业日期" hover note="{{workDate}}" />
-</view>
+    <view>
+        <view wx:for="{{workList}}" wx:key="index">
+            <t-cell title="作业内容" note="{{item.workContent}}"></t-cell>
+            <t-cell title="作业地点" note="{{item.workPosition}}"></t-cell>
+        </view>
+    </view>
+    <t-cell title="作业负责人" note="{{zyfzr}}"></t-cell>
+    <t-cell title="监护人员" note="{{jhry}}"></t-cell>
+    <t-cell title="作业人员" note="{{zyry}}"></t-cell>
+    <view>
+        <view class="workBefore">
+            防护措施
+        </view>
+        <t-cell wx:if="{{nProtectiveMeasureGroups[0]}}" description="安全防护设备、个人防护用品、作业设备、工器具齐全有效，满足要求">
+        </t-cell>
+        <t-cell wx:if="{{nProtectiveMeasureGroups[1]}}" description="应急救援装备满足要求"></t-cell>
+    </view>
+    <!-- <view>
+        <t-textarea label="审批负责人意见" placeholder="请输入文字" />
+    </view> -->
+</scroll-view>

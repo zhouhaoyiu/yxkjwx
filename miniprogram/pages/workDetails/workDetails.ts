@@ -7,7 +7,12 @@ Page({
     data: {
         workUuid: "",
 
-        workDate: ""
+        workDate: "",
+        workList: [],
+        zyfzr: "",
+        jhry: "",
+        zyry: "",
+        nProtectiveMeasureGroups: [] as unknown as [Boolean, Boolean]
     },
 
     /**
@@ -26,10 +31,19 @@ Page({
             },
             method: "GET",
             success: (_res: any) => {
-                console.log(_res);
-                console.log(JSON.parse(_res.data[0].workList));
+                console.log(JSON.parse(_res.data[0].protectiveMeasureGroups));
+                let protectiveMeasureGroups = JSON.parse(_res.data[0].protectiveMeasureGroups);
+                let step1: Boolean = protectiveMeasureGroups.includes("step1") || false;
+                let step2: Boolean = protectiveMeasureGroups.includes("step2") || false;
+                let nProtectiveMeasureGroups: [Boolean, Boolean] = [step1, step2];
+
                 this.setData({
-                    workDate: _res.data[0].workDate
+                    workDate: _res.data[0].workDate,
+                    workList: JSON.parse(_res.data[0].workList),
+                    zyfzr: _res.data[0].zyfzr,
+                    jhry: _res.data[0].jhry,
+                    zyry: _res.data[0].zyry,
+                    nProtectiveMeasureGroups: nProtectiveMeasureGroups
                 })
             }
         })
@@ -81,6 +95,9 @@ Page({
      * 用户点击右上角分享
      */
     onShareAppMessage() {
-
+        return {
+            title: "邀请您进行审批",
+            path: "pages/verify/verify?workUuid=" + this.data.workUuid,
+        };
     }
 })

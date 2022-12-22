@@ -262,9 +262,6 @@ Page({
             }
         });
     },
-
-
-
     previewImg(e: any) {
         const arrname = e.target.dataset.arrname;
         const index = e.target.dataset.index;
@@ -435,6 +432,7 @@ Page({
         this.getTabBar().setData({
             selected: 1
         });
+        wx.hideShareMenu({});
         const query = wx.createSelectorQuery();
 
         query

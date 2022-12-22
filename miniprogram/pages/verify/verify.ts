@@ -194,8 +194,10 @@ Page({
         const that = this;
         let flag = true;
         this.setData({
-            jobUuid: opt.jobUuid,
+            workUuid: opt.workUuid,
         });
+        console.log(opt.workUuid);
+        
         wx.hideShareMenu({})
         wx.request({
             method: "GET",
