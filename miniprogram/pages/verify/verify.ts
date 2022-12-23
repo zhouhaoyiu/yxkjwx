@@ -7,17 +7,17 @@ Page({
      */
     data: {
         width,
-        jobUuid: 0,
+        workUuid: "",
         info: {},
-        spr: "",
-        sprSignContext: undefined,
-        sprSignCanvas: undefined as unknown as WechatMiniprogram.Canvas,
-        sprHasDraw: false,
-        sprDrawOk: false,
-        sprDrawShow: false,
-        sprSrc: null,
-        sprBase64: null,
-        sprbz: "",
+        spfzr: "",
+        spfzrSignContext: undefined,
+        spfzrSignCanvas: undefined as unknown as WechatMiniprogram.Canvas,
+        spfzrHasDraw: false,
+        spfzrDrawOk: false,
+        spfzrDrawShow: false,
+        spfzrSrc: null,
+        spfzrBase64: null,
+        spfzrInfo: "",
         showDialog: false
     },
     touchstart(e: {
@@ -108,27 +108,27 @@ Page({
 
     refuse() {
         const openId = wx.getStorageSync("openId")
-        if (!this.data.spr) {
+        if (!this.data.spfzr) {
             this.handleToast({
                 message: `请输入审批人`,
             });
             return;
         }
-        if (this.data.sprBase64 == null || !this.data.sprDrawOk) {
+        if (this.data.spfzrBase64 == null || !this.data.spfzrDrawOk) {
             this.handleToast({
                 message: `请审批人完成签字`,
             });
         }
         wx.request({
-            url: "http://localhost:8092/Job/verifyJob",
+            url: "http://localhost:8092/workJob/verifyWorkJob",
             // url: "https://zhouhaoyiu.oicp.vip/Job/verifyJob",
             method: "POST",
             data: {
-                uuid: this.data.jobUuid,
-                status: 3,
-                spr: this.data.spr,
-                sprBase64: this.data.sprBase64,
-                sprbz: this.data.sprbz,
+                uuid: this.data.workUuid,
+                status: 2,
+                spfzr: this.data.spfzr,
+                spfzrBase64: this.data.spfzrBase64,
+                spfzrInfo: this.data.spfzrInfo,
                 verifyOpenId: openId
             }
         })
@@ -137,29 +137,30 @@ Page({
         })
     },
     accept() {
+        console.log(this.data.spfzr);
+
         const openId = wx.getStorageSync("openId")
-        if (!this.data.spr) {
+        if (!this.data.spfzr) {
             this.handleToast({
                 message: `请输入审批人`,
             });
             return;
         }
-        if (this.data.sprBase64 == null || !this.data.sprDrawOk) {
+        if (this.data.spfzrBase64 == null || !this.data.spfzrDrawOk) {
             this.handleToast({
                 message: `请审批人完成签字`,
             });
         }
 
         wx.request({
-            // url: "https://zhouhaoyiu.oicp.vip/Job/verifyJob",
-            url: "http://localhost:8092/Job/verifyJob",
+            url: "http://localhost:8092/workJob/verifyWorkJob",
             method: "POST",
             data: {
-                uuid: this.data.jobUuid,
-                status: 2,
-                spr: this.data.spr,
-                sprBase64: this.data.sprBase64,
-                sprbz: this.data.sprbz,
+                uuid: this.data.workUuid,
+                status: 1,
+                spfzr: this.data.spfzr,
+                spfzrBase64: this.data.spfzrBase64,
+                spfzrInfo: this.data.spfzrInfo,
                 verifyOpenId: openId
             },
             success(res) {
@@ -168,9 +169,9 @@ Page({
                 }
             }
         })
-        wx.switchTab({
-            url: "/pages/home/home"
-        })
+        // wx.switchTab({
+        //     url: "/pages/home/home"
+        // })
     },
 
     toast(option: ToastOptionsType) {
@@ -197,34 +198,43 @@ Page({
             workUuid: opt.workUuid,
         });
         console.log(opt.workUuid);
-        
+
         wx.hideShareMenu({})
         wx.request({
             method: "GET",
             // url: "https://zhouhaoyiu.oicp.vip/Job/getInfoByJobUuid",
-            url: "http://localhost:8092/Job/getInfoByJobUuid",
+            url: "http://localhost:8092/workJob/getInfoByWorkJobUuid",
             data: {
-                jobUuid: this.data.jobUuid,
+                workUuid: this.data.workUuid
             },
             success(res: any) {
                 console.log(res);
-
-                res.data[0].positionList = JSON.parse(res.data[0].positionList)
-                that.setData({
-                    info: res.data[0],
-                });
-                if (res.data[0].spr) {
+                if (res.data[0].spfzr) {
                     that.setData({
                         showDialog: true,
                     })
                     flag = false
                 }
+                let protectiveMeasureGroups = JSON.parse(res.data[0].protectiveMeasureGroups);
+                let step1: Boolean = protectiveMeasureGroups.includes("step1") || false;
+                let step2: Boolean = protectiveMeasureGroups.includes("step2") || false;
+                let nProtectiveMeasureGroups: [Boolean, Boolean] = [step1, step2];
+                that.setData({
+                    info: {
+                        workDate: res.data[0].workDate,
+                        workList: JSON.parse(res.data[0].workList),
+                        zyfzr: res.data[0].zyfzr,
+                        jhry: res.data[0].jhry,
+                        zyry: res.data[0].zyry,
+                        nProtectiveMeasureGroups: nProtectiveMeasureGroups
+                    }
+                })
             },
         });
         if (flag) {
             const query = wx.createSelectorQuery();
             query
-                .select(".sprSign")
+                .select(".spfzrSign")
                 .fields({ node: true })
                 .exec((res) => {
                     const canvas = res[0].node;
@@ -234,8 +244,8 @@ Page({
                     canvasContext.strokeStyle = "black";
                     canvasContext.lineWidth = 2;
                     this.setData({
-                        sprSignContext: canvasContext,
-                        sprSignCanvas: canvas,
+                        spfzrSignContext: canvasContext,
+                        spfzrSignCanvas: canvas,
                     });
                 });
         }

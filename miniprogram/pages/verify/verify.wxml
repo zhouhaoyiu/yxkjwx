@@ -1,35 +1,52 @@
 <scroll-view class="page" scroll-y="true">
-    <t-input align="right" size="small" value="{{spr}}" data-inputfield="spr" onchange="setInputData" label="slot" placeholder="请输入审批人">
+    <t-cell title="作业日期" hover note="{{info.workDate}}" />
+    <view>
+        <view wx:for="{{info.workList}}" wx:key="index">
+            <t-cell title="作业内容" note="{{item.workContent}}"></t-cell>
+            <t-cell title="作业地点" note="{{item.workPosition}}"></t-cell>
+        </view>
+    </view>
+    <t-cell title="作业负责人" note="{{info.zyfzr}}"></t-cell>
+    <t-cell title="监护人员" note="{{info.jhry}}"></t-cell>
+    <t-cell title="作业人员" note="{{info.zyry}}"></t-cell>
+    <view>
+        <view class="workBefore">
+            防护措施
+        </view>
+        <t-cell wx:if="{{info.nProtectiveMeasureGroups[0]}}" title="安全防护设备、个人防护用品、作业设备、工器具齐全有效，满足要求">
+        </t-cell>
+        <t-cell wx:if="{{info.nProtectiveMeasureGroups[1]}}" title="应急救援装备满足要求"></t-cell>
+    </view>
+    <t-input align="right" size="small" value="{{spfzr}}" data-inputfield="spfzr" onchange="setInputData" label="slot" placeholder="请输入审批负责人">
         <text slot="label" style="font-size: 28rpx;">审批负责人<text style="color: #e34d59"> *</text> </text>
         <view slot="suffix" style="font-weight: bold;">
-            <view style="color: red;" wx:if="{{!sprDrawOk}}">
+            <view style="color: red;" wx:if="{{!spfzrDrawOk}}">
                 ×
             </view>
-            <view style="color: green;" wx:if="{{sprDrawOk}}">
+            <view style="color: green;" wx:if="{{spfzrDrawOk}}">
                 <t-icon name="check" size="18" data-name="check" />
             </view>
         </view>
     </t-input>
     <view style="display: flex;justify-content: center;align-items: center;">
-        <canvas style="width: 100%;height: 250px;display:{{sprDrawShow?'block':'none'}};" id="sprSign" class="sprSign" data-name="spr" type="2d" disable-scroll="true" bindtouchstart="touchstart" bindtouchmove="touchmove" canvas-id="sprSign"></canvas>
+        <canvas style="width: 100%;height: 250px;display:{{spfzrDrawShow?'block':'none'}};" id="spfzrSign" class="spfzrSign" data-name="spfzr" type="2d" disable-scroll="true" bindtouchstart="touchstart" bindtouchmove="touchmove" canvas-id="spfzrSign"></canvas>
     </view>
-    <!-- {{sprDrawShow}} -->
-    <view wx:if="{{sprDrawShow}}" style="display: flex;justify-content: space-between;padding: 0 20rpx;padding-bottom: 30rpx;">
-        <t-button t-class="external-class" data-name="spr" theme="danger" variant="outline" block size="small" bindtap="resign">
+    <view wx:if="{{spfzrDrawShow}}" style="display: flex;justify-content: space-between;padding: 0 20rpx;padding-bottom: 30rpx;">
+        <t-button t-class="external-class" data-name="spfzr" theme="danger" variant="outline" block size="small" bindtap="resign">
             重新签字
         </t-button>
-        <t-button t-class="external-class" data-name="spr" theme="primary" variant="outline" block size="small" bindtap="signOk">
+        <t-button t-class="external-class" data-name="spfzr" theme="primary" variant="outline" block size="small" bindtap="signOk">
             完成签字
         </t-button>
     </view>
-    <image wx:if="{{sprBase64}}" style="margin:0;width:100%" src="data:image/jpeg;base64,{{sprBase64}}" />
+    <image wx:if="{{spfzrBase64}}" src="data:image/jpeg;base64,{{spfzrBase64}}" mode=""/>
     <view>
-        <t-button wx:if="{{!sprDrawShow}}" t-class="external-class" data-name="spr" theme="primary" variant="outline" block size="small" bindtap="openSign">
-            {{!sprDrawOk?"开始签字":"重新签字"}}
+        <t-button wx:if="{{!spfzrDrawShow}}" t-class="external-class" data-name="spfzr" theme="primary" variant="outline" block size="small" bindtap="openSign">
+            {{!spfzrDrawOk?"开始签字":"重新签字"}}
         </t-button>
     </view>
     <view>
-        <t-textarea align="right" data-inputfield="sprbz" onchange="setInputData" autosize value="{{sprbz}}" label="审批负责人意见" placeholder="请输入审批负责人意见" />
+        <t-textarea align="right" data-inputfield="spfzrInfo" onchange="setInputData" autosize value="{{spfzrInfo}}" label="审批负责人意见" placeholder="请输入审批负责人意见" />
     </view>
     <view style="display: flex;justify-content: space-between;margin-top: 20rpx;">
         <t-button t-class="external-class" style="width: 300rpx;" theme="danger" bindtap="refuse">拒绝</t-button>
@@ -37,4 +54,4 @@
     </view>
     <t-toast id="toast" />
 </scroll-view>
-<t-dialog visible="{{showDialog}}" title="此申请已经被{{info.spr}}审批" confirm-btn="回到首页" bind:confirm="goHome" />
+<t-dialog visible="{{showDialog}}" title="此申请已经被{{info.spfzr}}审批" confirm-btn="回到首页" bind:confirm="goHome" />

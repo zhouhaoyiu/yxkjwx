@@ -31,7 +31,6 @@ Page({
             },
             method: "GET",
             success: (_res: any) => {
-                console.log(JSON.parse(_res.data[0].protectiveMeasureGroups));
                 let protectiveMeasureGroups = JSON.parse(_res.data[0].protectiveMeasureGroups);
                 let step1: Boolean = protectiveMeasureGroups.includes("step1") || false;
                 let step2: Boolean = protectiveMeasureGroups.includes("step2") || false;
