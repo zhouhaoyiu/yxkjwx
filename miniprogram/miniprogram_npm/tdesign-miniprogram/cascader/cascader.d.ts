@@ -16,12 +16,8 @@ export default class Cascader extends SuperComponent {
     };
     observers: {
         visible(v: any): void;
-        value(): void;
-        options(): void;
-        selectedIndexes(): void;
-    };
-    lifetimes: {
-        ready(): void;
+        'value, options'(): void;
+        'selectedIndexes, options'(): void;
     };
     methods: {
         initWithValue(): void;

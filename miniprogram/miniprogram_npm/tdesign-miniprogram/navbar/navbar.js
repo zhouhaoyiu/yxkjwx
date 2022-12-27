@@ -46,22 +46,6 @@ let Navbar = class Navbar extends SuperComponent {
                     }, 300);
                 }
             },
-            fixed(fixed) {
-                this.setData({
-                    fixedClass: fixed ? `${name}--fixed` : '',
-                });
-            },
-            background(background) {
-                const list = [];
-                if (background)
-                    list.push(`background: ${background}`);
-                this.setData({
-                    contentStyle: list.join(';'),
-                });
-            },
-            'homeIcon, leftIcon'() {
-                this.calcLeftBtn();
-            },
             'title,titleMaxLength'() {
                 const { title } = this.properties;
                 const titleMaxLength = this.properties.titleMaxLength || Number.MAX_SAFE_INTEGER;
@@ -75,33 +59,12 @@ let Navbar = class Navbar extends SuperComponent {
         };
         this.data = {
             prefix,
-            hasHomeIcon: false,
-            hasBackIcon: false,
             classPrefix: name,
-            fixedClass: `${name}--fixed`,
-            contentStyle: '',
             boxStyle: '',
-            opacity: 0.1,
             ios: false,
             showTitle: '',
         };
         this.methods = {
-            calcLeftBtn() {
-                const { homeIcon, leftIcon } = this.properties;
-                let home = false;
-                let back = false;
-                if (homeIcon)
-                    home = true;
-                if (leftIcon)
-                    back = true;
-                this.setData({
-                    hasHomeIcon: home,
-                    hasBackIcon: back,
-                });
-            },
-            goHome() {
-                this.triggerEvent('go-home');
-            },
             goBack() {
                 const { delta } = this.data;
                 const that = this;
@@ -124,7 +87,6 @@ let Navbar = class Navbar extends SuperComponent {
         };
     }
     attached() {
-        this.calcLeftBtn();
         let rect = null;
         if (wx.getMenuButtonBoundingClientRect) {
             rect = wx.getMenuButtonBoundingClientRect();
@@ -137,7 +99,8 @@ let Navbar = class Navbar extends SuperComponent {
                 const ios = !!(res.system.toLowerCase().search('ios') + 1);
                 const navbarHeight = ios ? 44 : 48;
                 const boxStyleList = [];
-                boxStyleList.push(`--narbar-padding-top:${(rect.bottom + rect.top) / 2 - navbarHeight / 2}px;`);
+                const { statusBarHeight } = wx.getSystemInfoSync();
+                boxStyleList.push(`--td-navbar-padding-top:${statusBarHeight}px;`);
                 if (rect && (res === null || res === void 0 ? void 0 : res.windowWidth)) {
                     boxStyleList.push(`--navbar-right:${res.windowWidth - rect.left}px;`);
                 }

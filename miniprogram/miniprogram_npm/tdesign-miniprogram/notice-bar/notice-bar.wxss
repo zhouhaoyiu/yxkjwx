@@ -28,13 +28,14 @@
 .t-notice-bar {
   display: flex;
   align-items: flex-start;
-  padding: 24rpx 32rpx;
+  padding: 26rpx 32rpx;
   font-size: 28rpx;
 }
 .t-notice-bar__content-wrap {
   flex: 1;
   overflow-x: hidden;
   line-height: 44rpx;
+  color: var(--td-notice-bar-font-color, rgba(0, 0, 0, 0.9));
 }
 .t-notice-bar__content {
   display: inline-block;
@@ -43,30 +44,49 @@
 .t-notice-bar__content-wrapable {
   white-space: normal;
 }
+.t-notice-bar__content--vertical {
+  height: 44rpx;
+  line-height: 44rpx;
+}
+.t-notice-bar__content--vertical-item {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.t-notice-bar__prefix-icon {
+  color: inherit;
+}
+.t-notice-bar__prefix-icon:not(:empty) {
+  padding-right: 16rpx;
+}
+.t-notice-bar__suffix-icon {
+  color: var(--td-notice-bar-suffix-icon-color, rgba(0, 0, 0, 0.4));
+}
 .t-notice-bar__prefix-icon,
 .t-notice-bar__suffix-icon {
   font-size: 44rpx;
 }
-.t-notice-bar__prefix-icon:not(:empty) {
-  margin-right: 16rpx;
+.t-notice-bar__extra {
+  color: var(--td-notice-bar-extra-font-color, #0052d9);
+  font-weight: 700;
 }
-.t-notice-bar__extrq:not(:empty),
+.t-notice-bar__extra:not(:empty),
 .t-notice-bar__suffix-icon:not(:empty) {
-  margin-left: 16rpx;
+  padding-left: 16rpx;
 }
 .t-notice-bar--info {
-  color: #0052d9;
-  background-color: #ecf2fe;
+  color: var(--td-notice-bar-info-color, #0052d9);
+  background-color: var(--td-notice-bar-info-bg-color, #ecf2fe);
 }
 .t-notice-bar--success {
-  color: #00a870;
-  background-color: #e8f8f2;
+  color: var(--td-notice-bar-success-color, #00a870);
+  background-color: var(--td-notice-bar-success-bg-color, #e8f8f2);
 }
 .t-notice-bar--warning {
-  color: #ed7b2f;
-  background-color: #fef3e6;
+  color: var(--td-notice-bar-warning-color, #ed7b2f);
+  background-color: var(--td-notice-bar-warning-bg-color, #fef3e6);
 }
 .t-notice-bar--error {
-  color: #e34d59;
-  background-color: #fdecee;
+  color: var(--td-notice-bar-error-color, #e34d59);
+  background-color: var(--td-notice-bar-error-bg-color, #fdecee);
 }

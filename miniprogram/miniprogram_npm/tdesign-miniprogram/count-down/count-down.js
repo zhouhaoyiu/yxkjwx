@@ -7,13 +7,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 import { SuperComponent, wxComponent } from '../common/src/index';
 import config from '../common/config';
 import props from './props';
-import { isSameSecond, parseFormat, parseTimeData } from './utils';
+import { isSameSecond, parseFormat, parseTimeData, TimeDataUnit } from './utils';
 const { prefix } = config;
 const name = `${prefix}-count-down`;
 let CountDown = class CountDown extends SuperComponent {
     constructor() {
         super(...arguments);
-        this.externalClasses = [`${prefix}-class`];
+        this.externalClasses = [`${prefix}-class`, `${prefix}-class-count`, `${prefix}-class-split`];
         this.properties = props;
         this.observers = {
             time() {
@@ -23,6 +23,7 @@ let CountDown = class CountDown extends SuperComponent {
         this.data = {
             prefix,
             classPrefix: name,
+            timeDataUnit: TimeDataUnit,
             timeData: parseTimeData(0),
             formattedTime: '0',
         };
@@ -60,11 +61,14 @@ let CountDown = class CountDown extends SuperComponent {
                 return Math.max(this.endTime - Date.now(), 0);
             },
             updateTime(remain) {
+                const { format } = this.properties;
                 this.remain = remain;
                 const timeData = parseTimeData(remain);
                 this.triggerEvent('change', timeData);
-                const { timeText } = parseFormat(remain, this.properties.format);
+                const { timeText } = parseFormat(remain, format);
+                const timeRange = format.split(':');
                 this.setData({
+                    timeRange,
                     timeData,
                     formattedTime: timeText.replace(/:/g, ' : '),
                 });

@@ -10,6 +10,12 @@ import props from './props';
 import config from '../common/config';
 const { prefix } = config;
 const name = `${prefix}-notice-bar`;
+const THEME_ICON = {
+    info: 'error-circle-filled',
+    success: 'check-circle-filled',
+    warning: 'error-circle-filled',
+    error: 'close-circle-filled',
+};
 let NoticeBar = class NoticeBar extends SuperComponent {
     constructor() {
         super(...arguments);
@@ -49,6 +55,16 @@ let NoticeBar = class NoticeBar extends SuperComponent {
                 else {
                     this.clearNoticeBarAnimation();
                 }
+            },
+            'prefixIcon, theme'() {
+                this.setPrefixIcon();
+            },
+            suffixIcon() {
+                this.setSuffixIcon();
+            },
+            content() {
+                this.clearNoticeBarAnimation();
+                this.initAnimation();
             },
         };
         this.lifetimes = {
@@ -129,28 +145,49 @@ let NoticeBar = class NoticeBar extends SuperComponent {
             },
             show() {
                 this.clearNoticeBarAnimation();
-                this.setIcon();
+                this.setPrefixIcon(this.properties.prefixIcon);
                 this.initAnimation();
             },
             clearNoticeBarAnimation() {
                 this.nextAnimationContext && clearTimeout(this.nextAnimationContext);
                 this.nextAnimationContext = null;
             },
-            setIcon() {
+            setPrefixIcon() {
                 const { prefixIcon, theme } = this.properties;
-                if (prefixIcon) {
+                if (!prefixIcon) {
+                    this.setData({ prefixIconName: '', prefixIconData: {} });
+                }
+                else if (typeof prefixIcon === 'string') {
                     this.setData({
-                        iconName: prefixIcon !== 'null' ? `${prefixIcon}` : '',
+                        prefixIconName: prefixIcon,
+                        prefixIconData: {},
+                    });
+                }
+                else if (typeof prefixIcon === 'object') {
+                    this.setData({
+                        prefixIconName: '',
+                        prefixIconData: prefixIcon,
                     });
                 }
                 else {
-                    const themeNoticeBar = {
-                        info: 'error-circle-filled',
-                        success: 'check-circle-filled',
-                        warning: 'error-circle-filled',
-                        error: 'close-circle-filled',
-                    };
-                    this.setData({ iconName: themeNoticeBar[theme] });
+                    this.setData({ prefixIconName: THEME_ICON[theme], prefixIconData: {} });
+                }
+            },
+            setSuffixIcon() {
+                const { suffixIcon } = this.properties;
+                if (suffixIcon) {
+                    if (typeof suffixIcon === 'string') {
+                        this.setData({
+                            suffixIconName: suffixIcon,
+                            suffixIconData: {},
+                        });
+                    }
+                    else if (typeof suffixIcon === 'object') {
+                        this.setData({
+                            suffixIconName: '',
+                            suffixIconData: suffixIcon,
+                        });
+                    }
                 }
             },
             clickPrefixIcon() {

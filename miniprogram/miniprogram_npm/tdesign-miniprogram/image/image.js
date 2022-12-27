@@ -7,6 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 import { SuperComponent, wxComponent } from '../common/src/index';
 import ImageProps from './props';
 import config from '../common/config';
+import { addUnit } from '../common/utils';
 const { prefix } = config;
 const name = `${prefix}-image`;
 let Image = class Image extends SuperComponent {
@@ -21,13 +22,24 @@ let Image = class Image extends SuperComponent {
             prefix,
             isLoading: true,
             isFailed: false,
-            widthStyle: '',
+            innerStyle: '',
             classPrefix: name,
         };
         this.preSrc = '';
         this.lifetimes = {
             attached() {
+                const { width, height } = this.data;
+                let innerStyle = '';
                 this.update();
+                if (width) {
+                    innerStyle += `width: ${addUnit(width)};`;
+                }
+                if (height) {
+                    innerStyle += `height: ${addUnit(height)};`;
+                }
+                this.setData({
+                    innerStyle,
+                });
             },
         };
         this.observers = {
@@ -53,7 +65,7 @@ let Image = class Image extends SuperComponent {
                         .boundingClientRect((res) => {
                         const { height } = res;
                         const resultWidth = ((height / picHeight) * picWidth).toFixed(2);
-                        this.setData({ widthStyle: `width: ${resultWidth}px;` });
+                        this.setData({ innerStyle: `height: ${addUnit(height)}; width: ${resultWidth}px;` });
                     })
                         .exec();
                 }

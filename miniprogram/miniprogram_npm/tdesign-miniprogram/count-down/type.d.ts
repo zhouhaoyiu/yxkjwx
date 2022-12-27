@@ -29,7 +29,7 @@ export interface TdCountDownProps {
     };
     theme?: {
         type: StringConstructor;
-        value?: 'default' | 'round' | 'square';
+        value?: 'default' | 'round' | 'square' | 'hightlight';
     };
     time: {
         type: NumberConstructor;

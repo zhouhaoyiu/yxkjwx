@@ -28,6 +28,14 @@ export interface TdImageViewerProps {
         type: BooleanConstructor;
         value: false;
     };
+    deleteIconProps: {
+        type: ObjectConstructor;
+        value?: object;
+    };
+    closeIconProps: {
+        type: ObjectConstructor;
+        value?: object;
+    };
     visible?: {
         type: BooleanConstructor;
         value?: boolean;

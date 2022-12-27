@@ -123,24 +123,21 @@
   height: 96rpx;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+  position: relative;
+  flex-direction: column;
 }
 .t-tab-bar-item__spread-item--active {
   background-color: rgba(0, 0, 0, 0.05);
 }
-.t-tab-bar-item__spread-item + .t-tab-bar-item__spread-item {
-  position: relative;
-}
-.t-tab-bar-item__spread-item + .t-tab-bar-item__spread-item:before {
-  position: absolute;
+.t-tab-bar-item__spread-item-split {
   box-sizing: border-box;
   content: ' ';
   pointer-events: none;
-  top: 0;
-  border-top: 1px solid #e6e6e6;
-  transform: scaleY(0.5);
-  border-top-width: 1px;
-  border-top-style: solid;
-  border-top-color: #e6e6e6;
+  background-color: #e6e6e6;
   width: 80%;
+  height: 0.5px;
+}
+.t-tab-bar-item__spread-item-text {
+  padding-top: 24rpx;
 }

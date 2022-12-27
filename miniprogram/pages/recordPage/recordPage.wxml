@@ -8,7 +8,7 @@
             <t-input disabled align="right" size="small" data-inputfield="jobPosition" onchange="setInputData" value="{{jobPosition}}" label="slot" placeholder="请输入作业地点">
                 <text slot="label">作业地点<text style="color: #e34d59"> *</text> </text>
                 <view slot="suffix">
-                    <t-icon name="location" size="48rpx" data-name="location" bindtap="moveToLocation" />
+                    <t-icon style="padding-left: 4rpx;" name="location" size="40rpx" data-name="location" bindtap="moveToLocation" />
                 </view>
             </t-input>
         </view>

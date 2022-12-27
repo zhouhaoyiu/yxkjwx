@@ -1,7 +1,7 @@
-import type { TDate, TCalendarType } from './type';
+import type { TDate, TCalendarType, TCalendarValue } from './type';
 export default class TCalendar {
     firstDayOfWeek: number;
-    value: TDate;
+    value: TCalendarValue | TCalendarValue[];
     type: TCalendarType;
     minDate: Date;
     maxDate: Date;
@@ -15,5 +15,5 @@ export default class TCalendar {
         year: any;
         month: any;
         date: any;
-    }): Date | Date[];
+    }): Date | TCalendarValue[];
 }

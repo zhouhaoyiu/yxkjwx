@@ -39,13 +39,14 @@
   max-width: 100%;
   max-height: 100%;
   animation: rotate 0.8s linear infinite;
-  color: #0052d9;
+  color: var(--td-loading-color, #0052d9);
 }
 .t-loading__spinner.reverse {
   animation-name: rotateReverse;
 }
 .t-loading__spinner--spinner {
   animation-timing-function: steps(12);
+  color: rgba(0, 0, 0, 0.9);
 }
 .t-loading__spinner--spinner .t-loading__dot {
   position: absolute;
@@ -89,27 +90,32 @@
   animation-iteration-count: infinite;
   animation-fill-mode: both;
 }
+.t-loading__text {
+  font-size: var(--td-loading-text-font-size, 24rpx);
+  line-height: var(--td-loading-text-line-height, 40rpx);
+}
+.t-loading__text--vertical:not(:first-child):not(:empty) {
+  margin-top: 12rpx;
+}
+.t-loading__text--horizontal:not(:first-child):not(:empty) {
+  margin-left: 16rpx;
+}
 .t-loading--vertical {
   flex-direction: column;
 }
-.t-loading--vertical .t-loading__text {
-  margin-top: 12rpx;
-}
 .t-loading--horizontal {
   flex-direction: row;
-}
-.t-loading--horizontal .t-loading__text {
-  margin-left: 16rpx;
+  vertical-align: top;
 }
 .t-loading__refresh-btn {
   margin-left: 16rpx;
-  color: #0052d9;
+  color: var(--td-loading-color, #0052d9);
 }
 .t-loading__bar {
   height: 6rpx;
   width: 80%;
   transition: 0.5s;
-  background-color: #0052d9;
+  background-color: var(--td-loading-color, #0052d9);
   display: none;
 }
 .t-loading__bar--static {
@@ -218,7 +224,7 @@
 }
 @keyframes dotting {
   0% {
-    opacity: 0.4;
+    opacity: 0.15;
   }
   1% {
     opacity: 0.8;
@@ -227,9 +233,9 @@
     opacity: 0.8;
   }
   34% {
-    opacity: 0.4;
+    opacity: 0.15;
   }
   100% {
-    opacity: 0.4;
+    opacity: 0.15;
   }
 }

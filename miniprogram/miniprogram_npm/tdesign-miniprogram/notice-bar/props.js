@@ -1,6 +1,10 @@
 const props = {
     content: {
+        type: null,
+    },
+    direction: {
         type: String,
+        value: 'horizontal',
     },
     customStyle: {
         type: String,
@@ -17,12 +21,12 @@ const props = {
         value: false,
     },
     prefixIcon: {
-        type: String,
-        value: '',
+        type: null,
+        value: true,
     },
     suffixIcon: {
-        type: String,
-        value: '',
+        type: null,
+        value: null,
     },
     theme: {
         type: String,

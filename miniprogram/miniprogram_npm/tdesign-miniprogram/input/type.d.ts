@@ -3,13 +3,17 @@ export interface TdInputProps {
         type: StringConstructor;
         value?: 'left' | 'center' | 'right';
     };
+    layout?: {
+        type: StringConstructor;
+        value?: 'horizontal' | 'vertical';
+    };
     borderless?: {
         type: BooleanConstructor;
         value?: boolean;
     };
     clearable?: {
-        type: BooleanConstructor;
-        value?: boolean;
+        type: null;
+        value?: boolean | object;
     };
     customStyle?: {
         type: StringConstructor;
@@ -48,8 +52,8 @@ export interface TdInputProps {
         value?: string;
     };
     prefixIcon?: {
-        type: StringConstructor;
-        value?: string;
+        type: null;
+        value?: string | object;
     };
     readonly?: {
         type: BooleanConstructor;
@@ -68,8 +72,8 @@ export interface TdInputProps {
         value?: string;
     };
     suffixIcon?: {
-        type: StringConstructor;
-        value?: string;
+        type: null;
+        value?: string | object;
     };
     tips?: {
         type: StringConstructor;
@@ -77,7 +81,7 @@ export interface TdInputProps {
     };
     type?: {
         type: StringConstructor;
-        value?: 'text' | 'number' | 'idcard' | 'digit' | 'safe-password' | 'password';
+        value?: 'text' | 'number' | 'idcard' | 'digit' | 'safe-password' | 'password' | 'nickname';
     };
     value?: {
         type: StringConstructor;

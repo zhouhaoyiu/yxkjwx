@@ -17,7 +17,7 @@ const props = {
     },
     confirmType: {
         type: String,
-        value: 'done',
+        value: 'return',
     },
     cursorSpacing: {
         type: Number,
@@ -41,15 +41,24 @@ const props = {
     label: {
         type: String,
     },
+    fixed: {
+        type: Boolean,
+        value: false,
+    },
     maxcharacter: {
         type: Number,
     },
     maxlength: {
         type: Number,
+        value: -1,
     },
     placeholder: {
         type: String,
         value: undefined,
+    },
+    placeholderStyle: {
+        type: String,
+        value: '',
     },
     value: {
         type: String,
@@ -58,6 +67,14 @@ const props = {
     defaultValue: {
         type: String,
         value: '',
+    },
+    bordered: {
+        type: Boolean,
+        value: false,
+    },
+    indicator: {
+        type: Boolean,
+        value: false,
     },
 };
 export default props;

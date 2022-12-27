@@ -7,6 +7,10 @@ export interface TdRadioProps<T = RadioValue> {
         type: BooleanConstructor;
         value?: boolean;
     };
+    block?: {
+        type: BooleanConstructor;
+        value?: boolean;
+    };
     checked?: {
         type: BooleanConstructor;
         value?: boolean;
@@ -37,7 +41,7 @@ export interface TdRadioProps<T = RadioValue> {
     };
     icon?: {
         type: null;
-        value?: 'fill-circle' | 'stroke-line' | Array<string>;
+        value?: 'circle' | 'line' | Array<string>;
     };
     label?: {
         type: StringConstructor;

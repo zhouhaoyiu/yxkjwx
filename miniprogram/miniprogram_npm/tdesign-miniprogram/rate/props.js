@@ -3,6 +3,10 @@ const props = {
         type: Boolean,
         value: false,
     },
+    color: {
+        type: null,
+        value: '#ED7B2F',
+    },
     count: {
         type: Number,
         value: 5,
@@ -13,14 +17,16 @@ const props = {
     },
     disabled: {
         type: Boolean,
-        value: false,
     },
     externalClasses: {
         type: Array,
     },
     gap: {
         type: Number,
-        value: 8,
+        value: 4,
+    },
+    icon: {
+        type: null,
     },
     showText: {
         type: Boolean,
@@ -28,7 +34,7 @@ const props = {
     },
     size: {
         type: String,
-        value: '20',
+        value: '24px',
     },
     texts: {
         type: Array,

@@ -11,8 +11,8 @@ const props = {
         value: true,
     },
     icon: {
-        type: String,
-        value: 'backtop',
+        type: null,
+        value: true,
     },
     text: {
         type: String,

@@ -23,6 +23,10 @@ export default class Radio extends SuperComponent {
             type: BooleanConstructor;
             value?: boolean;
         };
+        block?: {
+            type: BooleanConstructor;
+            value?: boolean;
+        };
         checked?: {
             type: BooleanConstructor;
             value?: boolean;
@@ -53,7 +57,7 @@ export default class Radio extends SuperComponent {
         };
         icon?: {
             type: null;
-            value?: string[] | "fill-circle" | "stroke-line";
+            value?: string[] | "circle" | "line";
         };
         label?: {
             type: StringConstructor;
@@ -80,14 +84,11 @@ export default class Radio extends SuperComponent {
         key: string;
         event: string;
     }[];
-    observers: {
-        checked(isChecked: Boolean): void;
-    };
     data: {
         prefix: string;
-        active: boolean;
         classPrefix: string;
         customIcon: boolean;
+        slotIcon: boolean;
         optionLinked: boolean;
         iconVal: any[];
     };

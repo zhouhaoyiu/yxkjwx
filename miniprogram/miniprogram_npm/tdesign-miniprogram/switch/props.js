@@ -1,11 +1,4 @@
 const props = {
-    colors: {
-        type: Array,
-    },
-    customStyle: {
-        type: String,
-        value: '',
-    },
     customValue: {
         type: Array,
         value: [true, false],
@@ -14,9 +7,13 @@ const props = {
         type: Boolean,
         value: false,
     },
+    icon: {
+        type: Array,
+        value: [],
+    },
     label: {
-        type: String,
-        value: '',
+        type: Array,
+        value: [],
     },
     loading: {
         type: Boolean,
@@ -26,14 +23,16 @@ const props = {
         type: String,
         value: 'medium',
     },
+    style: {
+        type: String,
+        value: '',
+    },
     value: {
-        type: Boolean,
-        optionalTypes: [Number, String],
+        type: null,
         value: null,
     },
     defaultValue: {
-        type: Boolean,
-        optionalTypes: [Number, String],
+        type: null,
         value: null,
     },
 };

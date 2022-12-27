@@ -47,6 +47,8 @@
   position: absolute;
   top: 32rpx;
   right: 32rpx;
+  margin: -24rpx;
+  padding: 24rpx;
 }
 .t-calendar__days {
   display: grid;
@@ -81,8 +83,7 @@
   padding: 32rpx 0 0;
 }
 .t-calendar__months {
-  max-height: 912rpx;
-  overflow-y: scroll;
+  height: 60vh;
   padding: 0 32rpx 32rpx;
   box-sizing: border-box;
 }

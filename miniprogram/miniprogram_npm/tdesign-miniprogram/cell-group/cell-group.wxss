@@ -61,3 +61,8 @@
   transform: scaleY(0.5);
   z-index: 1;
 }
+.t-cell-group--card {
+  margin: 0 32rpx;
+  border-radius: 18rpx;
+  overflow: hidden;
+}

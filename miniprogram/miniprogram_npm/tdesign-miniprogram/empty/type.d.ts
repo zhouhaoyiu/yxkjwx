@@ -15,6 +15,10 @@ export interface TdEmptyProps {
         type: StringConstructor;
         value?: string;
     };
+    iconProps?: {
+        type: ObjectConstructor;
+        value?: object;
+    };
     image?: {
         type: StringConstructor;
         value?: string;

@@ -75,12 +75,19 @@ export interface VideoConfig {
     maxDuration?: number;
     camera?: 'back' | 'front';
 }
+export interface UploadDisplayDragEvents {
+    onDrop?: (event: DragEvent) => void;
+    onDragenter?: (event: DragEvent) => void;
+    onDragover?: (event: DragEvent) => void;
+    onDragleave?: (event: DragEvent) => void;
+}
 export interface UploadFile {
     url: string;
     name?: string;
     size?: number;
     type?: 'image' | 'video';
     percent?: number;
+    status: 'loading' | 'reload' | 'failed' | 'done';
 }
 export declare type MediaType = 'image' | 'video';
 export interface SizeLimitObj {

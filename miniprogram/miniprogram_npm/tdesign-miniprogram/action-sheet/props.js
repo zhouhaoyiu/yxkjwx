@@ -1,4 +1,8 @@
 const props = {
+    align: {
+        type: String,
+        value: 'center',
+    },
     cancelText: {
         type: String,
         value: '取消',
@@ -11,8 +15,9 @@ const props = {
         type: String,
         value: '',
     },
-    externalClasses: {
-        type: Array,
+    description: {
+        type: String,
+        value: '',
     },
     items: {
         type: Array,

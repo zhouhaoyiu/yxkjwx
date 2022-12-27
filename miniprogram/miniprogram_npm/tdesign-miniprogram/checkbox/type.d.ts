@@ -3,6 +3,10 @@ export interface TdCheckboxProps {
         type: StringConstructor;
         value?: 'left' | 'right';
     };
+    block?: {
+        type: BooleanConstructor;
+        value?: boolean;
+    };
     checkAll?: {
         type: BooleanConstructor;
         value?: boolean;
@@ -14,10 +18,6 @@ export interface TdCheckboxProps {
     defaultChecked?: {
         type: BooleanConstructor;
         value?: boolean;
-    };
-    color?: {
-        type: StringConstructor;
-        value?: string;
     };
     content?: {
         type: StringConstructor;
@@ -40,8 +40,8 @@ export interface TdCheckboxProps {
         value?: ['t-class', 't-class-icon', 't-class-label', 't-class-content', 't-class-border'];
     };
     icon?: {
-        type: ArrayConstructor;
-        value?: Array<string>;
+        type: null;
+        value?: 'circle' | 'line' | 'rectangle' | string[];
     };
     indeterminate?: {
         type: BooleanConstructor;

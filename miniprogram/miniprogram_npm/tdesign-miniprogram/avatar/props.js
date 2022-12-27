@@ -20,6 +20,10 @@ const props = {
     icon: {
         type: String,
     },
+    iconProps: {
+        type: Object,
+        value: {},
+    },
     image: {
         type: String,
         value: '',
@@ -34,6 +38,10 @@ const props = {
     size: {
         type: String,
         value: '',
+    },
+    bordered: {
+        type: Boolean,
+        value: false,
     },
 };
 export default props;

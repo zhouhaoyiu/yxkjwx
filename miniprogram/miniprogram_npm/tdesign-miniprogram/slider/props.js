@@ -1,7 +1,7 @@
 const props = {
     colors: {
         type: Array,
-        value: ['#0052D9', 'rgba(220, 220, 220, 1)'],
+        value: [],
     },
     customStyle: {
         type: String,
@@ -13,7 +13,7 @@ const props = {
     },
     disabledColor: {
         type: Array,
-        value: ['#bbd3fb', '#dcdcdc'],
+        value: [],
     },
     externalClasses: {
         type: Array,
@@ -45,6 +45,10 @@ const props = {
     step: {
         type: Number,
         value: 1,
+    },
+    theme: {
+        type: String,
+        value: 'default',
     },
     value: {
         type: null,

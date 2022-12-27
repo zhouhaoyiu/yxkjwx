@@ -21,13 +21,5 @@ const props = {
         type: String,
         value: 'horizontal',
     },
-    lineColor: {
-        type: String,
-        value: '',
-    },
-    theme: {
-        type: String,
-        value: 'horizontal',
-    },
 };
 export default props;

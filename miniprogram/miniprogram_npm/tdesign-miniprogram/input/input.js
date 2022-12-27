@@ -7,7 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 import { SuperComponent, wxComponent } from '../common/src/index';
 import config from '../common/config';
 import props from './props';
-import { getCharacterLength } from '../common/utils';
+import { getCharacterLength, setIcon } from '../common/utils';
 const { prefix } = config;
 const name = `${prefix}-input`;
 let Input = class Input extends SuperComponent {
@@ -18,13 +18,13 @@ let Input = class Input extends SuperComponent {
         };
         this.externalClasses = [
             `${prefix}-class`,
-            `${prefix}-class-icon`,
+            `${prefix}-class-prefix-icon`,
             `${prefix}-class-label`,
             `${prefix}-class-input`,
             `${prefix}-class-clearable`,
             `${prefix}-class-suffix`,
             `${prefix}-class-suffix-icon`,
-            `${prefix}-class-error-msg`,
+            `${prefix}-class-tips`,
         ];
         this.behaviors = ['wx://form-field'];
         this.properties = props;
@@ -37,6 +37,20 @@ let Input = class Input extends SuperComponent {
             ready() {
                 const { value } = this.properties;
                 this.updateValue(value);
+            },
+        };
+        this.observers = {
+            prefixIcon(prefixIcon) {
+                const obj = setIcon('prefixIcon', prefixIcon, '');
+                this.setData(Object.assign({}, obj));
+            },
+            suffixIcon(suffixIcon) {
+                const obj = setIcon('suffixIcon', suffixIcon, '');
+                this.setData(Object.assign({}, obj));
+            },
+            clearable(clearable) {
+                const obj = setIcon('clearable', clearable, 'close-circle-filled');
+                this.setData(Object.assign({}, obj));
             },
         };
         this.methods = {

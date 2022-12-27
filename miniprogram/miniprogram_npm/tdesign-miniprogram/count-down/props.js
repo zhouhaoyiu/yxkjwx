@@ -21,7 +21,7 @@ const props = {
     },
     size: {
         type: String,
-        value: 'small',
+        value: 'medium',
     },
     splitWithUnit: {
         type: Boolean,

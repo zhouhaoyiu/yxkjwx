@@ -14,6 +14,11 @@ export default class Input extends SuperComponent {
     lifetimes: {
         ready(): void;
     };
+    observers: {
+        prefixIcon(prefixIcon: any): void;
+        suffixIcon(suffixIcon: any): void;
+        clearable(clearable: any): void;
+    };
     methods: {
         updateValue(value: any): void;
         onInput(e: any): void;

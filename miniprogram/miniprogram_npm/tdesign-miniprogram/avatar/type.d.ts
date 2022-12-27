@@ -24,6 +24,10 @@ export interface TdAvatarProps {
         type: StringConstructor;
         value?: string;
     };
+    iconProps?: {
+        type: ObjectConstructor;
+        value?: object;
+    };
     image?: {
         type: StringConstructor;
         value?: string;
@@ -39,6 +43,10 @@ export interface TdAvatarProps {
     size?: {
         type: StringConstructor;
         value?: string;
+    };
+    bordered?: {
+        type: BooleanConstructor;
+        value?: boolean;
     };
 }
 export interface TdAvatarGroupProps {

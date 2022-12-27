@@ -23,6 +23,10 @@ export interface TdDrawerProps {
         type: BooleanConstructor;
         value?: boolean;
     };
+    title?: {
+        type: StringConstructor;
+        value?: string;
+    };
     visible?: {
         type: BooleanConstructor;
         value?: boolean;

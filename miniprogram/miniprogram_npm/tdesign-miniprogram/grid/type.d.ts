@@ -1,12 +1,8 @@
+import { BadgeProps } from '../badge/index';
 export interface TdGridProps {
-    customStyle?: {
-        type: StringConstructor;
-        value?: string;
-    };
     align?: {
         type: StringConstructor;
         value?: 'left' | 'center';
-        required?: boolean;
     };
     border?: {
         type: null;
@@ -15,30 +11,37 @@ export interface TdGridProps {
             width?: string;
             style?: 'solid' | 'dashed' | 'dotted' | 'double' | 'groove' | 'inset' | 'outset';
         };
-        required?: boolean;
     };
     column?: {
         type: NumberConstructor;
         value?: number;
-        required?: boolean;
+    };
+    customStyle?: {
+        type: StringConstructor;
+        value?: string;
     };
     externalClasses?: {
         type: ArrayConstructor;
         value?: ['t-class'];
-        required?: boolean;
     };
     gutter?: {
         type: NumberConstructor;
         value?: number;
-        required?: boolean;
     };
     hover?: {
         type: BooleanConstructor;
         value?: boolean;
-        required?: boolean;
+    };
+    theme?: {
+        type: StringConstructor;
+        value?: 'default' | 'card';
     };
 }
 export interface TdGridItemProps {
+    badgeProps?: {
+        type: ObjectConstructor;
+        value?: BadgeProps;
+    };
     customStyle?: {
         type: StringConstructor;
         value?: string;
@@ -46,17 +49,22 @@ export interface TdGridItemProps {
     description?: {
         type: StringConstructor;
         value?: string;
-        required?: boolean;
     };
     externalClasses?: {
         type: ArrayConstructor;
         value?: ['t-class', 't-class-image', 't-class-text', 't-class-description'];
-        required?: boolean;
+    };
+    icon?: {
+        type: StringConstructor;
+        value?: string;
+    };
+    iconProps?: {
+        type: ObjectConstructor;
+        value?: object;
     };
     image?: {
         type: StringConstructor;
         value?: string;
-        required?: boolean;
     };
     imageProps?: {
         type: ObjectConstructor;
@@ -65,21 +73,17 @@ export interface TdGridItemProps {
     jumpType?: {
         type: StringConstructor;
         value?: 'redirect-to' | 'switch-tab' | 'relaunch' | 'navigate-to';
-        required?: boolean;
     };
     layout?: {
         type: StringConstructor;
         value?: 'vertical' | 'horizontal';
-        required?: boolean;
     };
     text?: {
         type: StringConstructor;
         value?: string;
-        required?: boolean;
     };
     url?: {
         type: StringConstructor;
         value?: string;
-        required?: boolean;
     };
 }

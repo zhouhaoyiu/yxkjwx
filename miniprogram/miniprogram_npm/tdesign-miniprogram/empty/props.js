@@ -13,6 +13,10 @@ const props = {
         type: String,
         value: '',
     },
+    iconProps: {
+        type: Object,
+        value: {},
+    },
     image: {
         type: String,
     },

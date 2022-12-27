@@ -31,9 +31,13 @@ export interface TdStepperProps {
         type: NumberConstructor;
         value?: number;
     };
+    size?: {
+        type: StringConstructor;
+        value?: string;
+    };
     theme?: {
         type: StringConstructor;
-        value?: 'normal' | 'grey';
+        value?: 'normal' | 'filled' | 'outline';
     };
     value?: {
         type: StringConstructor;

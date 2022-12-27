@@ -28,6 +28,14 @@ const props = {
         type: Boolean,
         value: false,
     },
+    deleteIconProps: {
+        type: Object,
+        value: {},
+    },
+    closeIconProps: {
+        type: Object,
+        value: {},
+    },
     visible: {
         type: Boolean,
         value: null,

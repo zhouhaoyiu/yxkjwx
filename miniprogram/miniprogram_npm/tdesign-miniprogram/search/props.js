@@ -36,7 +36,7 @@ const props = {
     },
     rightIcon: {
         type: String,
-        value: 'close',
+        value: 'close-circle-filled',
     },
     shape: {
         type: String,

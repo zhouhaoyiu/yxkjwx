@@ -20,7 +20,6 @@ let AvatarGroup = class AvatarGroup extends SuperComponent {
             hasChild: true,
             length: 0,
             className: '',
-            borderSize: '',
         };
         this.options = {
             multipleSlots: true,
@@ -95,15 +94,6 @@ let AvatarGroup = class AvatarGroup extends SuperComponent {
                     child.updateCascading(defaultZIndex - index * 10);
                 });
             },
-            handleChildBorder(size, children) {
-                const borderSize = this.isINcludePX(size) ? 'medium' : size;
-                this.setData({
-                    borderSize,
-                });
-                children.forEach((child) => {
-                    child.updateBorder(borderSize);
-                });
-            },
         };
     }
     ready() {
@@ -114,7 +104,6 @@ let AvatarGroup = class AvatarGroup extends SuperComponent {
         this.handleChildSlot(this.properties.max, this.children, this.handleChildMax);
         this.handleChildSize(this.properties.size, this.children);
         this.handleChildCascading(this.properties.cascading, this.children);
-        this.handleChildBorder(this.properties.size, this.children);
     }
 };
 AvatarGroup = __decorate([

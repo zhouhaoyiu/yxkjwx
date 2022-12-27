@@ -16,7 +16,7 @@ let Stepper = class Stepper extends SuperComponent {
         this.options = {
             addGlobalClass: true,
         };
-        this.properties = props;
+        this.properties = Object.assign({}, props);
         this.controlledProps = [
             {
                 key: 'value',

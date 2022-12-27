@@ -11,6 +11,9 @@ export default class NoticeBar extends SuperComponent {
     observers: {
         marquee(val: any): void;
         visible(visible: any): void;
+        'prefixIcon, theme'(): void;
+        suffixIcon(): void;
+        content(): void;
     };
     lifetimes: {
         created(): void;
@@ -22,7 +25,8 @@ export default class NoticeBar extends SuperComponent {
         startScrollAnimation(isFirstScroll?: boolean): void;
         show(): void;
         clearNoticeBarAnimation(): void;
-        setIcon(): void;
+        setPrefixIcon(): void;
+        setSuffixIcon(): void;
         clickPrefixIcon(): void;
         clickContent(): void;
         clickSuffixIcon(): void;

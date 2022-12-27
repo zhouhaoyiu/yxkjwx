@@ -7,7 +7,7 @@
     "author": "",
     "license": "",
     "dependencies": {
-        "tdesign-miniprogram": "^0.30.0"
+        "tdesign-miniprogram": "^0.31.0"
     },
     "devDependencies": {
         "miniprogram-api-typings": "3.8.1"

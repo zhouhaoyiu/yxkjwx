@@ -25,10 +25,11 @@ export interface KeysType {
 export interface HTMLElementAttributes {
     [css: string]: string;
 }
-export interface TScroll {
+export interface InfinityScroll {
     bufferSize?: number;
     isFixedRowHeight?: boolean;
     rowHeight?: number;
     threshold?: number;
     type: 'lazy' | 'virtual';
 }
+export declare type TScroll = InfinityScroll;

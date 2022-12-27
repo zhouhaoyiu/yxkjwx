@@ -3,10 +3,6 @@ export interface TdNavbarProps {
         type: BooleanConstructor;
         value?: boolean;
     };
-    background?: {
-        type: StringConstructor;
-        value?: string;
-    };
     customStyle?: {
         type: StringConstructor;
         value?: string;
@@ -17,28 +13,15 @@ export interface TdNavbarProps {
     };
     externalClasses?: {
         type: ArrayConstructor;
-        value?: [
-            't-class',
-            't-class-title',
-            't-class-left',
-            't-class-center',
-            't-class-left-icon',
-            't-class-home-icon',
-            't-class-capsule',
-            't-class-nav-btn'
-        ];
+        value?: ['t-class', 't-class-title', 't-class-left-icon', 't-class-home-icon', 't-class-capsule'];
     };
     fixed?: {
         type: BooleanConstructor;
         value?: boolean;
     };
-    homeIcon?: {
-        type: StringConstructor;
-        value?: string;
-    };
-    leftIcon?: {
-        type: StringConstructor;
-        value?: string;
+    leftArrow?: {
+        type: BooleanConstructor;
+        value?: boolean;
     };
     title?: {
         type: StringConstructor;

@@ -4,7 +4,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-import { SuperComponent, wxComponent, isObject } from '../common/src/index';
+import { SuperComponent, wxComponent, isObject, useId } from '../common/src/index';
 import config from '../common/config';
 import props from './grid-item-props';
 const { prefix } = config;
@@ -35,6 +35,9 @@ let GridItem = class GridItem extends SuperComponent {
                 linked(target) {
                     this.parent = target;
                     this.updateStyle();
+                    this.setData({
+                        column: target.data.column,
+                    });
                 },
             },
         };
@@ -47,6 +50,15 @@ let GridItem = class GridItem extends SuperComponent {
             gridItemContentStyle: '',
             align: 'center',
             layout: 'vertical',
+            column: 0,
+            labelId: '',
+        };
+        this.lifetimes = {
+            ready() {
+                this.setData({
+                    labelId: useId(),
+                });
+            },
         };
     }
     updateStyle() {
@@ -72,7 +84,7 @@ let GridItem = class GridItem extends SuperComponent {
     }
     getWidthStyle() {
         const { column } = this.parent.properties;
-        return `width:${(1 / column) * 100}%`;
+        return column > 0 ? `width:${(1 / column) * 100}%` : '';
     }
     getPaddingStyle() {
         const { gutter } = this.parent.properties;

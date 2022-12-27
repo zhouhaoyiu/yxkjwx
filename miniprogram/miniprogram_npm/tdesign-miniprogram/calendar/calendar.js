@@ -23,22 +23,88 @@ let Calendar = class Calendar extends SuperComponent {
             prefix,
             classPrefix: name,
             months: [],
+            scrollIntoView: '',
+            innerConfirmBtn: { content: '确认' },
         };
+        this.controlledProps = [
+            {
+                key: 'value',
+                event: 'confirm',
+            },
+            {
+                key: 'value',
+                event: 'change',
+            },
+        ];
         this.lifetimes = {
             ready() {
-                let { confirmBtn } = this.data;
-                if (!confirmBtn) {
-                    confirmBtn = { content: '确认' };
-                }
                 this.base = new TCalendar(this.properties);
+                this.initialValue();
                 this.setData({
                     days: this.base.getDays(),
-                    confirmBtn,
                 });
                 this.calcMonths();
             },
         };
+        this.observers = {
+            confirmBtn(v) {
+                if (typeof v === 'string') {
+                    this.setData({ innerConfirmBtn: v === 'slot' ? 'slot' : { content: v } });
+                }
+                else if (typeof v === 'object') {
+                    this.setData({ innerConfirmBtn: v });
+                }
+            },
+            'firstDayOfWeek,minDate,maxDate'(firstDayOfWeek, minDate, maxDate) {
+                if (this.base) {
+                    this.base.firstDayOfWeek = firstDayOfWeek;
+                    this.base.minDate = minDate;
+                    this.base.maxDate = maxDate;
+                    this.calcMonths();
+                }
+            },
+            value(v) {
+                if (this.base) {
+                    this.base.value = v;
+                }
+            },
+            visible(v) {
+                if (v) {
+                    this.scrollIntoView();
+                    if (this.base) {
+                        this.base.value = this.data.value;
+                        this.calcMonths();
+                    }
+                }
+            },
+        };
         this.methods = {
+            initialValue() {
+                const { value, type, minDate } = this.data;
+                if (!value) {
+                    const today = new Date();
+                    const now = minDate || new Date(today.getFullYear(), today.getMonth(), today.getDate()).getTime();
+                    const initialValue = type === 'single' ? now : [now];
+                    if (type === 'range') {
+                        initialValue[1] = now + 24 * 3600 * 1000;
+                    }
+                    this.setData({
+                        value: initialValue,
+                    });
+                    this.base.value = initialValue;
+                }
+            },
+            scrollIntoView() {
+                const { value } = this.data;
+                if (!value)
+                    return;
+                const date = new Date(Array.isArray(value) ? value[0] : value);
+                if (date) {
+                    this.setData({
+                        scrollIntoView: `year_${date.getFullYear()}_month_${date.getMonth()}`,
+                    });
+                }
+            },
             calcMonths() {
                 const months = this.base.getMonths();
                 this.setData({
@@ -52,13 +118,27 @@ let Calendar = class Calendar extends SuperComponent {
                 const { date, year, month } = e.currentTarget.dataset;
                 if (date.type === 'disabled')
                     return;
-                const value = this.base.select({ cellType: date.type, year, month, date: date.day });
-                this.base.value = value;
+                const rawValue = this.base.select({ cellType: date.type, year, month, date: date.day });
+                const value = this.toTime(rawValue);
                 this.calcMonths();
+                if (this.data.confirmBtn == null) {
+                    if (this.data.type === 'single' || rawValue.length === 2) {
+                        this.setData({ visible: false });
+                        this._trigger('change', { value });
+                    }
+                }
+                this.triggerEvent('select', { value });
             },
             onTplButtonTap() {
-                const value = this.base.getTrimValue();
-                this.triggerEvent('confirm', { value });
+                const rawValue = this.base.getTrimValue();
+                const value = this.toTime(rawValue);
+                this._trigger('confirm', { value });
+            },
+            toTime(val) {
+                if (Array.isArray(val)) {
+                    return val.map((item) => item.getTime());
+                }
+                return val.getTime();
             },
         };
     }

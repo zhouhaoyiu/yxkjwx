@@ -7,6 +7,10 @@ const props = {
         type: Boolean,
         value: false,
     },
+    block: {
+        type: Boolean,
+        value: true,
+    },
     checked: {
         type: Boolean,
         value: null,
@@ -35,7 +39,7 @@ const props = {
     },
     icon: {
         type: null,
-        value: 'fill-circle',
+        value: 'circle',
     },
     label: {
         type: String,

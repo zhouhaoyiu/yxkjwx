@@ -37,12 +37,12 @@
   height: 100rpx;
 }
 .t-empty__description {
-  margin-top: 48rpx;
+  margin-top: var(--td-empty-description-margin-top, 32rpx);
   text-align: center;
-  color: rgba(0, 0, 0, 0.4);
-  font-size: 28rpx;
-  line-height: 44rpx;
+  color: var(--td-empty-description-color, rgba(0, 0, 0, 0.4));
+  font-size: var(--ts-empty-description-font-size, 28rpx);
+  line-height: var(--td-empty-description-line-height, 44rpx);
 }
 .t-empty__description + .t-empty__actions:not(:empty) {
-  margin-top: 48rpx;
+  margin-top: var(--td-empty-action-margin-top, 64rpx);
 }

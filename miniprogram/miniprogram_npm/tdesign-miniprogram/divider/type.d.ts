@@ -23,12 +23,4 @@ export interface TdDividerProps {
         type: StringConstructor;
         value?: 'horizontal' | 'vertical';
     };
-    lineColor?: {
-        type: StringConstructor;
-        value?: string;
-    };
-    theme?: {
-        type: StringConstructor;
-        value?: 'horizontal' | 'vertical';
-    };
 }

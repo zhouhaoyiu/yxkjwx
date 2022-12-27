@@ -11,6 +11,10 @@ export interface TdCellGroupProps {
         type: ArrayConstructor;
         value?: ['t-class'];
     };
+    theme?: {
+        type: StringConstructor;
+        value?: 'default' | 'card';
+    };
     title?: {
         type: StringConstructor;
         value?: string;

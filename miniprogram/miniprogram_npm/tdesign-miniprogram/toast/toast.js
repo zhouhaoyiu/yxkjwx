@@ -32,7 +32,8 @@ let Toast = class Toast extends SuperComponent {
                 const iconMap = {
                     loading: 'loading',
                     success: 'check-circle',
-                    fail: 'error-circle',
+                    warning: 'error-circle',
+                    fail: 'close-circle',
                 };
                 const typeMapIcon = iconMap[options === null || options === void 0 ? void 0 : options.theme] || '';
                 const defaultOptions = {

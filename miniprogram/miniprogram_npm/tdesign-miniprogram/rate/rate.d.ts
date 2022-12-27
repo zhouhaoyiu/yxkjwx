@@ -10,7 +10,16 @@ export default class Rate extends SuperComponent {
         prefix: string;
         classPrefix: string;
         defaultTexts: string[];
-        disabledColor: string;
+        tipsVisible: boolean;
+        tipsLeft: number;
+        actionType: string;
+        scaleIndex: number;
     };
-    onTouch(e: any): void;
+    methods: {
+        onTouch(e: WechatMiniprogram.TouchEvent, eventType: 'tap' | 'move'): void;
+        onTap(e: WechatMiniprogram.TouchEvent): void;
+        onTouchMove(e: WechatMiniprogram.TouchEvent): void;
+        onTouchEnd(): void;
+        onSelect(e: WechatMiniprogram.TouchEvent): void;
+    };
 }

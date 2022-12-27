@@ -24,6 +24,19 @@ export const toComponent = function toComponent(options) {
             }
             options.properties[k] = opt;
         });
+        const ariaProps = [
+            { key: 'ariaHidden', type: Boolean },
+            { key: 'ariaRole', type: String },
+            { key: 'ariaLabel', type: String },
+            { key: 'ariaLabelledby', type: String },
+            { key: 'ariaDescribedby', type: String },
+            { key: 'ariaBusy', type: Boolean },
+        ];
+        ariaProps.forEach(({ key, type }) => {
+            options.properties[key] = {
+                type,
+            };
+        });
     }
     if (!options.methods)
         options.methods = {};

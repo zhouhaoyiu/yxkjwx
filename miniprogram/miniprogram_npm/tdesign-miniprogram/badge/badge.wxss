@@ -28,46 +28,43 @@
 .t-badge {
   position: relative;
   display: inline-block;
+  vertical-align: top;
 }
 .t-badge--basic {
   display: inline-block;
   z-index: 100;
-  font-size: 20rpx;
-  color: #fff;
-  background-color: #e34d59;
-  height: 32rpx;
-  padding: 0 8rpx;
+  padding: 0 var(--td-badge-basic-padding, 8rpx);
+  font-size: var(--td-badge-font-size, 20rpx);
+  color: var(--td-badge-text-color, #ffffff);
+  background-color: var(--td-badge-bg-color, #e34d59);
   text-align: center;
-  line-height: 32rpx;
-  font-weight: normal;
+  height: var(--td-badge-basic-height, 32rpx);
+  line-height: var(--td-badge-basic-height, 32rpx);
+  font-weight: var(--td-badge-font-weight, 600);
+  border-radius: var(--td-badge-border-radius, 4rpx);
 }
 .t-badge--dot {
-  height: 20rpx;
-  border-radius: 8rpx;
-  min-width: 20rpx;
+  height: var(--td-badge-dot-size, 16rpx);
+  border-radius: 50%;
+  min-width: var(--td-badge-dot-size, 16rpx);
   padding: 0;
 }
 .t-badge--count {
-  min-width: 32rpx;
+  min-width: var(--td-badge-basic-width, 32rpx);
   white-space: nowrap;
   box-sizing: border-box;
 }
-.t-badge--small {
-  transform: translate(50%, -50%) scale(0.75);
-}
 .t-badge--circle {
-  border-radius: 32rpx;
+  border-radius: calc(var(--td-badge-basic-height, 32rpx) / 2);
 }
-.t-badge--round {
-  border-radius: 8rpx;
-}
-.t-badge__ribbon--outer {
+.t-badge__ribbon-outer {
   position: absolute;
   top: 0;
   right: 0;
 }
 .t-badge--ribbon {
   transform: rotate(45deg);
+  border-radius: 0;
 }
 .t-badge--ribbon::before {
   content: '';
@@ -75,9 +72,9 @@
   width: 0;
   height: 0;
   bottom: 0;
-  left: -32rpx;
-  border-bottom: 32rpx solid #e34d59;
-  border-left: 32rpx solid transparent;
+  left: calc(-1 * var(--td-badge-basic-height, 32rpx));
+  border-bottom: var(--td-badge-basic-height, 32rpx) solid var(--td-badge-bg-color, #e34d59);
+  border-left: var(--td-badge-basic-height, 32rpx) solid transparent;
 }
 .t-badge--ribbon::after {
   content: '';
@@ -85,9 +82,21 @@
   width: 0;
   height: 0;
   bottom: 0;
-  right: -32rpx;
-  border-bottom: 32rpx solid #e34d59;
-  border-right: 32rpx solid transparent;
+  right: calc(-1 * var(--td-badge-basic-height, 32rpx));
+  border-bottom: var(--td-badge-basic-height, 32rpx) solid var(--td-badge-bg-color, #e34d59);
+  border-right: var(--td-badge-basic-height, 32rpx) solid transparent;
+}
+.t-badge--bubble {
+  border-radius: var(--td-badge-bubble-border-radius, 20rpx 20rpx 20rpx 1px);
+}
+.t-badge--large {
+  font-size: var(--td-badge-large-font-size, 24rpx);
+  height: var(--td-badge-large-height, 36rpx);
+  line-height: var(--td-badge-large-height, 36rpx);
+  padding: 0 var(--td-badge-large-padding, 10rpx);
+}
+.t-badge--large.t-badge--circle {
+  border-radius: calc(var(--td-badge-large-height, 36rpx) / 2);
 }
 .t-badge__content:not(:empty) + .t-has-count {
   transform: translate(50%, -50%);

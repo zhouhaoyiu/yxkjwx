@@ -42,7 +42,7 @@ let CheckTag = class CheckTag extends SuperComponent {
         this.methods = {
             setClass() {
                 const { prefix, classPrefix } = this.data;
-                const { size, shape, closable, disabled, checked, defaultChecked } = this.properties;
+                const { size, shape, variant, closable, disabled, checked, defaultChecked } = this.properties;
                 const isChecked = checked || defaultChecked;
                 const tagClass = [
                     classPrefix,
@@ -50,8 +50,10 @@ let CheckTag = class CheckTag extends SuperComponent {
                     closable ? `${classPrefix}--closable ${prefix}-is-closable` : '',
                     disabled ? `${classPrefix}--disabled ${prefix}-is-disabled` : '',
                     isChecked ? `${classPrefix}--checked ${prefix}-is-checked` : '',
+                    `${classPrefix}--theme-${isChecked ? 'primary' : 'default'}`,
                     `${classPrefix}--size-${size || 'medium'}`,
                     `${classPrefix}--shape-${shape || 'square'}`,
+                    `${classPrefix}--variant-${variant || 'dark'}`,
                 ];
                 const className = classNames(tagClass);
                 this.setData({

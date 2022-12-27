@@ -29,7 +29,6 @@ let Avatar = class Avatar extends SuperComponent {
             isShow: true,
             zIndex: 0,
             isChild: false,
-            borderSize: '',
         };
         this.relations = {
             './avatar-group': {
@@ -57,9 +56,6 @@ let Avatar = class Avatar extends SuperComponent {
             },
             updateCascading(zIndex) {
                 this.setData({ zIndex });
-            },
-            updateBorder(borderSize) {
-                this.setData({ borderSize });
             },
         };
     }

@@ -15,7 +15,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 import dom from '../behaviors/dom';
 import touch from '../behaviors/touch';
-import { SuperComponent, wxComponent } from '../common/src/index';
+import { SuperComponent, wxComponent, useId } from '../common/src/index';
 import props from './props';
 import config from '../common/config';
 const { prefix } = config;
@@ -37,12 +37,14 @@ let Tabs = class Tabs extends SuperComponent {
                 type: 'descendant',
                 linked(target) {
                     this.children.push(target);
+                    this.initChildId();
                     target.index = this.children.length - 1;
                     this.updateTabs();
                 },
                 unlinked(target) {
                     this.children = this.children.filter((item) => item.index !== target.index);
                     this.updateTabs(() => this.setTrack());
+                    this.initChildId();
                 },
             },
         };
@@ -59,9 +61,6 @@ let Tabs = class Tabs extends SuperComponent {
                     this.setCurrentIndexByName(name);
                 }
             },
-            animation(v) {
-                this.setData({ animate: v });
-            },
             placement() {
                 this.adjustPlacement();
             },
@@ -75,8 +74,8 @@ let Tabs = class Tabs extends SuperComponent {
             isScrollX: true,
             isScrollY: false,
             direction: 'X',
-            animate: { duration: 0 },
             offset: 0,
+            tabPanelId: '',
         };
         this.methods = {
             adjustPlacement() {
@@ -99,6 +98,14 @@ let Tabs = class Tabs extends SuperComponent {
     }
     created() {
         this.children = this.children || [];
+    }
+    initChildId() {
+        this.setData({
+            tabPanelId: `${useId()}-`,
+        });
+        this.children.forEach((item, index) => {
+            item.setId(this.data.tabPanelId + index);
+        });
     }
     attached() {
         wx.nextTick(() => {
@@ -146,8 +153,8 @@ let Tabs = class Tabs extends SuperComponent {
             }
         }
     }
-    calcScrollOffset(containerWidth, targetLeft, targetWidth, offset, currentIndex) {
-        return currentIndex * targetWidth - (1 / 2) * containerWidth + targetWidth / 2;
+    calcScrollOffset(containerWidth, targetLeft, targetWidth, offset) {
+        return offset + targetLeft - (1 / 2) * containerWidth + targetWidth / 2;
     }
     getTrackSize() {
         return new Promise((resolve) => {
@@ -187,10 +194,12 @@ let Tabs = class Tabs extends SuperComponent {
                     }
                 }
                 if (this.containerWidth) {
-                    const offset = this.calcScrollOffset(this.containerWidth, rect.left, rect.width, this.data.offset, currentIndex);
-                    this.setData({
-                        offset,
-                    });
+                    const offset = this.calcScrollOffset(this.containerWidth, rect.left, rect.width, this.data.offset);
+                    if (offset > 0) {
+                        this.setData({
+                            offset,
+                        });
+                    }
                 }
                 if (isScrollX) {
                     const trackLineWidth = yield this.getTrackSize();

@@ -10,6 +10,7 @@ export default class PickerItem extends SuperComponent {
         offset: number;
         duration: number;
         value: string;
+        curIndex: number;
     };
     methods: {
         onTouchStart(event: any): void;

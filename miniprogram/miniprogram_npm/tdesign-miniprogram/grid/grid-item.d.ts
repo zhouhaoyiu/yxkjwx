@@ -14,6 +14,11 @@ export default class GridItem extends SuperComponent {
         gridItemContentStyle: string;
         align: string;
         layout: string;
+        column: number;
+        labelId: string;
+    };
+    lifetimes: {
+        ready(): void;
     };
     updateStyle(): void;
     getWidthStyle(): string;

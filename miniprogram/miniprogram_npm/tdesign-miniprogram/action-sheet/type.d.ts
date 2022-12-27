@@ -1,4 +1,8 @@
 export interface TdActionSheetProps {
+    align?: {
+        type: StringConstructor;
+        value?: 'center' | 'left';
+    };
     cancelText?: {
         type: StringConstructor;
         value?: string;
@@ -11,9 +15,9 @@ export interface TdActionSheetProps {
         type: StringConstructor;
         value?: string;
     };
-    externalClasses?: {
-        type: ArrayConstructor;
-        value?: ['t-class', 't-class-image', 't-class-content'];
+    description?: {
+        type: StringConstructor;
+        value?: string;
     };
     items: {
         type: ArrayConstructor;

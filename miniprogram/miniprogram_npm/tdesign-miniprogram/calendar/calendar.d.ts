@@ -11,14 +11,31 @@ export default class Calendar extends SuperComponent {
         prefix: string;
         classPrefix: string;
         months: any[];
+        scrollIntoView: string;
+        innerConfirmBtn: {
+            content: string;
+        };
     };
+    controlledProps: {
+        key: string;
+        event: string;
+    }[];
     lifetimes: {
         ready(): void;
     };
+    observers: {
+        confirmBtn(v: any): void;
+        'firstDayOfWeek,minDate,maxDate'(firstDayOfWeek: any, minDate: any, maxDate: any): void;
+        value(v: any): void;
+        visible(v: any): void;
+    };
     methods: {
+        initialValue(): void;
+        scrollIntoView(): void;
         calcMonths(): void;
         handleClose(): void;
         handleSelect(e: any): void;
         onTplButtonTap(): void;
+        toTime(val: any): any;
     };
 }

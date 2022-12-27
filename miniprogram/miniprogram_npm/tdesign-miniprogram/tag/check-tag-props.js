@@ -38,5 +38,9 @@ const props = {
         type: String,
         value: 'medium',
     },
+    variant: {
+        type: String,
+        value: 'dark',
+    },
 };
 export default props;

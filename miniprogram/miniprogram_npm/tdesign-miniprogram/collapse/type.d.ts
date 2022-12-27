@@ -19,6 +19,10 @@ export interface TdCollapseProps {
         type: BooleanConstructor;
         value?: boolean;
     };
+    theme?: {
+        type: StringConstructor;
+        value?: 'default' | 'card';
+    };
     value?: {
         type: ArrayConstructor;
         value?: CollapseValue;

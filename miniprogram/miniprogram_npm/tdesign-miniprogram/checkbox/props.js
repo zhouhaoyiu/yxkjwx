@@ -3,6 +3,10 @@ const props = {
         type: String,
         value: 'left',
     },
+    block: {
+        type: Boolean,
+        value: true,
+    },
     checkAll: {
         type: Boolean,
         value: false,
@@ -14,10 +18,6 @@ const props = {
     defaultChecked: {
         type: Boolean,
         value: false,
-    },
-    color: {
-        type: String,
-        value: '#0052d9',
     },
     content: {
         type: String,
@@ -37,7 +37,8 @@ const props = {
         type: Array,
     },
     icon: {
-        type: Array,
+        type: null,
+        value: 'circle',
     },
     indeterminate: {
         type: Boolean,

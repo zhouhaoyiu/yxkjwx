@@ -33,7 +33,7 @@ export interface TdBadgeProps {
     };
     shape?: {
         type: StringConstructor;
-        value?: 'circle' | 'square' | 'round' | 'ribbon';
+        value?: 'circle' | 'round' | 'ribbon' | 'bubble';
     };
     showZero?: {
         type: BooleanConstructor;

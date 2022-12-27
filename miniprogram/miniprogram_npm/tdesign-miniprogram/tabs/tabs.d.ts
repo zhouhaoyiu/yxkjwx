@@ -11,7 +11,6 @@ export default class Tabs extends SuperComponent {
     }[];
     observers: {
         value(name: any): void;
-        animation(v: any): void;
         placement(): void;
     };
     data: {
@@ -23,12 +22,11 @@ export default class Tabs extends SuperComponent {
         isScrollX: boolean;
         isScrollY: boolean;
         direction: string;
-        animate: {
-            duration: number;
-        };
         offset: number;
+        tabPanelId: string;
     };
     created(): void;
+    initChildId(): void;
     attached(): void;
     methods: {
         adjustPlacement(): void;
@@ -37,7 +35,7 @@ export default class Tabs extends SuperComponent {
     setCurrentIndexByName(name: any): void;
     setCurrentIndex(index: number): void;
     getCurrentName(): any;
-    calcScrollOffset(containerWidth: number, targetLeft: number, targetWidth: number, offset: number, currentIndex: number): number;
+    calcScrollOffset(containerWidth: number, targetLeft: number, targetWidth: number, offset: number): number;
     getTrackSize(): Promise<number>;
     setTrack(): Promise<void>;
     onTabTap(event: any): void;

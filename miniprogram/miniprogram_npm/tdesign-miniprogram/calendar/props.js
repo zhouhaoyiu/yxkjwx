@@ -15,10 +15,10 @@ const props = {
         type: null,
     },
     maxDate: {
-        type: null,
+        type: Number,
     },
     minDate: {
-        type: null,
+        type: Number,
     },
     title: {
         type: String,
@@ -29,6 +29,10 @@ const props = {
         value: 'single',
     },
     value: {
+        type: null,
+        value: null,
+    },
+    defaultValue: {
         type: null,
     },
     visible: {

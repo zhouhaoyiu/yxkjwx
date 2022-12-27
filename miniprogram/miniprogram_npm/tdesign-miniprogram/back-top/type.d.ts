@@ -12,8 +12,8 @@ export interface TdBackTopProps {
         value?: boolean;
     };
     icon?: {
-        type: StringConstructor;
-        value?: string;
+        type: null;
+        value?: boolean | string | object;
     };
     text?: {
         type: StringConstructor;

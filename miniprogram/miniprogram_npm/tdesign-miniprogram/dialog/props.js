@@ -8,15 +8,17 @@ const props = {
     },
     cancelBtn: {
         type: null,
-        value: '',
+    },
+    closeBtn: {
+        type: null,
+        value: false,
     },
     closeOnOverlayClick: {
         type: Boolean,
-        value: true,
+        value: undefined,
     },
     confirmBtn: {
         type: null,
-        value: '',
     },
     content: {
         type: String,
@@ -45,7 +47,6 @@ const props = {
     },
     visible: {
         type: Boolean,
-        value: false,
     },
     zIndex: {
         type: Number,

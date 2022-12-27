@@ -25,60 +25,37 @@
   bottom: 0;
   transform: scale(1.5);
 }
-page {
-  --td-avatar-group-border-color: #fff;
-}
-.border--small {
-  border: 4rpx solid var(--td-avatar-group-border-color, #fff);
-}
-.border--medium {
-  border: 6rpx solid var(--td-avatar-group-border-color, #fff);
-}
-.border--large {
-  border: 8rpx solid var(--td-avatar-group-border-color, #fff);
-}
-page {
-  --td-avatar-bg-color: #d4e3fc;
-  --td-avatar-content-color: #0052d9;
-}
 .t-avatar {
   display: flex;
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
-}
-.t-avatar__wrapper {
-  float: left;
-  position: relative;
   background-color: var(--td-avatar-bg-color, #d4e3fc);
   color: var(--td-avatar-content-color, #0052d9);
-  border-radius: 999rpx;
-}
-.t-avatar__wrapper .t-badge-host {
-  position: absolute;
-}
-.t-avatar__wrapper .t-badge__round {
-  top: -10%;
-  right: -10%;
-}
-.t-avatar__wrapper .t-badge__circle {
-  top: -5%;
-  right: -5%;
 }
 .t-avatar.t-size-l {
-  width: 128rpx;
-  height: 128rpx;
-  font-size: 52rpx;
+  width: var(--td-avatar-large-width, 128rpx);
+  height: var(--td-avatar-large-width, 128rpx);
+  font-size: var(--td-avatar-text-large-font-size, 16px);
+}
+.t-avatar.t-size-l .t-avatar__icon {
+  font-size: var(--td-avatar-icon-large-font-size, 64rpx);
 }
 .t-avatar.t-size-m {
-  width: 96rpx;
-  height: 96rpx;
-  font-size: 40rpx;
+  width: var(--td-avatar-medium-width, 96rpx);
+  height: var(--td-avatar-medium-width, 96rpx);
+  font-size: var(--td-avatar-text-medium-font-size, 28rpx);
+}
+.t-avatar.t-size-m .t-avatar__icon {
+  font-size: var(--ts-avatar-icon-medium-font-size, 48rpx);
 }
 .t-avatar.t-size-s {
-  width: 64rpx;
-  height: 64rpx;
-  font-size: 28rpx;
+  width: var(--td-avatar-small-width, 80rpx);
+  height: var(--td-avatar-small-width, 80rpx);
+  font-size: var(--td-avatar-text-small-font-size, 24rpx);
+}
+.t-avatar.t-size-s .t-avatar__icon {
+  font-size: var(--td-avatar-icon-small-font-size, 40rpx);
 }
 .t-avatar .t-image,
 .t-avatar__image {
@@ -86,16 +63,15 @@ page {
   height: 100%;
 }
 .t-avatar--circle {
-  border-radius: 999rpx;
+  border-radius: var(--td-avatar-circle-border-radius, 50%);
   overflow: hidden;
 }
 .t-avatar--round {
-  border-radius: 10rpx;
+  border-radius: var(--td-avatar-round-border-radius, 12rpx);
   overflow: hidden;
 }
 .t-avatar__text,
 .t-avatar__icon {
-  font-size: inherit;
   width: 100%;
   height: 100%;
   display: flex;
@@ -106,4 +82,17 @@ page {
 .t-avatar__icon:empty {
   width: 0;
   height: 0;
+}
+.t-avatar--border {
+  border-color: var(--td-avatar-border-color, #fff);
+  border-style: solid;
+}
+.t-avatar--border--small {
+  border-width: var(--td-avatar-border-width-small, 4rpx);
+}
+.t-avatar--border--medium {
+  border-width: var(--td-avatar-border-width-medium, 6rpx);
+}
+.t-avatar--border--large {
+  border-width: var(--td-avatar-border-width-large, 8rpx);
 }

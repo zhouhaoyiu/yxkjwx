@@ -1,3 +1,4 @@
+const systemInfo = wx.getSystemInfoSync();
 export const debounce = function (func, wait = 500) {
     let timerId;
     return function (...rest) {
@@ -141,3 +142,38 @@ export const getInstance = function (context, selector) {
     }
     return instance;
 };
+export const unitConvert = (value) => {
+    var _a;
+    if (typeof value === 'string') {
+        if (value.includes('rpx')) {
+            return (parseInt(value, 10) * ((_a = systemInfo === null || systemInfo === void 0 ? void 0 : systemInfo.screenWidth) !== null && _a !== void 0 ? _a : 750)) / 750;
+        }
+        return parseInt(value, 10);
+    }
+    return value;
+};
+export const setIcon = (iconName, icon, defaultIcon) => {
+    if (icon) {
+        if (typeof icon === 'string') {
+            return {
+                [`${iconName}Name`]: icon,
+                [`${iconName}Data`]: {},
+            };
+        }
+        else if (typeof icon === 'object') {
+            return {
+                [`${iconName}Name`]: '',
+                [`${iconName}Data`]: icon,
+            };
+        }
+        else {
+            return {
+                [`${iconName}Name`]: defaultIcon,
+                [`${iconName}Data`]: {},
+            };
+        }
+    }
+};
+export const isObject = (val) => typeof val === 'object' && val != null;
+export const isString = (val) => typeof val === 'string';
+export const toCamel = (str) => str.replace(/-(\w)/g, (match, m1) => m1.toUpperCase());

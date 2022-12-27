@@ -17,8 +17,8 @@ export default class TCalendar {
                 return new Date(val);
             return new Date();
         };
-        if (type === 'single')
-            return isValidDate(value) ? format(value) : new Date();
+        if (type === 'single' && isValidDate(value))
+            return format(value);
         if (type === 'multiple' || type === 'range') {
             if (Array.isArray(value)) {
                 const isValid = value.every((item) => isValidDate(item));
@@ -45,17 +45,17 @@ export default class TCalendar {
         const { year: maxYear, month: maxMonth, time: maxTime } = getDateRect(maxDate);
         const calcType = (year, month, date) => {
             const curDate = new Date(year, month, date, 23, 59, 59);
-            if (type === 'single') {
+            if (type === 'single' && selectedDate) {
                 if (isSameDate({ year, month, date }, selectedDate))
                     return 'selected';
             }
-            if (type === 'multiple') {
+            if (type === 'multiple' && selectedDate) {
                 const hit = selectedDate.some((item) => isSameDate({ year, month, date }, item));
                 if (hit) {
                     return 'selected';
                 }
             }
-            if (type === 'range') {
+            if (type === 'range' && selectedDate) {
                 if (Array.isArray(selectedDate)) {
                     const [startDate, endDate] = selectedDate;
                     if (startDate && isSameDate({ year, month, date }, startDate))
@@ -103,14 +103,14 @@ export default class TCalendar {
         if (cellType === 'disabled')
             return;
         const selected = new Date(year, month, date);
+        this.value = selected;
         if (type === 'range' && Array.isArray(selectedDate)) {
-            if (selectedDate.length === 1) {
-                if (selectedDate[0] > selected) {
-                    return [selected];
-                }
-                return [selectedDate[0], selected];
+            if (selectedDate.length === 1 && selected > selectedDate[0]) {
+                this.value = [selectedDate[0], selected];
             }
-            return [selected];
+            else {
+                this.value = [selected];
+            }
         }
         else if (type === 'multiple' && Array.isArray(selectedDate)) {
             const newVal = [...selectedDate];
@@ -121,8 +121,8 @@ export default class TCalendar {
             else {
                 newVal.push(selected);
             }
-            return newVal;
+            this.value = newVal;
         }
-        return selected;
+        return this.value;
     }
 }

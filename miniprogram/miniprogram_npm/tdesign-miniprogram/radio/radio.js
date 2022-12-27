@@ -30,8 +30,11 @@ let Radio = class Radio extends SuperComponent {
                 type: 'ancestor',
                 linked(parent) {
                     this.parent = parent;
-                    if (parent.align) {
-                        this.setData({ align: parent.align });
+                    if (parent.data.align) {
+                        this.setData({ align: parent.data.align });
+                    }
+                    if (parent.data.borderless) {
+                        this.setData({ borderless: true });
                     }
                 },
             },
@@ -54,18 +57,11 @@ let Radio = class Radio extends SuperComponent {
                 event: 'change',
             },
         ];
-        this.observers = {
-            checked(isChecked) {
-                this.setData({
-                    active: isChecked,
-                });
-            },
-        };
         this.data = {
             prefix,
-            active: false,
             classPrefix: name,
             customIcon: false,
+            slotIcon: false,
             optionLinked: false,
             iconVal: [],
         };
@@ -80,13 +76,13 @@ let Radio = class Radio extends SuperComponent {
             },
             doChange() {
                 var _a;
-                const { value, active } = this.data;
+                const { value, checked } = this.data;
                 const [parent] = (_a = this.getRelationNodes('../radio-group/radio-group')) !== null && _a !== void 0 ? _a : [null];
                 if (parent) {
                     parent.updateValue(value);
                 }
                 else {
-                    this._trigger('change', { checked: !active });
+                    this._trigger('change', { checked: !checked });
                 }
             },
             initStatus() {
@@ -95,6 +91,7 @@ let Radio = class Radio extends SuperComponent {
                 const isIdArr = Array.isArray(((_a = this.parent) === null || _a === void 0 ? void 0 : _a.icon) || icon);
                 this.setData({
                     customIcon: isIdArr,
+                    slotIcon: icon === 'slot',
                     iconVal: !isIdArr ? iconDefault[icon] : this.data.icon,
                 });
             },

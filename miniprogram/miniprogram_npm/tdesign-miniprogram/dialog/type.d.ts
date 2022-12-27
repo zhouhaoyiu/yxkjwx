@@ -12,6 +12,10 @@ export interface TdDialogProps {
         type: null;
         value?: string | ButtonProps | null;
     };
+    closeBtn?: {
+        type: null;
+        value?: boolean | object;
+    };
     closeOnOverlayClick?: {
         type: BooleanConstructor;
         value?: boolean;

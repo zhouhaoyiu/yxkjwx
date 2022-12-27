@@ -9,12 +9,12 @@ export default class Image extends SuperComponent {
         prefix: string;
         isLoading: boolean;
         isFailed: boolean;
-        widthStyle: string;
+        innerStyle: string;
         classPrefix: string;
     };
     preSrc: string;
     lifetimes: {
-        attached(this: Image): void;
+        attached(): void;
     };
     observers: {
         src(): void;

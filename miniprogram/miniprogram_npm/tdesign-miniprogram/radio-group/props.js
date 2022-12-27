@@ -1,7 +1,7 @@
 const props = {
     align: {
         type: String,
-        value: 'left',
+        value: null,
     },
     borderless: {
         type: Boolean,

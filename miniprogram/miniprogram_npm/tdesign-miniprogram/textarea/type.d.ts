@@ -17,7 +17,7 @@ export interface TdTextareaProps {
     };
     confirmType?: {
         type: StringConstructor;
-        value?: 'send' | 'search' | 'next' | 'go' | 'done';
+        value?: 'return' | 'send' | 'search' | 'next' | 'go' | 'done';
     };
     cursorSpacing?: {
         type: NumberConstructor;
@@ -34,6 +34,10 @@ export interface TdTextareaProps {
     externalClasses?: {
         type: ArrayConstructor;
         value?: ['t-class', 't-class-textarea', 't-class-label'];
+    };
+    fixed?: {
+        type: BooleanConstructor;
+        value?: boolean;
     };
     focus?: {
         type: BooleanConstructor;
@@ -55,6 +59,10 @@ export interface TdTextareaProps {
         type: StringConstructor;
         value?: string;
     };
+    placeholderStyle: {
+        type: StringConstructor;
+        value: string;
+    };
     value?: {
         type: StringConstructor;
         value?: string;
@@ -62,5 +70,13 @@ export interface TdTextareaProps {
     defaultValue?: {
         type: StringConstructor;
         value?: string;
+    };
+    bordered?: {
+        type: BooleanConstructor;
+        value?: boolean;
+    };
+    indicator?: {
+        type: BooleanConstructor;
+        value?: boolean;
     };
 }

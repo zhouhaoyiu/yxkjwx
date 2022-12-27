@@ -10,12 +10,13 @@
         font-size: 24px;
         font-weight: bold;
         color: rgb(153, 153, 153);
-        padding-left: 0rpx;
-        padding-top: 7rpx;
+        padding-left: 12rpx;
+        padding-top: 8rpx;
+        padding-bottom: 8rpx;
     }
 }
-image { 
-    width: 100%;  
+image {
+    width: 100%;
     background: white;
 }
 canvas {
@@ -27,6 +28,6 @@ canvas {
     background: white;
 }
 
-.t-button{
+.t-button {
     width: 300rpx;
 }

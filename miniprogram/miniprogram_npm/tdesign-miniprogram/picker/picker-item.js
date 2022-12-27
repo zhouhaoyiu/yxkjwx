@@ -38,6 +38,7 @@ let PickerItem = class PickerItem extends SuperComponent {
             offset: 0,
             duration: 0,
             value: '',
+            curIndex: 0,
         };
         this.methods = {
             onTouchStart(event) {
@@ -62,6 +63,7 @@ let PickerItem = class PickerItem extends SuperComponent {
                 }
                 const index = range(Math.round(-offset / this.itemHeight), 0, this.getCount() - 1);
                 this.setData({
+                    curIndex: index,
                     offset: -index * this.itemHeight,
                 });
                 if (index === this._selectedIndex) {
@@ -83,7 +85,10 @@ let PickerItem = class PickerItem extends SuperComponent {
                 const { options, value } = this.data;
                 const index = options.findIndex((item) => item.value === value);
                 const selectedIndex = index > 0 ? index : 0;
-                this.setData({ offset: -selectedIndex * this.itemHeight });
+                this.setData({
+                    offset: -selectedIndex * this.itemHeight,
+                    curIndex: selectedIndex,
+                });
                 this._selectedIndex = selectedIndex;
                 this._selectedValue = (_a = options[selectedIndex]) === null || _a === void 0 ? void 0 : _a.value;
                 this._selectedLabel = (_b = options[selectedIndex]) === null || _b === void 0 ? void 0 : _b.label;

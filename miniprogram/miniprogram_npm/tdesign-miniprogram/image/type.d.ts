@@ -11,6 +11,10 @@ export interface TdImageProps {
         type: ArrayConstructor;
         value?: ['t-class', 't-class-load'];
     };
+    height?: {
+        type: null;
+        value?: string | number;
+    };
     lazy?: {
         type: BooleanConstructor;
         value?: boolean;
@@ -19,24 +23,28 @@ export interface TdImageProps {
         type: StringConstructor;
         value?: string;
     };
+    mode?: {
+        type: StringConstructor;
+        value?: 'scaleToFill' | 'aspectFit' | 'aspectFill' | 'widthFix' | 'heightFix' | 'top' | 'bottom' | 'center' | 'left' | 'right' | 'top left' | 'top right' | 'bottom left' | 'bottom right';
+    };
     shape?: {
         type: StringConstructor;
         value?: 'circle' | 'round' | 'square';
+    };
+    showMenuByLongpress?: {
+        type: BooleanConstructor;
+        value?: boolean;
     };
     src?: {
         type: StringConstructor;
         value?: string;
     };
-    mode?: {
-        type: StringConstructor;
-        value?: 'scaleToFill' | 'aspectFit' | 'aspectFill' | 'widthFix' | 'heightFix' | 'top' | 'bottom' | 'center' | 'left' | 'right' | 'top left' | 'top right' | 'bottom left' | 'bottom right';
-    };
     webp?: {
         type: BooleanConstructor;
         value?: boolean;
     };
-    showMenuByLongpress?: {
-        type: BooleanConstructor;
-        value?: boolean;
+    width?: {
+        type: null;
+        value?: string | number;
     };
 }

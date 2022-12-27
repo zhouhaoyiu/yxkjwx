@@ -27,33 +27,40 @@ CSS 变量名|说明
 
 ## 代码演示
 
-### 一行三个带边框
+### 组件类型
+基础宫格
+
+{{ base }}
+
+带说明的宫格
+
+{{ description }}
+
+带边框的宫格
 
 {{ border }}
 
-### 一行四个
-
-{{ four }}
-
-### 一行五个
-
-{{ five }}
-
-### 一行三个
-
-{{ three }}
-
-### 一行二个带说明
-
-{{ two-des }}
-
-### 一行三个带说明
-
-{{ three-des }}
-
-### 带徽标
+带徽章的宫格
 
 {{ badge }}
+
+可滑动的宫格
+
+{{ scroll }}
+
+### 组件样式
+
+可传图标的宫格
+
+{{ icon-grid }}
+
+多行宫格
+
+{{ multiple }}
+
+卡片宫格
+
+{{ card }}
 
 
 ## API
@@ -63,21 +70,25 @@ CSS 变量名|说明
 -- | -- | -- | -- | --
 align | String | center | 内容对齐方式。可选项：left/center | N
 border | Boolean / Object | false | 边框，默认不显示。值为 true 则显示默认边框，值类型为 object 则表示自定义边框样式。TS 类型：`boolean \| { color?: string; width?: string; style?: 'solid' \| 'dashed' \| 'dotted' \| 'double' \| 'groove' \| 'inset' \| 'outset' }` | N
-column | Number | 4 | 每一行的列数量 | N
-custom-style `v0.25.0` | String | - | 自定义组件样式 | N
+column | Number | 4 | 每一行的列数量；为 0 时等于固定大小 | N
+custom-style | String | - | 自定义组件样式 | N
 external-classes | Array | - | 组件类名，用于设置组件外层元素类名。`['t-class']` | N
 gutter | Number | - | 间隔大小 | N
 hover | Boolean | false | 是否开启点击反馈 | N
+theme | String | default | 宫格的风格。可选项：default/card | N
 
 ### GridItem Props
 
 名称 | 类型 | 默认值 | 说明 | 必传
 -- | -- | -- | -- | --
+badge-props | Object | null | 透传至 Badge 属性。TS 类型：`BadgeProps`，[Badge API Documents](./badge?tab=api)。[详细类型定义](https://github.com/Tencent/tdesign-miniprogram/tree/develop/src/grid/type.ts) | N
+custom-style | String | - | 自定义组件样式 | N
 description | String / Slot | - | 文本以外的更多描述，辅助信息。可以通过 Props 传入文本，也可以自定义标题节点 | N
 external-classes | Array | - | 组件类名，分别用于设置组件外层元素、图片、文本、描述等元素类名。`['t-class', 't-class-image', 't-class-text', 't-class-description']` | N
+icon | String | - | 图标名称 | N
+icon-props | Object | {} | 图标属性，透传至 icon | N
 image | String / Slot | - | 图片，可以是图片地址，也可以自定义图片节点 | N
 image-props | Object | - | 透传至 Image 组件 | N
-custom-style | String | - | 自定义组件样式 | N
 jump-type | String | navigate-to | 链接跳转类型。可选项：redirect-to/switch-tab/relaunch/navigate-to | N
 layout | String | vertical | 内容布局方式。可选项：vertical/horizontal | N
 text | String / Slot | - | 文本，可以通过 Props 传入文本，也可以自定义标题节点 | N

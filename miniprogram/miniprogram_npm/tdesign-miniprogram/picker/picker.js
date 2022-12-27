@@ -45,12 +45,10 @@ let Picker = class Picker extends SuperComponent {
             updateChildren() {
                 const { value } = this.properties;
                 const pickerColumns = this.getPickerColumns();
-                if (!(pickerColumns === null || pickerColumns === void 0 ? void 0 : pickerColumns.length)) {
-                    return;
-                }
                 pickerColumns.forEach((child, index) => {
                     child.setData({
                         value: (value === null || value === void 0 ? void 0 : value[index]) || '',
+                        siblingCount: pickerColumns.length,
                     });
                     child.update();
                 });

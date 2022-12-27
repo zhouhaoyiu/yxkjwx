@@ -17,6 +17,10 @@ export default class CheckBox extends SuperComponent {
             type: StringConstructor;
             value?: "left" | "right";
         };
+        block?: {
+            type: BooleanConstructor;
+            value?: boolean;
+        };
         checkAll?: {
             type: BooleanConstructor;
             value?: boolean;
@@ -28,10 +32,6 @@ export default class CheckBox extends SuperComponent {
         defaultChecked?: {
             type: BooleanConstructor;
             value?: boolean;
-        };
-        color?: {
-            type: StringConstructor;
-            value?: string;
         };
         content?: {
             type: StringConstructor;
@@ -54,8 +54,8 @@ export default class CheckBox extends SuperComponent {
             value?: ["t-class", "t-class-icon", "t-class-label", "t-class-content", "t-class-border"];
         };
         icon?: {
-            type: ArrayConstructor;
-            value?: string[];
+            type: null;
+            value?: string[] | "circle" | "rectangle" | "line";
         };
         indeterminate?: {
             type: BooleanConstructor;

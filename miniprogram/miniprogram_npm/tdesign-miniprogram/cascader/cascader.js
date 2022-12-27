@@ -31,27 +31,24 @@ let Cascader = class Cascader extends SuperComponent {
                     $tabs === null || $tabs === void 0 ? void 0 : $tabs.setTrack();
                 }
             },
-            value() {
+            'value, options'() {
                 this.initWithValue();
             },
-            options() {
-                this.setData({
-                    items: [this.data.options],
-                });
-            },
-            selectedIndexes() {
+            'selectedIndexes, options'() {
                 var _a, _b, _c, _d;
                 const { options, selectedIndexes, keys } = this.data;
                 const selectedValue = [];
                 const steps = [];
                 const items = [options];
-                for (let i = 0, size = selectedIndexes.length; i < size; i += 1) {
-                    const index = selectedIndexes[i];
-                    const next = items[i][index];
-                    selectedValue.push(next[(_a = keys === null || keys === void 0 ? void 0 : keys.value) !== null && _a !== void 0 ? _a : 'value']);
-                    steps.push(next[(_b = keys === null || keys === void 0 ? void 0 : keys.label) !== null && _b !== void 0 ? _b : 'label']);
-                    if (next[(_c = keys === null || keys === void 0 ? void 0 : keys.children) !== null && _c !== void 0 ? _c : 'children']) {
-                        items.push(next[(_d = keys === null || keys === void 0 ? void 0 : keys.children) !== null && _d !== void 0 ? _d : 'children']);
+                if (options.length > 0) {
+                    for (let i = 0, size = selectedIndexes.length; i < size; i += 1) {
+                        const index = selectedIndexes[i];
+                        const next = items[i][index];
+                        selectedValue.push(next[(_a = keys === null || keys === void 0 ? void 0 : keys.value) !== null && _a !== void 0 ? _a : 'value']);
+                        steps.push(next[(_b = keys === null || keys === void 0 ? void 0 : keys.label) !== null && _b !== void 0 ? _b : 'label']);
+                        if (next[(_c = keys === null || keys === void 0 ? void 0 : keys.children) !== null && _c !== void 0 ? _c : 'children']) {
+                            items.push(next[(_d = keys === null || keys === void 0 ? void 0 : keys.children) !== null && _d !== void 0 ? _d : 'children']);
+                        }
                     }
                 }
                 if (steps.length < items.length) {
@@ -65,16 +62,13 @@ let Cascader = class Cascader extends SuperComponent {
                 });
             },
         };
-        this.lifetimes = {
-            ready() {
-                this.initWithValue();
-            },
-        };
         this.methods = {
             initWithValue() {
                 if (this.data.value != null) {
                     const selectedIndexes = this.getIndexesByValue(this.data.options, this.data.value);
-                    this.setData({ selectedIndexes });
+                    if (selectedIndexes) {
+                        this.setData({ selectedIndexes });
+                    }
                 }
             },
             getIndexesByValue(options, value) {

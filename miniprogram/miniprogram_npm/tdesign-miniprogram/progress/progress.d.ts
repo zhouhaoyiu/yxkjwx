@@ -17,5 +17,10 @@ export default class Progress extends SuperComponent {
         percentage(percentage: any): void;
         color(color: any): void;
         strokeWidth(strokeWidth: any): string;
+        theme(theme: any): void;
+        trackColor(trackColor: any): void;
+    };
+    methods: {
+        getInnerDiameter(): void;
     };
 }

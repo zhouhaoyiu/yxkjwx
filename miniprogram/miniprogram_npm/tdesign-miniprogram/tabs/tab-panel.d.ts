@@ -7,7 +7,9 @@ export default class TabPanel extends SuperComponent {
         classPrefix: string;
         active: boolean;
         hide: boolean;
+        id: string;
     };
+    setId(id: any): void;
     observers: {
         label(): void;
     };

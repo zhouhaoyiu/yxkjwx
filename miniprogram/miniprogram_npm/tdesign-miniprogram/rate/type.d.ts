@@ -3,6 +3,10 @@ export interface TdRateProps {
         type: BooleanConstructor;
         value?: boolean;
     };
+    color?: {
+        type: null;
+        value?: string | Array<string>;
+    };
     count?: {
         type: NumberConstructor;
         value?: number;
@@ -22,6 +26,10 @@ export interface TdRateProps {
     gap?: {
         type: NumberConstructor;
         value?: number;
+    };
+    icon?: {
+        type: null;
+        value?: string | string[];
     };
     showText?: {
         type: BooleanConstructor;

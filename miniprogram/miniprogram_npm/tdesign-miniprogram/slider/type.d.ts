@@ -47,6 +47,10 @@ export interface TdSliderProps {
         type: NumberConstructor;
         value?: number;
     };
+    theme?: {
+        type: StringConstructor;
+        value?: 'default' | 'capsule';
+    };
     value?: {
         type: null;
         value?: SliderValue;

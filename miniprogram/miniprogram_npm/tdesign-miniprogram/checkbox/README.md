@@ -19,35 +19,45 @@ isComponent: true
 
 ## 代码演示
 
-### 基础复选框
+### 组件类型
 
-<img src="https://tdesign.gtimg.com/miniprogram/readme/checkbox.png" width="375px" height="50%">
+纵向多选框
 
 {{ base }}
 
-### 右侧多选框
+横向多选框
 
-{{ right }}
+{{ horizontal }}
 
-### 带全选多选框
+带全选多选框
 
 {{ all }}
 
-### 限制最多可选数量
+### 组件状态
 
-{{ num }}
-
-### 状态
+多选框状态
 
 {{ status }}
 
-### 特殊类型
+### 组件样式
+
+勾选样式
 
 {{ type }}
 
-### 规格
+勾选显示位置
 
-{{ size }}
+{{ right }}
+
+非通栏多选样式
+
+{{ card }}
+
+### 组件规格
+
+多选框尺寸规格
+
+{{ special }}
 
 ## API
 ### Checkbox Props
@@ -55,16 +65,16 @@ isComponent: true
 名称 | 类型 | 默认值 | 说明 | 必传
 -- | -- | -- | -- | --
 align | String | left | 多选框和内容相对位置。可选项：left/right | N
+block | Boolean | true | 是否为块级元素 | N
 check-all | Boolean | false | 用于标识是否为「全选选项」。单独使用无效，需在 CheckboxGroup 中使用 | N
 checked | Boolean | false | 是否选中 | N
 default-checked | Boolean | undefined | 是否选中。非受控属性 | N
-color | String | #0052d9 | 多选框颜色 | N
 content | String / Slot | - | 多选框内容 | N
 content-disabled | Boolean | - | 是否禁用组件内容（content）触发选中 | N
 custom-style `v0.25.0` | String | - | 自定义组件样式 | N
 disabled | Boolean | undefined | 是否禁用组件 | N
 external-classes | Array | - | 组件类名，分别用于设置 组件外层、多选框图标、主文案、内容 等元素类名。`['t-class', 't-class-icon', 't-class-label', 't-class-content', 't-class-border']` | N
-icon | Array | - | 自定义选中图标和非选中图标。示例：[选中态图标地址，非选中态图标地址]。TS 类型：`Array<string>` | N
+icon | String / Array | circle | 自定义选中图标和非选中图标。使用 Array 时表示：`[选中态图标，非选中态图标]`。使用 String 时，值为 circle 表示填充圆形图标、值为 line 表示描边型图标、值为 rectangle 表示填充矩形图标。TS 类型：`'circle' \| 'line' \| 'rectangle' \| string[]` | N
 indeterminate | Boolean | false | 是否为半选 | N
 label | String / Slot | - | 主文案 | N
 max-content-row | Number | 5 | 内容最大行数限制 | N

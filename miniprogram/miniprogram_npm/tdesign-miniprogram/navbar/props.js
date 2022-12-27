@@ -3,10 +3,6 @@ const props = {
         type: Boolean,
         value: true,
     },
-    background: {
-        type: String,
-        value: '',
-    },
     customStyle: {
         type: String,
         value: '',
@@ -22,13 +18,9 @@ const props = {
         type: Boolean,
         value: true,
     },
-    homeIcon: {
-        type: String,
-        value: '',
-    },
-    leftIcon: {
-        type: String,
-        value: '',
+    leftArrow: {
+        type: Boolean,
+        value: false,
     },
     title: {
         type: String,

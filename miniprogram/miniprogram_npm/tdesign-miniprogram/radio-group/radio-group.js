@@ -67,6 +67,9 @@ let RadioGroup = class RadioGroup extends SuperComponent {
             initWithOptions() {
                 const { options, value, keys } = this.data;
                 if (!(options === null || options === void 0 ? void 0 : options.length) || !Array.isArray(options)) {
+                    this.setData({
+                        radioOptions: [],
+                    });
                     return;
                 }
                 const optionsValue = [];

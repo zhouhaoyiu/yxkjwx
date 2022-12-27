@@ -16,4 +16,11 @@ export declare const chunk: (arr: any[], size: number) => any[][];
 export declare const equal: (v1: any, v2: any) => any;
 export declare const clone: (val: any) => any;
 export declare const getInstance: (context?: Context, selector?: string) => WechatMiniprogram.Component.TrivialInstance;
+export declare const unitConvert: (value: number | string) => number;
+export declare const setIcon: (iconName: any, icon: any, defaultIcon: any) => {
+    [x: string]: any;
+};
+export declare const isObject: (val: any) => boolean;
+export declare const isString: (val: any) => boolean;
+export declare const toCamel: (str: any) => any;
 export {};

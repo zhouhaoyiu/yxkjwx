@@ -22,6 +22,10 @@ const props = {
         type: Boolean,
         value: true,
     },
+    title: {
+        type: String,
+        value: '',
+    },
     visible: {
         type: Boolean,
         value: false,

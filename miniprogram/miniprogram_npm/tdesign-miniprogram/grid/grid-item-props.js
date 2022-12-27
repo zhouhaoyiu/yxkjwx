@@ -1,4 +1,8 @@
 const props = {
+    badgeProps: {
+        type: Object,
+        value: null,
+    },
     customStyle: {
         type: String,
         value: '',
@@ -8,6 +12,14 @@ const props = {
     },
     externalClasses: {
         type: Array,
+    },
+    icon: {
+        type: String,
+        value: '',
+    },
+    iconProps: {
+        type: Object,
+        value: {},
     },
     image: {
         type: String,

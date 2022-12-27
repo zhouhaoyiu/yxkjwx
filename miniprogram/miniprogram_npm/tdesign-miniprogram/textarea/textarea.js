@@ -17,7 +17,12 @@ let Textarea = class Textarea extends SuperComponent {
             multipleSlots: true,
         };
         this.behaviors = ['wx://form-field'];
-        this.externalClasses = [`${prefix}-class`, `${prefix}-class-textarea`, `${prefix}-class-label`];
+        this.externalClasses = [
+            `${prefix}-class`,
+            `${prefix}-class-textarea`,
+            `${prefix}-class-label`,
+            `${prefix}-class-indicator`,
+        ];
         this.properties = props;
         this.data = {
             prefix,

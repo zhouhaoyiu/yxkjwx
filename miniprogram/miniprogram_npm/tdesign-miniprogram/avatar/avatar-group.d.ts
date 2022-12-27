@@ -8,7 +8,6 @@ export default class AvatarGroup extends SuperComponent {
         hasChild: boolean;
         length: number;
         className: string;
-        borderSize: string;
     };
     options: {
         multipleSlots: boolean;
@@ -26,6 +25,5 @@ export default class AvatarGroup extends SuperComponent {
         handleChildMax(max: any, children: any, isSlotElement: any): void;
         handleChildSize(size: any, children: any): void;
         handleChildCascading(cascading: any, children: any): void;
-        handleChildBorder(size: any, children: any): void;
     };
 }

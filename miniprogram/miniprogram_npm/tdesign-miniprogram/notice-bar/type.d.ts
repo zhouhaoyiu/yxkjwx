@@ -1,11 +1,15 @@
 export interface TdNoticeBarProps {
     content?: {
-        type: StringConstructor;
-        value?: string;
+        type: null;
+        value?: null;
     };
     customStyle?: {
         type: StringConstructor;
         value?: string;
+    };
+    direction?: {
+        type: StringConstructor;
+        value?: 'horizontal' | 'vertical';
     };
     externalClasses?: {
         type: ArrayConstructor;
@@ -20,12 +24,12 @@ export interface TdNoticeBarProps {
         value?: boolean | DrawMarquee;
     };
     prefixIcon?: {
-        type: StringConstructor;
-        value?: string;
+        type: null;
+        value?: boolean | string | object;
     };
     suffixIcon?: {
-        type: StringConstructor;
-        value?: string;
+        type: null;
+        value?: string | object;
     };
     theme?: {
         type: StringConstructor;

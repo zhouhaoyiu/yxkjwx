@@ -17,20 +17,6 @@ isComponent: true
 }
 ```
 
-## 主题定制
-
-CSS 变量名|说明
---|--
---td-tab-nav-bg-color | 选项卡背景颜色
---td-tab-item-color | 选项卡字体颜色
---td-tab-item-active-color | 选项卡激活时字体颜色
---td-tab-item-disabled-color | 选项卡禁止状态时字体颜色
---td-tab-track-color | 选项卡滑块颜色
---td-tab-track-thickness | 选项卡滑块厚度（水平时为高度，垂直时为宽度）
---td-tab-track-width | 选项卡滑块宽度
---td-tab-track-radius | 选项卡滑块圆角
---td-tab-border-color | 选项卡底部边框颜色
-
 ## 代码演示
 
 ### 基础选项卡
@@ -149,7 +135,7 @@ scroll | `(scrollTop: number, isFixed: boolean)` | 页面滚动时触发
 -- | -- | -- | -- | --
 custom-style | String | - | 自定义组件样式 | N
 badge-props | Object | null | 透传至 Badge 组件 | N
-destroy-on-hide | Boolean | true | 选项卡内容隐藏时是否销毁 | N
+destroy-on-hide | Boolean | true | 【实现有误，暂不支持】选项卡内容隐藏时是否销毁 | N
 disabled | Boolean | false | 是否禁用当前选项卡 | N
 label | String | - | 选项卡名称 | N
 panel | String / Slot | - | 用于自定义选项卡面板内容 | N

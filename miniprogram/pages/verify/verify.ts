@@ -124,7 +124,7 @@ Page({
             // url: "https://zhouhaoyiu.oicp.vip/Job/verifyJob",
             method: "POST",
             data: {
-                uuid: this.data.workUuid,
+                workUuid: this.data.workUuid,
                 status: 2,
                 spfzr: this.data.spfzr,
                 spfzrBase64: this.data.spfzrBase64,
@@ -137,8 +137,6 @@ Page({
         })
     },
     accept() {
-        console.log(this.data.spfzr);
-
         const openId = wx.getStorageSync("openId")
         if (!this.data.spfzr) {
             this.handleToast({
@@ -156,7 +154,7 @@ Page({
             url: "http://localhost:8092/workJob/verifyWorkJob",
             method: "POST",
             data: {
-                uuid: this.data.workUuid,
+                workUuid: this.data.workUuid,
                 status: 1,
                 spfzr: this.data.spfzr,
                 spfzrBase64: this.data.spfzrBase64,
@@ -164,6 +162,8 @@ Page({
                 verifyOpenId: openId
             },
             success(res) {
+                console.log(res);
+                
                 if (res == 1) {
                     this.handleToast("审批成功")
                 }

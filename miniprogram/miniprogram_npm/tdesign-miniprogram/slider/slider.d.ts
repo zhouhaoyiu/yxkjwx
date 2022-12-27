@@ -19,13 +19,10 @@ declare type dataType = {
     _value: SliderValue;
     prefix: string;
 };
-interface boundingClientRect {
-    left: number;
-    right: number;
-}
 export default class Slider extends SuperComponent {
     externalClasses: string[];
     properties: import("./type").TdSliderProps;
+    behaviors: string[];
     controlledProps: {
         key: string;
         event: string;
@@ -36,14 +33,14 @@ export default class Slider extends SuperComponent {
         _value(newValue: SliderValue): void;
         marks(val: any): void;
     };
-    attached(): void;
+    lifetimes: {
+        attached(): void;
+    };
     triggerValue(value?: SliderValue): void;
     handlePropsChange(newValue: SliderValue): void;
     handleMask(marks: any): void;
-    getSingleBarWidth(value: number): void;
-    getSelectorQuery(id: string): Promise<boundingClientRect>;
+    setSingleBarWidth(value: number): void;
     getInitialStyle(): Promise<void>;
-    setDotStyle(left: number, right: number): void;
     stepValue(value: number): number;
     onSingleLineTap(e: WechatMiniprogram.TouchEvent): void;
     getSingleChangeValue(e: WechatMiniprogram.TouchEvent): number;
@@ -51,6 +48,6 @@ export default class Slider extends SuperComponent {
     onLineTap(e: WechatMiniprogram.TouchEvent): void;
     onTouchMoveLeft(e: WechatMiniprogram.TouchEvent): void;
     onTouchMoveRight(e: WechatMiniprogram.TouchEvent): void;
-    setLineStyle(): void;
+    setLineStyle(left: number, right: number): void;
 }
 export {};

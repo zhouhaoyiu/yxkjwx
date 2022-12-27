@@ -84,4 +84,8 @@ export interface TdCheckTagProps {
         type: StringConstructor;
         value?: SizeEnum;
     };
+    variant?: {
+        type: StringConstructor;
+        value?: 'dark' | 'light' | 'outline' | 'light-outline';
+    };
 }

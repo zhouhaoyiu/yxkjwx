@@ -13,18 +13,54 @@ let BackTop = class BackTop extends SuperComponent {
     constructor() {
         super(...arguments);
         this.externalClasses = [`${prefix}-class`, `${prefix}-class-icon`, `${prefix}-class-text`];
+        this.options = {
+            multipleSlots: true,
+        };
         this.properties = props;
         this.data = {
             prefix,
             classPrefix: name,
         };
-    }
-    toTop() {
-        this.triggerEvent('to-top');
-        wx.pageScrollTo({
-            scrollTop: 0,
-            duration: 300,
-        });
+        this.observers = {
+            icon() {
+                this.setIcon();
+            },
+        };
+        this.lifetimes = {
+            ready() {
+                this.setIcon();
+            },
+        };
+        this.methods = {
+            setIcon() {
+                const { icon } = this.properties;
+                if (!icon) {
+                    this.setData({ iconName: '', iconData: {} });
+                }
+                else if (typeof icon === 'string') {
+                    this.setData({
+                        iconName: icon,
+                        iconData: {},
+                    });
+                }
+                else if (typeof icon === 'object') {
+                    this.setData({
+                        iconName: '',
+                        iconData: icon,
+                    });
+                }
+                else {
+                    this.setData({ iconName: 'backtop', iconData: {} });
+                }
+            },
+            toTop() {
+                this.triggerEvent('to-top');
+                wx.pageScrollTo({
+                    scrollTop: 0,
+                    duration: 300,
+                });
+            },
+        };
     }
 };
 BackTop = __decorate([

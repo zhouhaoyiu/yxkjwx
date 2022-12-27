@@ -70,25 +70,20 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 48rpx;
-  top: 68rpx;
+  height: var(--td-image-viewer-nav-height, 96rpx);
+  background-color: rgba(0, 0, 0, 0.4);
   left: 0;
-  color: #ffffff;
+  color: var(--td-image-viewer-nav-color, #fff);
   z-index: 1005;
 }
-.t-image-viewer__nav-icon {
-  flex: 0 0 48rpx;
-  width: 48rpx;
-  height: 48rpx;
-}
 .t-image-viewer__nav-close {
-  margin-left: 36rpx;
+  margin-left: var(--td-image-viewer-close-margin-left, 24rpx);
 }
 .t-image-viewer__nav-delete {
-  margin-right: 36rpx;
+  margin-right: var(--td-image-viewer-delete-margin-right, 24rpx);
 }
 .t-image-viewer__nav-index {
   flex: 1;
-  font-size: 28rpx;
+  font-size: var(--td-image-viewer-nav-index-font-size, 28rpx);
   text-align: center;
 }

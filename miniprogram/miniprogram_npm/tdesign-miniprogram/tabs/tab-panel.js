@@ -26,12 +26,16 @@ let TabPanel = class TabPanel extends SuperComponent {
             classPrefix: name,
             active: false,
             hide: true,
+            id: '',
         };
         this.observers = {
             label() {
                 this.update();
             },
         };
+    }
+    setId(id) {
+        this.setData({ id });
     }
     getComputedName() {
         if (this.properties.value != null) {

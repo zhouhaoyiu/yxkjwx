@@ -12,7 +12,11 @@ Page({
         zyfzr: "",
         jhry: "",
         zyry: "",
-        nProtectiveMeasureGroups: [] as unknown as [Boolean, Boolean]
+        nProtectiveMeasureGroups: [] as unknown as [Boolean, Boolean],
+        spfzr: "",
+        spfzrBase64: "",
+        spfzrInfo: "",
+        status:0
     },
 
     /**
@@ -30,19 +34,25 @@ Page({
                 workUuid: this.data.workUuid
             },
             method: "GET",
-            success: (_res: any) => {
+            success: (_res: any) => {                
                 let protectiveMeasureGroups = JSON.parse(_res.data[0].protectiveMeasureGroups);
                 let step1: Boolean = protectiveMeasureGroups.includes("step1") || false;
                 let step2: Boolean = protectiveMeasureGroups.includes("step2") || false;
                 let nProtectiveMeasureGroups: [Boolean, Boolean] = [step1, step2];
-
+                if (_res.data[0].status !== 0) {
+                    wx.hideShareMenu({});
+                }
                 this.setData({
                     workDate: _res.data[0].workDate,
                     workList: JSON.parse(_res.data[0].workList),
                     zyfzr: _res.data[0].zyfzr,
                     jhry: _res.data[0].jhry,
                     zyry: _res.data[0].zyry,
-                    nProtectiveMeasureGroups: nProtectiveMeasureGroups
+                    nProtectiveMeasureGroups: nProtectiveMeasureGroups,
+                    spfzr: _res.data[0].spfzr,
+                    spfzrBase64: _res.data[0].spfzrBase64,
+                    spfzrInfo: _res.data[0].spfzrInfo,
+                    status: _res.data[0].status
                 })
             }
         })

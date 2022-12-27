@@ -29,6 +29,10 @@ const props = {
         type: Number,
         value: 1,
     },
+    size: {
+        type: String,
+        value: 'medium',
+    },
     theme: {
         type: String,
         value: 'normal',

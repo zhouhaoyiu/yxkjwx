@@ -17,62 +17,42 @@ isComponent: true
 }
 ```
 
-### 主题定制
-
-CSS 变量名|说明
---|--
---td-button-default-color | 默认按钮文本颜色
---td-button-default-border-color | 默认按钮边框颜色
---td-button-default-bg-color | 默认按钮背景颜色
---td-button-default-disabled-color | 默认按钮禁用态颜色
---td-button-primary-color | 品牌按钮文本颜色
---td-button-primary-border-color | 品牌按钮边框颜色
---td-button-primary-bg-color | 品牌按钮背景颜色
---td-button-primary-disabled-color | 品牌按钮禁用态颜色
---td-button-danger-color | 危险按钮文本颜色
---td-button-danger-border-color | 危险按钮边框颜色
---td-button-danger-bg-color | 危险按钮背景颜色
---td-button-danger-disabled-color | 危险按钮禁用态颜色
---td-button-primary-outline-color | 品牌线框按钮文本和边框颜色
---td-button-primary-outline-disabled-color | 品牌线框按钮禁用态颜色
---td-button-danger-outline-color | 危险线框按钮文本和边框颜色
---td-button-danger-outline-disabled-color | 危险线框按钮禁用态颜色
---td-button-primary-dashed-color | 品牌点状框按钮文本和边框颜色
---td-button-primary-dashed-disabled-color | 品牌点状框按钮禁用态颜色
---td-button-danger-dashed-color | 危险点状框按钮文本和边框颜色
---td-button-danger-dashed-disabled-color | 危险点状框按钮禁用态颜色
---td-button-primary-text-color | 品牌文本框按钮文本颜色
---td-button-primary-text-disabled-color | 品牌文本框按钮文本禁用态颜色
---td-button-danger-text-color | 危险文本框按钮文本颜色
---td-button-danger-text-disabled-color | 危险文本框按钮文本禁用态颜色
---td-button-ghost-color | 幽灵按钮文本颜色
---td-button-ghost-border-color | 幽灵按钮边框颜色
---td-button-ghost-disabled-color | 幽灵按钮文本禁用态颜色
-
 ## 代码演示
 
-### 基础按钮
+### 类型
 
-<img src="https://tdesign.gtimg.com/miniprogram/readme/button-1.png" width="375px" height="50%">
-基础类型分为主按钮、次按钮、文字按钮
-
-#### 次按钮
-使用场景：在用户进行的操作为流程中的辅助操作，或者进行不那么重要的交互行为时，选择用次按钮；次要按钮通常和主要按钮一起出现
-
-#### 主按钮
-使用场景：大部分场景都可以使用，例如反馈页、表单页、对话框，一个页面建议最多只出现一个主按钮；
-
-#### 文字按钮
-使用场景：它的操作通常和其旁边内容相关，通常出现在标题旁、字段旁、列表最下方
+基础按钮
 
 {{ base }}
 
-### 带图标按钮
+图标按钮
 {{ icon-btn }}
 
-### 不同尺寸
+幽灵按钮
+
+{{ ghost-btn }}
+
+组合按钮
+
+{{ group-btn }}
+
+通栏按钮
+
+{{ block-btn }}
+
+### 组件样式
+
+按钮尺寸
 
 {{ size }}
+
+按钮形状
+
+{{ shape }}
+
+按钮主题
+
+{{ theme }}
 
 ## API
 ### Button Props

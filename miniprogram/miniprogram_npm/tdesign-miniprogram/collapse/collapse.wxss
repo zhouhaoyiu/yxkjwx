@@ -29,7 +29,12 @@
   font-size: 28rpx;
   padding: 12px;
   padding-top: 24px;
-  color: #999;
+  color: var(--td-collapse-title-color, rgba(0, 0, 0, 0.9));
+}
+.t-collapse--card {
+  margin: 0 32rpx;
+  border-radius: 18rpx;
+  overflow: hidden;
 }
 .hairline--top-bottom:after {
   position: absolute;

@@ -1,24 +1,35 @@
-<wxs src="./input.wxs" module="utils" />
+<import src="../common/template/icon.wxml" />
+<wxs src="../common/utils.wxs" module="_" />
+<wxs src="./input.wxs" module="this" />
+
 <view
   style="{{ customStyle }}"
-  class="{{classPrefix}} {{!!errorMessage ? classBasePrefix + '-is-error' : ''}}  {{classPrefix}}--size-{{size}} {{classPrefix + (borderless ? '' : '--bordered')}} {{prefix}}-class"
+  class="{{classPrefix}} {{classPrefix}}--size-{{size}} {{classPrefix}}--layout-{{layout}} {{prefix}}-class"
 >
-  <view wx:if="{{prefixIcon}}" class="{{classPrefix}}__icon-wrap">
-    <slot name="prefixIcon" wx:if="{{prefixIcon === 'slot'}}" />
-    <t-icon wx:else class="{{classPrefix}}__icon--prefix {{prefix}}-class-icon" name="{{prefixIcon}}" />
-  </view>
-  <view wx:if="{{label}}" class="{{classPrefix}}__label">
-    <slot name="label" wx:if="{{label === 'slot'}}" />
-    <text wx:else class="{{prefix}}-class-label">{{label}}</text>
+  <view wx:if="{{prefixIconName || _.isNoEmptyObj(prefixIconData) || label}}" class="{{classPrefix}}__wrap--prefix">
+    <view wx:if="{{prefixIconName || _.isNoEmptyObj(prefixIconData)}}" class="{{classPrefix}}__icon--prefix">
+      <slot wx:if="{{prefixIconName === 'slot'}}" name="prefixIcon" />
+      <template
+        wx:else
+        is="icon"
+        data="{{tClass: prefix + '-class-prefix-icon', size: 24, name: prefixIconName, ...prefixIconData}}"
+      ></template>
+    </view>
+    <view wx:if="{{label}}" class="{{classPrefix}}__label">
+      <slot name="label" wx:if="{{label === 'slot'}}" />
+      <text wx:else class="{{prefix}}-class-label">{{label}}</text>
+    </view>
   </view>
 
   <view class="{{classPrefix}}__wrap">
-    <view class="{{classPrefix}}__content">
+    <view
+      class="{{classPrefix}}__content {{prefix}}-is-{{status}}  {{borderless ? '' : classPrefix + '--border'}} {{ focus ? prefix + '-is-focus' : ''}}"
+    >
       <input
         disabled="{{disabled}}"
         placeholder="{{placeholder}}"
-        placeholderStyle="{{placeholderStyle}}"
-        placeholder-class="{{classPrefix}}__placeholder"
+        placeholder-style="{{placeholderStyle}}"
+        placeholder-class="{{classPrefix}}__placeholder {{placeholderClass}}"
         value="{{value}}"
         bindinput="onInput"
         bindfocus="onFocus"
@@ -44,25 +55,32 @@
         safe-password-nonce="{{safePasswordNonce}}"
         safe-password-salt="{{safePasswordSalt}}"
         safe-password-custom-hash="{{safePasswordCustomHash}}"
-        class="{{utils.getInputClass(classPrefix, suffix, align, disabled)}} {{prefix}}-class-input"
+        class="{{this.getInputClass(classPrefix, suffix, align, disabled)}} {{prefix}}-class-input"
       />
-      <view wx:if="{{ clearable && value.length > 0}}" class="{{classPrefix}}__wrap--icon" bind:tap="clearInput">
-        <t-icon name="close-circle-filled" size="48rpx" class="{{prefix}}-class-clearable" />
+
+      <view
+        wx:if="{{(clearableName || _.isNoEmptyObj(clearableData)) && value.length > 0}}"
+        class="{{classPrefix}}__wrap--clearable-icon"
+        bind:tap="clearInput"
+      >
+        <template
+          is="icon"
+          data="{{tClass: prefix + '-class-clearable', size: 24, name: clearableName, ...clearableData}}"
+        ></template>
       </view>
-      <view class="{{classPrefix}}__wrap--suffix">
-        <slot name="suffix" />
+      <view class="{{classPrefix}}__wrap--suffix {{prefix}}-class-suffix">
+        <text wx:if="{{suffix}}">{{suffix}}</text>
+        <slot wx:else name="suffix" />
       </view>
-      <view wx:if="{{suffix}}" class="{{classPrefix}}__wrap--suffix-text {{prefix}}-class-suffix">
-        <text>{{suffix}}</text>
-      </view>
-      <view wx:if="{{suffixIcon}}" class="{{classPrefix}}__wrap--icon">
-        <t-icon name="{{suffixIcon}}" size="48rpx" class="{{prefix}}-class-suffix-icon" />
+      <view class="{{classPrefix}}__wrap--suffix-icon">
+        <template
+          wx:if="{{suffixIconName || _.isNoEmptyObj(suffixIconData)}}"
+          is="icon"
+          data="{{tClass: prefix + '-class-suffix-icon', size: 24, name: suffixIconName, ...suffixIconData}}"
+        ></template>
+        <slot wx:else name="suffixIcon" />
       </view>
     </view>
-    <view
-      wx:if="{{errorMessage && errorMessage.length > 0}}"
-      class="{{classPrefix}}__error-msg {{prefix}}-class-error-msg"
-      >{{errorMessage}}
-    </view>
+    <view wx:if="{{tips && tips.length > 0}}" class="{{classPrefix}}__tips {{prefix}}-class-tips">{{tips}} </view>
   </view>
 </view>

@@ -31,6 +31,14 @@ export default class ImageViewer extends SuperComponent {
             type: BooleanConstructor;
             value: false;
         };
+        deleteIconProps: {
+            type: ObjectConstructor;
+            value?: object;
+        };
+        closeIconProps: {
+            type: ObjectConstructor;
+            value?: object;
+        };
         visible?: {
             type: BooleanConstructor;
             value?: boolean;

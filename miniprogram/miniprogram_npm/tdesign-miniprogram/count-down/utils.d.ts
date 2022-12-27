@@ -1,10 +1,17 @@
 export interface TimeData {
-    days: number;
-    hours: number;
-    minutes: number;
-    seconds: number;
-    milliseconds: number;
+    DD: number;
+    HH: number;
+    mm: number;
+    ss: number;
+    SSS: number;
 }
+export declare const TimeDataUnit: {
+    DD: string;
+    HH: string;
+    mm: string;
+    ss: string;
+    SSS: string;
+};
 export declare const parseTimeData: (time: number) => TimeData;
 export declare const isSameSecond: (time1: number, time2: number) => boolean;
 export declare type TTimeList = {

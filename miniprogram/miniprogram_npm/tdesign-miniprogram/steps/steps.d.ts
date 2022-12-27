@@ -16,6 +16,7 @@ export default class Steps extends SuperComponent {
     };
     methods: {
         updateChildren(): void;
+        updateLastChid(): void;
         handleClick(index: any): void;
     };
 }
