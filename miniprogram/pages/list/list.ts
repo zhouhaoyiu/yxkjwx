@@ -86,7 +86,6 @@ Page({
                     });
                 },
             });
-            console.log(openId, 123);
 
             wx.request({
                 method: "GET",

@@ -5,6 +5,7 @@
         "t-button": "tdesign-miniprogram/button/button",
         "t-checkbox": "tdesign-miniprogram/checkbox/checkbox",
         "t-checkbox-group": "tdesign-miniprogram/checkbox-group/checkbox-group",
-        "t-date-time-picker": "tdesign-miniprogram/date-time-picker/date-time-picker"
+        "t-date-time-picker": "tdesign-miniprogram/date-time-picker/date-time-picker",
+        "t-toast": "tdesign-miniprogram/toast/toast"
     }
 }

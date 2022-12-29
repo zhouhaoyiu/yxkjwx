@@ -42,7 +42,6 @@ Page({
 
     showWorkDatePicker(e: { currentTarget: { dataset: { mode: string; }; }; }) {
         const { mode } = e?.currentTarget?.dataset;
-        console.log(mode);
 
         this.setData({
             mode,
@@ -53,7 +52,6 @@ Page({
     onConfirm(e: { detail: { value: any } }) {
         const { value } = e?.detail;
         const { mode } = this.data;
-        console.log(mode, value);
 
         this.setData({
             [mode]: value,
@@ -110,7 +108,6 @@ Page({
     },
 
     handleGroupChange(event: { detail: { value: string; }; }) {
-        console.log('group', event.detail.value);
         this.setData({
             protectiveMeasureGroups: event.detail.value,
         });
@@ -127,8 +124,6 @@ Page({
         const { index, inputfield } = e.target.dataset;
         let { workList } = this.data;
         workList[index][inputfield] = value
-        console.log(workList);
-
         this.setData({
             workList
         })
@@ -137,42 +132,25 @@ Page({
 
     submitWork() {
         const openId = wx.getStorageSync("openId");
-        // console.log(this.data.dateText);
 
-        // 对数据进行检查，如果有空值，提示用户
         if (this.data.dateText == "") {
-            wx.showToast({
-                title: '请选择日期',
-                icon: 'none'
-            })
+            this.handleToast("请填写作业日期", "fail");
             return;
         }
         if (this.data.zyfzr == "") {
-            wx.showToast({
-                title: '请填写作业负责人',
-                icon: 'none'
-            })
+            this.handleToast('请填写作业负责人', 'fail');
             return;
         }
         if (this.data.jhry == "") {
-            wx.showToast({
-                title: '请填写监护人员',
-                icon: 'none'
-            })
+            this.handleToast('请填写监护人员', "fail");
             return;
         }
         if (this.data.zyry == "") {
-            wx.showToast({
-                title: '请填写作业人员',
-                icon: 'none'
-            })
+            this.handleToast('请填写作业人员', "fail");
             return;
         }
         if (this.data.protectiveMeasureGroups.length == 0) {
-            wx.showToast({
-                title: '请选择防护措施',
-                icon: 'none'
-            })
+            this.handleToast("请选择防护措施", "fail");
             return;
         }
 
@@ -180,17 +158,11 @@ Page({
         let workList = this.data.workList;
         for (let i = 0; i < workList.length; i++) {
             if (workList[i].workContent == "") {
-                wx.showToast({
-                    title: '请填写工作内容',
-                    icon: 'none'
-                })
+                this.handleToast('请填写工作内容', "fail");
                 return;
             }
             if (workList[i].workPosition == "") {
-                wx.showToast({
-                    title: '请填写工作地点',
-                    icon: 'none'
-                })
+                this.handleToast("请填写工作地点", "fail");
                 return;
             }
         }
@@ -207,8 +179,10 @@ Page({
                 protectiveMeasureGroups: JSON.stringify(this.data.protectiveMeasureGroups),
                 sendOpenId: openId,
             },
-            success: _res => {
-                console.log(_res);
+            success: (_res: { data: { code: number, data: number } }) => {
+                if (_res.data.data === 1) {
+                    this.handleToast("提交作业审批成功", "success")
+                }
             }
         })
     },

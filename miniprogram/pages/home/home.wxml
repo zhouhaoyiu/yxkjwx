@@ -48,3 +48,4 @@
 </scroll-view>
 
 <t-date-time-picker title="选择日期" visible="{{dateVisible}}" mode="date" defaultValue="{{date}}" format="YYYY-MM-DD" bindchange="onConfirm" bindpick="onColumnChange" bindcancel="hidePicker"></t-date-time-picker>
+<t-toast id="t-toast" />
