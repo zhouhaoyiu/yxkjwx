@@ -6,7 +6,7 @@
         <view class="list">
             <!-- 根据status来设置对应颜色 status为0是白色 1是rgba(119, 255, 130, 0.15) 2是red -->
             <view bindtap="goDetails" wx:for="{{item.jobInfo}}" wx:key="index" class="list-item" data-jobuuid="{{item.jobUuid}}">
-                <view class="list-item-title">{{item.jly}} 提交的有限空间作业记录 </view>
+                <view class="list-item-title">{{item.jcjly}} 提交的有限空间作业记录 </view>
                 <view class="list-item-info">
                     <view>
                         作业内容：{{item.jobContent}}

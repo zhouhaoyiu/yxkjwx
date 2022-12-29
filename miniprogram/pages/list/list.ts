@@ -18,7 +18,7 @@ Page({
     },
     goDetails(e: any) {
         console.log(e);
-        
+
         wx.navigateTo({
             url: "/pages/workDetails/workDetails?workUuid=" + e.currentTarget.dataset.workuuid,
         });
@@ -80,10 +80,6 @@ Page({
                         that.setData({
                             sendInfo: info,
                         });
-
-                        // that.setData({
-                        //     sendInfo: res.data,
-                        // });
                     }
                 },
                 fail(_e) {
@@ -92,6 +88,8 @@ Page({
                     });
                 },
             });
+            console.log(openId, 123);
+
             wx.request({
                 method: "GET",
                 // url: "https://zhouhaoyiu.oicp.vip/Job/getVerifyJobByPage",
@@ -172,8 +170,8 @@ Page({
             //     ? "https://zhouhaoyiu.oicp.vip/Job/getSendJobByPage"
             //     : "https://zhouhaoyiu.oicp.vip/Job/getVerifyJobByPage";
             this.data.tabBarIndex == 0
-                ? "http://localhost:8092/Job/getSendJobByPage"
-                : "http://localhost:8092/Job/getVerifyJobByPage";
+                ? "http://localhost:8092/workJob/getSendWorkJobByPage"
+                : "http://localhost:8092/workJob/getVerifyWorkJobByPage";
         wx.showLoading({
             title: "加载中",
         });
@@ -226,6 +224,8 @@ Page({
      * 页面上拉触底事件的处理函数
      */
     onReachBottom() {
+        console.log(123);
+
         const openId = wx.getStorageSync("openId");
         const pageName = this.data.tabBarIndex == 0 ? "sendPage" : "verifyPage";
         const url =
@@ -233,8 +233,8 @@ Page({
             //     ? "https://zhouhaoyiu.oicp.vip/Job/getSendJobByPage"
             //     : "https://zhouhaoyiu.oicp.vip/Job/getVerifyJobByPage";
             this.data.tabBarIndex == 0
-                ? "http://localhost:8092/Job/getSendJobByPage"
-                : "http://localhost:8092/Job/getVerifyJobByPage";
+                ? "http://localhost:8092/workJob/getSendWorkJobByPage"
+                : "http://localhost:8092/workJob/getVerifyWorkJobByPage";
         const that = this;
         this.setData({
             [pageName]: this.data[pageName] + 1,

@@ -19,11 +19,15 @@
         <t-cell wx:if="{{nProtectiveMeasureGroups[1]}}" title="应急救援装备满足要求"></t-cell>
     </view>
     <view>
+        <view class="workBefore">
+            审批状态
+        </view>
         <t-cell title="审批负责人" note="{{spfzr}}"></t-cell>
         <image src="data:image/jpeg;base64,{{spfzrBase64}}"></image>
         <t-cell title="审批状态" note="{{status===0?'未审批':status===1?'审批通过':'审批未通过'}}"></t-cell>
         <!-- <t-cell title="审批负责人" note="{{status}}"></t-cell> -->
         <t-cell title="审批负责人备注" note="{{spfzrInfo}}"></t-cell>
+        <t-cell title="审批日期" note="{{verifyDate}}"></t-cell>
         <!-- <t-textarea label="审批负责人意见" placeholder="请输入文字" /> -->
     </view>
 </scroll-view>

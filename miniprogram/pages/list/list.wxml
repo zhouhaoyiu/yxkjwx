@@ -30,20 +30,13 @@
 
                 <view class="list" wx:if="{{item.workInfo.length}}">
                     <!-- 根据status来设置对应颜色 status为0是白色 1是rgba(119, 255, 130, 0.15) 2是red -->
-                    <view bindtap="goDetails" wx:for="{{item.workInfo}}" wx:key="index" class="list-item" style="background-color:{{item.status==1?'white':item.status==2?'rgba(119, 255, 130, 0.15)':' rgba(255, 100, 100, 0.10);'}}" data-workuuid="{{item.workUuid}}">
-                        <view class="list-item-title">{{item.jly}} 提交的有限空间作业审批 </view>
+                    <view bindtap="goDetails" wx:for="{{item.workInfo}}" wx:key="index" class="list-item" style="background-color:{{item.status==0?'white':item.status==1?'rgba(119, 255, 130, 0.15)':' rgba(255, 100, 100, 0.10);'}}" data-workuuid="{{item.workUuid}}">
+                        <view class="list-item-title">有限空间作业审批 {{index+1}}</view>
                         <view class="list-item-info">
                             <view>
-                                作业内容：{{item.workContent}}
-                            </view>
-                            <view>
-                                作业段组：{{item.workGroup}}
-                            </view>
-                            <view>
-                                作业人数：{{item.workPersonValue}}
+                                作业时间：{{item.workDate}}
                             </view>
                         </view>
-                        <!-- <view class="list-item-time">{{item.time}}</view> -->
                     </view>
                 </view>
                 <view wx:else>

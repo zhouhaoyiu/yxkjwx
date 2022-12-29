@@ -129,7 +129,8 @@ Page({
                 spfzr: this.data.spfzr,
                 spfzrBase64: this.data.spfzrBase64,
                 spfzrInfo: this.data.spfzrInfo,
-                verifyOpenId: openId
+                verifyOpenId: openId,
+                verifyDate: new Date().toLocaleDateString().split('/').join('-')
             }
         })
         wx.switchTab({
@@ -159,13 +160,14 @@ Page({
                 spfzr: this.data.spfzr,
                 spfzrBase64: this.data.spfzrBase64,
                 spfzrInfo: this.data.spfzrInfo,
-                verifyOpenId: openId
+                verifyOpenId: openId,
+                verifyDate: new Date().toLocaleDateString().split('/').join('-')
             },
             success(res) {
                 console.log(res);
-                
-                if (res == 1) {
-                    this.handleToast("审批成功")
+
+                if (res.data == 1) {
+                    that.handleToast("审批成功")
                 }
             }
         })

@@ -40,6 +40,8 @@ Page({
                     sendOpenId: openId,
                 },
                 success: res => {
+                    console.log(res.data);
+                    
                     if (res.data instanceof Array) {
                         let infoDate = new Set() as Set<string>;
                         res.data.forEach((ele: { jobDate: string }) => {
