@@ -12,10 +12,9 @@
                         作业内容：{{item.jobContent}}
                     </view>
                     <view>
-                        作业内容：{{item.jobContent}}
+                        检测记录员：{{item.jcjly}}
                     </view>
                 </view>
-                <!-- <view class="list-item-time">{{item.time}}</view> -->
             </view>
         </view>
     </view>

@@ -17,8 +17,6 @@ Page({
         });
     },
     goDetails(e: any) {
-        console.log(e);
-
         wx.navigateTo({
             url: "/pages/workDetails/workDetails?workUuid=" + e.currentTarget.dataset.workuuid,
         });
