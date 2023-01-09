@@ -103,6 +103,15 @@ Page({
      */
     data: {
         uuid: '',
+
+        unionWork: "",
+        unionWorkUuid: "",
+        unionWorkList: "",
+
+        unionMission: "",
+        unionMissionCId: 0,
+        unionMissionList: "",
+
         width,
         xcfzrSignContext: undefined,
         xcfzrSignCanvas: (undefined as unknown) as WechatMiniprogram.Canvas,
@@ -179,6 +188,84 @@ Page({
     },
     logWorkIn() {
         console.log(this.data);
+    },
+    onUnionMissionPicker() {
+        this.setData({
+            unionMissionVisible: true
+        })
+    },
+    onUnionMissionPickerChange(e) {
+        console.log(e);
+        this.setData({
+            unionMissionCId: e.detail.value[0]
+        })
+    },
+    onUnionWorkPicker() {
+        const openId = wx.getStorageSync("openId");
+        wx.request({
+            url: "http://localhost:8092/workJob/getUnionWork",
+            method: "GET",
+            data: {
+                sendOpenId: openId,
+                size: 30
+            },
+            success: _res => {
+                if (_res.data) {
+                    let index = 1;
+                    let workDate = _res.data[0].workDate;
+                    _res.data.forEach((item, i) => {
+                        if (item.workDate === workDate) {
+                            item.index = index;
+                            index++;
+                        }
+                        else {
+                            index = 1;
+                            item.index = index;
+                            workDate = item.workDate;
+                        }
+                        item.cIndex = i;
+                    });
+
+                    let format = _res.data.map((i) => {
+                        return {
+                            label: `${i.workDate} 申请表${i.index}`,
+                            value: i.workUuid,
+                            workList: i.workList
+                        }
+                    })
+                    this.setData({ unionWorkVisible: true, unionWorkList: format, baseUnionWorkList: _res.data });
+                }
+                else {
+                    this.handleToast("获取关联申请表错误");
+                }
+            },
+            fail: _res => {
+                this.handleToast("获取关联申请表错误");
+            }
+        })
+    },
+    onUnionWorkPickerChange(e) {
+        console.log(e);
+        let { label, value } = e.detail
+        let target = e.currentTarget.dataset.key
+        console.log(label, value, target);
+        this.data.baseUnionWorkList.forEach(element => {
+            if (element.workUuid == value[0]) {
+                this.setData({
+                    unionMissionList: JSON.parse(element.workList).map(i => {
+                        console.log(i);
+                        return {
+                            label: `作业地点：${i.workPosition}`,
+                            value: i.id
+                        }
+                    })
+                })
+            }
+        });
+        this.setData({
+            [target]: label,
+            [`${target}Uuid`]: value[0]
+        })
     },
     openSign(e) {
         const name = e.target.dataset.name;
@@ -328,10 +415,6 @@ Page({
         this.setData({
             jobGroup: event.detail.value
         });
-    },
-
-    onColumnChange(e: any) {
-        console.log('picker pick:', e);
     },
 
     onPickerChange(e: { currentTarget: { dataset: { key: any } }; detail: { value: any } }) {
@@ -580,7 +663,7 @@ Page({
             return;
         }
 
-        if (this.data.isInterrupt && !this.data.pauseTime) {
+        if (this.data.isInterrupt && !this.data.interruptStartTime) {
             this.handleToast({
                 message: '请输入中断时间',
                 theme: 'fail'

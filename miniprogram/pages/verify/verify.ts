@@ -164,8 +164,6 @@ Page({
                 verifyDate: new Date().toLocaleDateString().split('/').join('-')
             },
             success(res) {
-                console.log(res);
-
                 if (res.data == 1) {
                     that.handleToast("审批成功")
                 }
@@ -199,8 +197,6 @@ Page({
         this.setData({
             workUuid: opt.workUuid,
         });
-        console.log(opt.workUuid);
-
         wx.hideShareMenu({})
         wx.request({
             method: "GET",
@@ -210,12 +206,11 @@ Page({
                 workUuid: this.data.workUuid
             },
             success(res: any) {
-                console.log(res);
                 if (res.data[0].spfzr) {
                     that.setData({
                         showDialog: true,
                     })
-                    flag = false
+                    flag = false;
                 }
                 let protectiveMeasureGroups = JSON.parse(res.data[0].protectiveMeasureGroups);
                 let step1: Boolean = protectiveMeasureGroups.includes("step1") || false;

@@ -1,12 +1,14 @@
 <scroll-view class="page" scroll-y="false">
     <view class="box">
         <t-cell required title="作业时间" hover note="{{dateText || '年 月 日'}}" arrow data-mode="date" data-key="dateText" bindtap="showPicker" class="test" t-class="pannel-item" t-class-note="{{dateText ? 'sub-text' : 'empty'}}" />
-        <t-input align="right" size="small" value="{{jobContent}}" data-inputfield="jobContent" label="slot" onchange="setInputData" placeholder="请输入作业内容">
+        <t-cell arrow required hover class="test" t-class="pannel-item" title="关联申请表" note="{{unionWork}}" bind:click="onUnionWorkPicker"></t-cell>
+        <t-cell arrow required wx:if="{{unionWorkUuid}}" hover class="test" t-class="pannel-item" title="关联任务" note="{{unionMission}}" bind:click="onUnionMissionPicker"></t-cell>
+        <t-input disabled align="right" size="small" value="{{jobContent}}" data-inputfield="jobContent" label="slot" onchange="setInputData" placeholder="请输入作业内容">
             <text slot="label">作业内容<text style="color: #e34d59"> *</text> </text>
         </t-input>
         <view style="width: 100%;">
             <t-input disabled align="right" size="small" data-inputfield="jobPosition" onchange="setInputData" value="{{jobPosition}}" label="slot" placeholder="请输入作业地点">
-                <text slot="label">作业地点<text style="color: #e34d59"> *</text> </text>
+                <text slot="label">当前地点<text style="color: #e34d59"> *</text> </text>
                 <view slot="suffix">
                     <t-icon style="padding-left: 4rpx;" name="location" size="40rpx" data-name="location" bindtap="moveToLocation" />
                 </view>
@@ -314,6 +316,16 @@
         <t-button t-class="external-class" block theme="primary" bindtap="submitJob">提交</t-button>
     </view>
 </scroll-view>
+
+
+<t-picker visible="{{unionWorkVisible}}" value="{{unionWork}}" data-key="unionWork" title="选择申请表" cancelBtn="取消" confirmBtn="确认" bindchange="onUnionWorkPickerChange" bindpick="onUnionWorkColumnChange" bindcancel="onUnionWorkPickerCancel">
+    <t-picker-item options="{{unionWorkList}}"></t-picker-item>
+</t-picker>
+
+<t-picker visible="{{unionMissionVisible}}" value="{{unionMission}}" data-key="unionMission" title="选择任务" cancelBtn="取消" confirmBtn="确认" bindchange="onUnionMissionPickerChange" bindpick="onUnionMissionColumnPick" bindcancel="onUnionMissionPickerCancel">
+    <t-picker-item options="{{unionMissionList}}"></t-picker-item>
+</t-picker>
+
 <t-date-time-picker title="选择日期" visible="{{dateVisible}}" mode="date" defaultValue="{{date}}" format="YYYY-MM-DD" bindchange="onConfirm" bindpick="onColumnChange" bindcancel="hidePicker" start="{{start}}" end="{{end}}"></t-date-time-picker>
 
 <t-date-time-picker title="选择时间" visible="{{timeVisible}}" mode="{{['null', 'minute']}}" value="{{time}}" format="HH:mm" bindchange="onConfirm" bindpick="onColumnChange" bindcancel="hidePicker"></t-date-time-picker>

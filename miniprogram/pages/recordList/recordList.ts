@@ -14,6 +14,11 @@ Page({
             ...option,
         });
     },
+    test1(){
+        wx.navigateTo({
+            url: "/pages/workDetails/workDetails?workUuid=" + "107e3cb2-7bd7-483a-b2f0-b6ccbe05bd5d",
+        });
+    },
 
     handleToast(message: string | ToastOptionsType) {
         this.toast({
@@ -39,9 +44,7 @@ Page({
                     page: this.data.sendPage,
                     sendOpenId: openId,
                 },
-                success: res => {
-                    console.log(res.data);
-                    
+                success: res => {                    
                     if (res.data instanceof Array) {
                         let infoDate = new Set() as Set<string>;
                         res.data.forEach((ele: { jobDate: string }) => {
@@ -76,8 +79,6 @@ Page({
     },
 
     goDetails(e: any) {
-        console.log(e.currentTarget.dataset.jobuuid);
-
         wx.navigateTo({
             url: "/pages/recordDetails/recordDetails?jobUuid=" + e.currentTarget.dataset.jobuuid,
         });

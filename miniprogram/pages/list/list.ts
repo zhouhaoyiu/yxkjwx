@@ -55,7 +55,6 @@ Page({
                     sendOpenId: openId,
                 },
                 success(res: any) {
-                    console.log(res);
                     if (res.data instanceof Array) {
                         let infoDate = new Set() as Set<string>;
                         res.data.forEach((element: { workDate: string }) => {
@@ -181,7 +180,6 @@ Page({
                     [this.data.tabBarIndex == 0 ? "sendOpenId" : "verifyOpenId"]: openId,
                 },
                 success(res: any) {
-                    console.log(res);
                     if (res.data instanceof Array) {
                         let infoDate = new Set() as Set<string>;
                         res.data.forEach((element: { workDate: unknown }) => {
@@ -220,9 +218,7 @@ Page({
     /**
      * 页面上拉触底事件的处理函数
      */
-    onReachBottom() {
-        console.log(123);
-
+    onReachBottom() {        
         const openId = wx.getStorageSync("openId");
         const pageName = this.data.tabBarIndex == 0 ? "sendPage" : "verifyPage";
         const url =
