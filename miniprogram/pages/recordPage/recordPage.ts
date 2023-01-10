@@ -145,6 +145,7 @@ Page({
         dateText: '', // 作业日期
         jobContent: '', // 作业内容
         jobPosition: '', // 作业地点
+        currentPosition: '',
 
         latitude: 0, //首次加载维度
         longitude: 0, //首次加载的经度
@@ -194,12 +195,30 @@ Page({
             unionMissionVisible: true
         })
     },
-    onUnionMissionPickerChange(e) {
-        console.log(e);
+    onUnionMissionPickerCancel() {
         this.setData({
-            unionMissionCId: e.detail.value[0]
+            unionMissionVisible: false
         })
     },
+    onUnionMissionPickerChange(e) {
+        console.log(this.data.unionMissionList)
+        let jobContent = ""
+        let currentPosition = ""
+        this.data.unionMissionList.forEach(element => {
+            if (element.value === this.data.unionMissionCId) {
+                jobContent = element.content
+                currentPosition = element.position
+            }
+        });
+
+        this.setData({
+            unionMission: e.detail.label[0],
+            unionMissionCId: e.detail.value[0],
+            jobContent,
+            currentPosition
+        })
+    },
+
     onUnionWorkPicker() {
         const openId = wx.getStorageSync("openId");
         wx.request({
@@ -236,12 +255,17 @@ Page({
                     this.setData({ unionWorkVisible: true, unionWorkList: format, baseUnionWorkList: _res.data });
                 }
                 else {
-                    this.handleToast("获取关联申请表错误");
+                    this.handleToast("获取关联申请表错误", "fail");
                 }
             },
             fail: _res => {
-                this.handleToast("获取关联申请表错误");
+                this.handleToast("获取关联申请表错误", "fail");
             }
+        })
+    },
+    onUnionWorkPickerCancel() {
+        this.setData({
+            unionWorkVisible: false
         })
     },
     onUnionWorkPickerChange(e) {
@@ -253,10 +277,11 @@ Page({
             if (element.workUuid == value[0]) {
                 this.setData({
                     unionMissionList: JSON.parse(element.workList).map(i => {
-                        console.log(i);
                         return {
                             label: `作业地点：${i.workPosition}`,
-                            value: i.id
+                            value: i.id,
+                            content: i.workContent,
+                            position: i.workPosition
                         }
                     })
                 })
@@ -318,14 +343,13 @@ Page({
 
     handleUploadImg(e: any) {
         const arrname = e.target.dataset.arrname;
-        const that = this;
         // 从相册或相机拍摄
         wx.chooseMedia({
             count: 1,
             sourceType: ['album', 'camera'],
             mediaType: ['image'],
             sizeType: ['compressed'],
-            success(res) {
+            success: res => {
                 let imgArr = [];
                 let base64Arr = [];
                 const fileManager = wx.getFileSystemManager();
@@ -336,7 +360,7 @@ Page({
                     imgArr.push(previewData);
                     base64Arr.push(base64);
                 }
-                that.setData({
+                this.setData({
                     [`${arrname}ImgArr`]: imgArr,
                     [`${arrname}Base64Arr`]: base64Arr
                 });
@@ -662,7 +686,20 @@ Page({
             });
             return;
         }
-
+        if (!this.data.unionWorkUuid) {
+            this.handleToast({
+                message: '请选择关联申请表',
+                theme: 'fail'
+            });
+            return;
+        }
+        if (!this.data.unionMissionCId) {
+            this.handleToast({
+                message: '请选择关联任务',
+                theme: 'fail'
+            });
+            return;
+        }
         if (this.data.isInterrupt && !this.data.interruptStartTime) {
             this.handleToast({
                 message: '请输入中断时间',
@@ -749,79 +786,89 @@ Page({
             jcjly: this.data.jcjly,
             jcjlyBase64: this.data.jcjlyBase64,
             sendOpenId: openId,
+
+            unionWorkUuid: this.data.unionWorkUuid,
+            unionMissionCId: this.data.unionMissionCId
         };
-        const that = this;
         wx.request({
             // url: 'https://zhouhaoyiu.oicp.vip/Job/addJob',
             url: "http://localhost:8092/recordJob/addRecordJob",
             method: 'POST',
             data: data,
-            success(res) {
-                that.handleToast({
+            success: res => {
+                this.handleToast({
                     message: res.data == 1 ? '提交成功' : '提交失败',
                     theme: res.data == 1 ? 'success' : 'fail'
                 });
-                // that.setData({
-                //     xcfzr: '',
-                //     xcfzrHasDraw: false,
-                //     xcfzrDrawOk: false, // 现场负责人签字完成
-                //     xcfzrDrawShow: false,
-                //     xzfzrSrc: null,
-                //     xcfzrBase64: null,
+                that.setData({
+                    xcfzr: '',
+                    xcfzrHasDraw: false,
+                    xcfzrDrawOk: false, // 现场负责人签字完成
+                    xcfzrDrawShow: false,
+                    xzfzrSrc: null,
+                    xcfzrBase64: null,
 
-                //     jcjly: '', // 检测人员
-                //     jcjlyHasDraw: false,
-                //     jcjlyDrawOk: false,
-                //     jcjlyDrawShow: false,
-                //     jcjlySrc: null,
-                //     jcjlyBase64: null,
-                //     // 作业日期的选择
-                //     mode: '',
-                //     dateVisible: false,
-                //     timeVisible: false,
-                //     date: new Date().getTime(), // 支持时间戳传入
-                //     time: new Date().getHours() + ':' + new Date().getMinutes(),
+                    jcjly: '', // 检测人员
+                    jcjlyHasDraw: false,
+                    jcjlyDrawOk: false,
+                    jcjlyDrawShow: false,
+                    jcjlySrc: null,
+                    jcjlyBase64: null,
+                    // 作业日期的选择
+                    mode: '',
+                    dateVisible: false,
+                    timeVisible: false,
+                    date: new Date().getTime(), // 支持时间戳传入
+                    time: new Date().getHours() + ':' + new Date().getMinutes(),
 
-                //     jobContent: '', // 作业内容
-                //     dateText: '', // 作业日期
-                //     jobPosition: '', // 作业地点
+                    jobContent: '', // 作业内容
+                    dateText: '', // 作业日期
+                    jobPosition: '', // 作业地点
 
-                //     // 安全选项
-                //     riskFactorsValue: true, // 危险因素
-                //     safetyDisclosureValue: true, // 安全交底
-                //     inspectionEquipmentValue: true, // 检测设备情况
-                //     safetyProtectionValue: true, // 安全防护设备
-                //     emerRescueValue: true, // 应急救援装备
-                //     otherInfo: '', // 其他补充措施
+                    // 安全选项
+                    riskFactorsValue: true, // 危险因素
+                    safetyDisclosureValue: true, // 安全交底
+                    inspectionEquipmentValue: true, // 检测设备情况
+                    safetyProtectionValue: true, // 安全防护设备
+                    emerRescueValue: true, // 应急救援装备
+                    otherInfo: '', // 其他补充措施
 
-                //     ventilationStartsTime: "", //  通风开始
-                //     ventilationEndTime: "", // 通风结束
-                //     jobStartTime: "", // 作业开始
-                //     jobEndTime: "", // 作业结束
+                    ventilationStartsTime: "", //  通风开始
+                    ventilationEndTime: "", // 通风结束
+                    jobStartTime: "", // 作业开始
+                    jobEndTime: "", // 作业结束
 
-                //     isInterrupt: false, // 是否中断
-                //     interruptStartTime: "", // 中断开始时间
-                //     interruptEndTime: "", // 中断结束时间
+                    isInterrupt: false, // 是否中断
+                    interruptStartTime: "", // 中断开始时间
+                    interruptEndTime: "", // 中断结束时间
 
-                //     gasDetectionImgArr: [] as string[], // 气体检测图片数组
-                //     gasDetectionBase64Arr: [] as (string | ArrayBuffer)[], // 气体检测图片base64数组
+                    gasDetectionImgArr: [] as string[], // 气体检测图片数组
+                    gasDetectionBase64Arr: [] as (string | ArrayBuffer)[], // 气体检测图片base64数组
 
-                //     signBoardImgArr: [] as string[], // 标志牌图片数组
-                //     signBoardBase64Arr: [] as (string | ArrayBuffer)[],
+                    signBoardImgArr: [] as string[], // 标志牌图片数组
+                    signBoardBase64Arr: [] as (string | ArrayBuffer)[],
 
-                //     exhaustAirImgArr: [] as string[], // 排气图片数组
-                //     exhaustAirBase64Arr: [] as (string | ArrayBuffer)[], // 排气图片base64数组
-                //     imgPreview: '', // 图片预览
+                    exhaustAirImgArr: [] as string[], // 排气图片数组
+                    exhaustAirBase64Arr: [] as (string | ArrayBuffer)[], // 排气图片base64数组
+                    imgPreview: '', // 图片预览
 
-                //     positionList: wellPostion as Record<any, any>[],
-                //     interruptList: wellInterruptTemplate,
-                //     interruptTestPositionIndex: 0,
+                    positionList: wellPostion as Record<any, any>[],
+                    interruptList: wellInterruptTemplate,
+                    interruptTestPositionIndex: 0,
 
-                //     confinedSpaceType: false // 有限空间类型
-                // });
+                    confinedSpaceType: false, // 有限空间类型
+                    unionWork: "",
+                    unionWorkUuid: "",
+                    unionWorkList: "",
+
+                    unionMission: "",
+                    unionMissionCId: 0,
+                    unionMissionList: "",
+
+                });
             },
-            fail(res) {
-                that.handleToast({
+            fail: res => {
+                this.handleToast({
                     message: res.data,
                     theme: 'fail'
                 });

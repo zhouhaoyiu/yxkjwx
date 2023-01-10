@@ -3,9 +3,11 @@
         <t-cell required title="作业时间" hover note="{{dateText || '年 月 日'}}" arrow data-mode="date" data-key="dateText" bindtap="showPicker" class="test" t-class="pannel-item" t-class-note="{{dateText ? 'sub-text' : 'empty'}}" />
         <t-cell arrow required hover class="test" t-class="pannel-item" title="关联申请表" note="{{unionWork}}" bind:click="onUnionWorkPicker"></t-cell>
         <t-cell arrow required wx:if="{{unionWorkUuid}}" hover class="test" t-class="pannel-item" title="关联任务" note="{{unionMission}}" bind:click="onUnionMissionPicker"></t-cell>
-        <t-input disabled align="right" size="small" value="{{jobContent}}" data-inputfield="jobContent" label="slot" onchange="setInputData" placeholder="请输入作业内容">
+        <!-- <t-input wx:if="{{unionMission}}" disabled align="right" size="small" value="{{jobContent}}" data-inputfield="jobContent" label="slot" onchange="setInputData" placeholder="请输入作业内容">
             <text slot="label">作业内容<text style="color: #e34d59"> *</text> </text>
-        </t-input>
+        </t-input> -->
+        <t-cell wx:if="{{unionMission}}" title="作业内容" class="test" t-class="pannel-item" hover note="{{jobContent}}" />
+        <t-cell wx:if="{{unionMission}}" title="作业位置" class="test" t-class="pannel-item" hover note="{{currentPosition}}" />
         <view style="width: 100%;">
             <t-input disabled align="right" size="small" data-inputfield="jobPosition" onchange="setInputData" value="{{jobPosition}}" label="slot" placeholder="请输入作业地点">
                 <text slot="label">当前地点<text style="color: #e34d59"> *</text> </text>
@@ -79,15 +81,15 @@
         </view>
     </view>
     <view class="box">
-        <view class="workBefore" bindtap="logWorkIn">作业前检测</view>
+        <view class="workBefore" bindtap="logWorkIn">作业检测</view>
         <t-divider></t-divider>
         <view>
-            <t-cell title="通风开始" hover note="{{ventilationStartsTime || '时 分'}}" arrow data-mode="time" data-key="ventilationStartsTime" bindtap="showPicker" t-class="pannel-item" t-class-note="{{ventilationStartsTime ? 'sub-text' : 'empty'}}" />
-            <t-cell title="通风结束" hover note="{{ventilationEndTime || '时 分'}}" arrow data-mode="time" data-key="ventilationEndTime" bindtap="showPicker" t-class="pannel-item" t-class-note="{{ventilationEndTime ? 'sub-text' : 'empty'}}" />
+            <t-cell required title="通风开始" hover note="{{ventilationStartsTime || '时 分'}}" arrow data-mode="time" data-key="ventilationStartsTime" bindtap="showPicker" t-class="pannel-item" t-class-note="{{ventilationStartsTime ? 'sub-text' : 'empty'}}" />
+            <t-cell required title="通风结束" hover note="{{ventilationEndTime || '时 分'}}" arrow data-mode="time" data-key="ventilationEndTime" bindtap="showPicker" t-class="pannel-item" t-class-note="{{ventilationEndTime ? 'sub-text' : 'empty'}}" />
         </view>
         <view>
-            <t-cell title="作业开始" hover note="{{jobStartTime || '时 分'}}" arrow data-mode="time" data-key="jobStartTime" bindtap="showPicker" t-class="pannel-item" t-class-note="{{jobStartTime ? 'sub-text' : 'empty'}}" />
-            <t-cell title="作业结束" hover note="{{jobEndTime || '时 分'}}" arrow data-mode="time" data-key="jobEndTime" bindtap="showPicker" t-class="pannel-item" t-class-note="{{jobEndTime ? 'sub-text' : 'empty'}}" />
+            <t-cell required title="作业开始" hover note="{{jobStartTime || '时 分'}}" arrow data-mode="time" data-key="jobStartTime" bindtap="showPicker" t-class="pannel-item" t-class-note="{{jobStartTime ? 'sub-text' : 'empty'}}" />
+            <t-cell required title="作业结束" hover note="{{jobEndTime || '时 分'}}" arrow data-mode="time" data-key="jobEndTime" bindtap="showPicker" t-class="pannel-item" t-class-note="{{jobEndTime ? 'sub-text' : 'empty'}}" />
         </view>
         <view class="pannel-item">
             <view class="pannel-label">是否中断<text style="color: #e34d59"> *</text></view>
@@ -112,6 +114,7 @@
             <!-- <view style="color: #999999;" class="pl-32 mt-20">现场气体检测情况</view> -->
             <view class="pannel-item">
                 <view class="pannel-label">有限空间类型</view>
+                <text style="color: #e34d59"> *</text>
                 <view class="pannel-text {{confinedSpaceType.length ? '' : 'empty'}}"></view>
                 <view class="switch-text-left" data-textValue="false" data-valueName="confinedSpaceType" bindtap="onClickSwitchText" style="color:{{confinedSpaceType ? 'rgb(153,153,153)':'blue'}}">
                     表井
@@ -124,7 +127,7 @@
             <view class="position-list">
                 <view class="position-item" wx:for="{{positionList}}" wx:key="index">
                     <view style="color: #999999;" class="pl-32 mt-20">{{item.key}}</view>
-                    <t-cell data-index="{{index}}" title="检测时间" hover note="{{item.detectionTime || '时 分'}}" arrow data-mode="time" bindtap="showPositionPicker" t-class="pannel-item" t-class-note="{{item.detectionTime ? 'sub-text' : 'empty'}}" />
+                    <t-cell required data-index="{{index}}" title="检测时间" hover note="{{item.detectionTime || '时 分'}}" arrow data-mode="time" bindtap="showPositionPicker" t-class="pannel-item" t-class-note="{{item.detectionTime ? 'sub-text' : 'empty'}}" />
                     <t-input align="right" size="small" value="{{item.CO}}" data-index="{{index}}" data-key="CO" onchange="setPositionData" label="slot" placeholder="小于24">
                         <text slot="label">CO(一氧化碳)<text style="color: #e34d59"> *</text>
                         </text>

@@ -1,6 +1,6 @@
 <scroll-view class="page" scroll-y="false">
     <view class="box">
-        <t-cell title="选择日期(年月日)" hover note="{{dateText || '年 月 日'}}" arrow data-mode="date" bindtap="showWorkDatePicker" class="test" t-class="pannel-item" t-class-note="{{dateText ? 'sub-text' : 'empty'}}" />
+        <t-cell required title="选择日期(年月日)" hover note="{{dateText || '年 月 日'}}" arrow data-mode="date" bindtap="showWorkDatePicker" class="test" t-class="pannel-item" t-class-note="{{dateText ? 'sub-text' : 'empty'}}" />
         <view>
             <view wx:for="{{workList}}" wx:key="id">
                 <view style="padding:6rpx 0rpx 0px 30rpx" class="gray">
@@ -22,7 +22,7 @@
         </view>
         <view>
             <t-input align="right" onchange="setInputData" data-inputfield="zyfzr" size="small" label="slot" placeholder="请输入作业负责人">
-                <text slot="label">作业负责人 </text>
+                <text slot="label">作业负责人</text>
             </t-input>
             <t-input align="right" onchange="setInputData" data-inputfield="jhry" size="small" label="slot" placeholder="请输入监护人员">
                 <text slot="label">监护人员 </text>
