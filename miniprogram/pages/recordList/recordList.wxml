@@ -1,7 +1,4 @@
 <scroll-view class="page" scroll-y="true">
-    <view bindtap="test1">
-    1232
-    </view>
     <view wx:for="{{sendInfo}}" wx:key="index">
         <view style="font-size: 36rpx;padding-left: 12rpx;font-weight: bold;line-height: 36rpx;padding-bottom: 10rpx;">
             {{item.jobDate}}
