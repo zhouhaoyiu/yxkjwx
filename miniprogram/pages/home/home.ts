@@ -168,7 +168,7 @@ Page({
         }
 
         wx.request({
-            url: "http://localhost:8092/workJob/addWorkJob",
+            url: "https://zhouhaoyiu.oicp.vip/workJob/addWorkJob",
             method: "POST",
             data: {
                 workDate: this.data.dateText,

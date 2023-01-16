@@ -18,7 +18,7 @@ Page({
         });
         wx.request({
             method: "GET",
-            url: "http://localhost:8092/recordJob/getInfoByRecordJobUuid",
+            url: "https://zhouhaoyiu.oicp.vip/recordJob/getInfoByRecordJobUuid",
             data: {
                 jobUuid: this.data.jobUuid,
             },

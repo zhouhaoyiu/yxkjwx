@@ -30,7 +30,7 @@ Page({
         })
 
         wx.request({
-            url: "http://localhost:8092/workJob/getInfoByWorkJobUuid",
+            url: "https://zhouhaoyiu.oicp.vip/workJob/getInfoByWorkJobUuid",
             data: {
                 workUuid: this.data.workUuid
             },

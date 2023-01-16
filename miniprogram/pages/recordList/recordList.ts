@@ -34,7 +34,7 @@ Page({
         try {
             wx.request({
                 method: "GET",
-                url: "http://localhost:8092/recordJob/getSendRecordJobByPage",
+                url: "https://zhouhaoyiu.oicp.vip/recordJob/getSendRecordJobByPage",
                 data: {
                     page: this.data.sendPage,
                     sendOpenId: openId,

@@ -120,7 +120,7 @@ Page({
             });
         }
         wx.request({
-            url: "http://localhost:8092/workJob/verifyWorkJob",
+            url: "https://zhouhaoyiu.oicp.vip/workJob/verifyWorkJob",
             // url: "https://zhouhaoyiu.oicp.vip/Job/verifyJob",
             method: "POST",
             data: {
@@ -152,7 +152,7 @@ Page({
         }
 
         wx.request({
-            url: "http://localhost:8092/workJob/verifyWorkJob",
+            url: "https://zhouhaoyiu.oicp.vip/workJob/verifyWorkJob",
             method: "POST",
             data: {
                 workUuid: this.data.workUuid,
@@ -201,7 +201,7 @@ Page({
         wx.request({
             method: "GET",
             // url: "https://zhouhaoyiu.oicp.vip/Job/getInfoByJobUuid",
-            url: "http://localhost:8092/workJob/getInfoByWorkJobUuid",
+            url: "https://zhouhaoyiu.oicp.vip/workJob/getInfoByWorkJobUuid",
             data: {
                 workUuid: this.data.workUuid
             },

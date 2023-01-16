@@ -222,7 +222,7 @@ Page({
     onUnionWorkPicker() {
         const openId = wx.getStorageSync("openId");
         wx.request({
-            url: "http://localhost:8092/workJob/getUnionWork",
+            url: "https://zhouhaoyiu.oicp.vip/workJob/getUnionWork",
             method: "GET",
             data: {
                 sendOpenId: openId,
@@ -693,7 +693,7 @@ Page({
             });
             return;
         }
-        if (!this.data.unionMissionCId) {
+        if (this.data.unionMissionCId === null || this.data.unionMissionCId === undefined) {
             this.handleToast({
                 message: '请选择关联任务',
                 theme: 'fail'
@@ -792,7 +792,7 @@ Page({
         };
         wx.request({
             // url: 'https://zhouhaoyiu.oicp.vip/Job/addJob',
-            url: "http://localhost:8092/recordJob/addRecordJob",
+            url: "https://zhouhaoyiu.oicp.vip/recordJob/addRecordJob",
             method: 'POST',
             data: data,
             success: res => {
@@ -800,7 +800,7 @@ Page({
                     message: res.data == 1 ? '提交成功' : '提交失败',
                     theme: res.data == 1 ? 'success' : 'fail'
                 });
-                that.setData({
+                this.setData({
                     xcfzr: '',
                     xcfzrHasDraw: false,
                     xcfzrDrawOk: false, // 现场负责人签字完成
@@ -939,5 +939,4 @@ Page({
             theme: typeof message === 'string' ? theme : message.theme
         });
     },
-
 });

@@ -49,7 +49,7 @@ Page({
             wx.request({
                 method: "GET",
                 // url: "https://zhouhaoyiu.oicp.vip/Job/getSendJobByPage",
-                url: "http://localhost:8092/workJob/getSendWorkJobByPage",
+                url: "https://zhouhaoyiu.oicp.vip/workJob/getSendWorkJobByPage",
                 data: {
                     page: this.data.sendPage,
                     sendOpenId: openId,
@@ -89,7 +89,7 @@ Page({
             wx.request({
                 method: "GET",
                 // url: "https://zhouhaoyiu.oicp.vip/Job/getVerifyJobByPage",
-                url: "http://localhost:8092/workJob/getVerifyWorkJobByPage",
+                url: "https://zhouhaoyiu.oicp.vip/workJob/getVerifyWorkJobByPage",
                 data: {
                     page: this.data.verifyPage,
                     verifyOpenId: openId,
@@ -166,8 +166,8 @@ Page({
             //     ? "https://zhouhaoyiu.oicp.vip/Job/getSendJobByPage"
             //     : "https://zhouhaoyiu.oicp.vip/Job/getVerifyJobByPage";
             this.data.tabBarIndex == 0
-                ? "http://localhost:8092/workJob/getSendWorkJobByPage"
-                : "http://localhost:8092/workJob/getVerifyWorkJobByPage";
+                ? "https://zhouhaoyiu.oicp.vip/workJob/getSendWorkJobByPage"
+                : "https://zhouhaoyiu.oicp.vip/workJob/getVerifyWorkJobByPage";
         wx.showLoading({
             title: "加载中",
         });
@@ -226,8 +226,8 @@ Page({
             //     ? "https://zhouhaoyiu.oicp.vip/Job/getSendJobByPage"
             //     : "https://zhouhaoyiu.oicp.vip/Job/getVerifyJobByPage";
             this.data.tabBarIndex == 0
-                ? "http://localhost:8092/workJob/getSendWorkJobByPage"
-                : "http://localhost:8092/workJob/getVerifyWorkJobByPage";
+                ? "https://zhouhaoyiu.oicp.vip/workJob/getSendWorkJobByPage"
+                : "https://zhouhaoyiu.oicp.vip/workJob/getVerifyWorkJobByPage";
         const that = this;
         this.setData({
             [pageName]: this.data[pageName] + 1,

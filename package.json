@@ -10,6 +10,6 @@
         "tdesign-miniprogram": "^0.33.0"
     },
     "devDependencies": {
-        "miniprogram-api-typings": "3.8.1"
+        "miniprogram-api-typings": "3.9.0"
     }
 }
