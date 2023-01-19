@@ -5,11 +5,10 @@
         </image>
     </view>
     <view class="loginBox">
-        <t-input value="{{userName}}" label="slot" data-inputfield="pin" onchange="setInputData" placeholder="请输入登录代码">
-            <view slot="label" class="label" style="font-size:30rpx;">
-                <text>登录代码</text>
-            </view>
-        </t-input>
+        <view style="display: flex;justify-content: center;flex-direction: column;">
+            <text style="font-size: 32rpx;padding-left: 60rpx;">登录代码</text>
+            <t-input value="{{userName}}" label="slot" data-inputfield="pin" onchange="setInputData" placeholder="请输入登录代码" />
+        </view>
         <!-- <t-input value="{{passWord}}" label="密码" placeholder="请输入密码" /> -->
         <!-- <button class="authbtn" open-type="getPhoneNumber" type="primary" bindgetphonenumber="onGetPhoneNumber">获取手机号码</button> -->
         <t-button t-class="external-class" bindtap="wxLogin" theme="primary" block disabled="{{disabled}}" content="登录"></t-button>
