@@ -3,10 +3,6 @@ App<IAppOption>({
     globalData: {},
     onLaunch() {
         const updateManager = wx.getUpdateManager()
-        updateManager.onCheckForUpdate(function (res) {
-            console.log(res.hasUpdate)
-        })
-
         updateManager.onUpdateReady(function () {
             wx.showModal({
                 title: '更新提示',
@@ -20,10 +16,6 @@ App<IAppOption>({
             })
         })
 
-        updateManager.onUpdateFailed(function () {
-            // 新版本下载失败
-        })
-        // 登录
         wx.login({
             success: (res) => {
                 if (!res.code) {
