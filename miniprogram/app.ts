@@ -18,24 +18,25 @@ App<IAppOption>({
 
         wx.login({
             success: (res) => {
-                if (!res.code) {
-                    return;
-                }
-                wx.request({
-                    // url: "https://zhouhaoyiu.oicp.vip/Wx/login",
-                    url: "https://zhouhaoyiu.oicp.vip/Wx/login",
-                    data: {
-                        code: res.code
-                    },
-                    success(res) {
-                        try {
-                            wx.setStorageSync("openId", res.data)
-                        }
-                        catch (e) {
-                            console.log(e);
-                        }
-                    }
-                })
+              return true
+                // if (!res.code) {
+                //     return;
+                // }
+            //     wx.request({
+            //         // url: "https://zhouhaoyiu.oicp.vip/Wx/login",
+            //         url: "https://zhouhaoyiu.oicp.vip/Wx/login",
+            //         data: {
+            //             code: res.code
+            //         },
+            //         success(res) {
+            //             try {
+            //                 wx.setStorageSync("openId", res.data)
+            //             }
+            //             catch (e) {
+            //                 console.log(e);
+            //             }
+            //         }
+            //     })
             },
         });
     },

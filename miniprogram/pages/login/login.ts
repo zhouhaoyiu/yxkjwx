@@ -22,16 +22,16 @@ Page({
         //         });
         //     },
         // });
-        if (this.data.pin == "tygscbyx") {
+        // if (this.data.pin == "tygscbyx") {
             wx.switchTab({
                 url: "/pages/recordPage/recordPage"
             });
             wx.setStorageSync("login", true);
-        } else {
-            this.handleToast({
-                message: `pin码错误`
-            });
-        }
+        // } else {
+        //     this.handleToast({
+        //         message: `pin码错误`
+        //     });
+        // }
     },
     onGetPhoneNumber(e: any) {
         console.log(e);
