@@ -1,0 +1,38 @@
+lockfileVersion: '9.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+importers:
+
+  .:
+    dependencies:
+      tdesign-miniprogram:
+        specifier: ^0.33.0
+        version: 0.33.0
+    devDependencies:
+      miniprogram-api-typings:
+        specifier: 3.9.0
+        version: 3.9.0
+
+packages:
+
+  dayjs@1.11.21:
+    resolution: {integrity: sha512-98IT+HOahAisibz/yjKbzuOBwYcjJ7BCLPzARyHiyEBmRz4fatF+KPJszEHXsGYjUG234aH/cOjW1wwTbKUZlA==}
+
+  miniprogram-api-typings@3.9.0:
+    resolution: {integrity: sha512-QCXHHW9H4XYazb8J9EMiFyaOWHXhBG4oehkQqi+76FJpKKIlpgL0ZkXxzJ2L+6T/c5OxKm7iegovKIQGVkZDLQ==}
+
+  tdesign-miniprogram@0.33.0:
+    resolution: {integrity: sha512-dNerln9UN7YdYCZvWRCstvH2hEkmXtwboOGVKPY5ZXYgC8cG2eH4/buJ7j8l4Ci+jJLLSPQrGCj9e55Y83sw7g==}
+
+snapshots:
+
+  dayjs@1.11.21: {}
+
+  miniprogram-api-typings@3.9.0: {}
+
+  tdesign-miniprogram@0.33.0:
+    dependencies:
+      dayjs: 1.11.21
