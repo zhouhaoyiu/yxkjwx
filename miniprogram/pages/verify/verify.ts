@@ -21,7 +21,7 @@ Page({
         showDialog: false
     },
     touchstart(e: {
-        touches: { x: any; y: any }[];
+        touches: { x: unknown; y: unknown }[];
         target: { dataset: { name: string } };
     }) {
         const name = e.target.dataset.name;
@@ -40,7 +40,7 @@ Page({
     },
 
     touchmove(e: {
-        touches: { x: any; y: any }[];
+        touches: { x: unknown; y: unknown }[];
         target: { dataset: { name: string } };
     }) {
         const name = e.target.dataset.name;
@@ -88,7 +88,7 @@ Page({
             },
         });
     },
-    setInputData(e: any) {
+    setInputData(e: unknown) {
         this.setData({
             [e.target.dataset.inputfield]: e.detail.value,
         });
@@ -191,7 +191,7 @@ Page({
     /**
      * 生命周期函数--监听页面加载
      */
-    onLoad(opt: any) {
+    onLoad(opt: unknown) {
         const that = this;
         let flag = true;
         this.setData({
@@ -205,7 +205,7 @@ Page({
             data: {
                 workUuid: this.data.workUuid
             },
-            success(res: any) {
+            success(res: unknown) {
                 if (res.data[0].spfzr) {
                     that.setData({
                         showDialog: true,
@@ -213,9 +213,9 @@ Page({
                     flag = false;
                 }
                 let protectiveMeasureGroups = JSON.parse(res.data[0].protectiveMeasureGroups);
-                let step1: Boolean = protectiveMeasureGroups.includes("step1") || false;
-                let step2: Boolean = protectiveMeasureGroups.includes("step2") || false;
-                let nProtectiveMeasureGroups: [Boolean, Boolean] = [step1, step2];
+                let step1: boolean = protectiveMeasureGroups.includes("step1") || false;
+                let step2: boolean = protectiveMeasureGroups.includes("step2") || false;
+                let nProtectiveMeasureGroups: [boolean, boolean] = [step1, step2];
                 that.setData({
                     info: {
                         workDate: res.data[0].workDate,
@@ -252,7 +252,7 @@ Page({
             url: "/pages/home/home"
         })
     },
-    openSign(e: any) {
+    openSign(e: unknown) {
         const name = e.target.dataset.name
         this.setData({
             [`${name}DrawShow`]: true,
@@ -262,7 +262,7 @@ Page({
             [`${name}Base64`]: "",
         })
     },
-    previewImgByBase64(e: any) {
+    previewImgByBase64(e: unknown) {
         const imgname = e.currentTarget.dataset.imgname as string;
         // @ts-ignore
         const base64 = "data:image/jpeg;base64," + this.data.info[imgname];

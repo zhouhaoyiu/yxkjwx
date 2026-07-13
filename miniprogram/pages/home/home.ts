@@ -16,9 +16,9 @@ Page({
                 workContent: "",
                 workPosition: ""
             }
-        ] as any[],
+        ] as WorkItem[],
         workListIndex: 1,
-        protectiveMeasureGroups: [] as any,
+        protectiveMeasureGroups: [] as string[],
         zyfzr: "",
         jhry: "",
         zyry: ""
@@ -49,7 +49,7 @@ Page({
         });
     },
 
-    onConfirm(e: { detail: { value: any } }) {
+    onConfirm(e: { detail: { value: string | number } }) {
         const { value } = e?.detail;
         const { mode } = this.data;
 
@@ -90,7 +90,7 @@ Page({
         });
     },
 
-    deleteWork(e: any) {
+    deleteWork(e: MiniEvent<Record<string, never>, { id: number }>) {
         const { id } = e.target.dataset;
         let temp = this.data.workList;
         // 至少保留一条工作
@@ -101,19 +101,19 @@ Page({
             //     icon: 'none'
             // })
         }
-        temp = temp.filter((item: any) => item.id != id);
+        temp = temp.filter((item) => item.id != id);
         this.setData({
             workList: temp
         });
     },
 
-    handleGroupChange(event: { detail: { value: string; }; }) {
+    handleGroupChange(event: { detail: { value: string[]; }; }) {
         this.setData({
             protectiveMeasureGroups: event.detail.value,
         });
     },
 
-    setInputData(e: any) {
+    setInputData(e: MiniEvent<{ value: string }, { inputfield: string }>) {
         this.setData({
             [e.target.dataset.inputfield]: e.detail.value
         });

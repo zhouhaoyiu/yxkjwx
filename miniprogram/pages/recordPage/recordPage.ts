@@ -321,13 +321,13 @@ Page({
         });
     },
 
-    changePostion(e: any) {
+    changePostion(e: unknown) {
         this.setData({
             positionList: e.target.dataset.positon
         });
     },
 
-    setPositionData(e: any) {
+    setPositionData(e: unknown) {
         let value = e.detail.value;
         const key = e.target.dataset.key;
         const index = e.target.dataset.index;
@@ -341,7 +341,7 @@ Page({
         });
     },
 
-    handleUploadImg(e: any) {
+    handleUploadImg(e: unknown) {
         const arrname = e.target.dataset.arrname;
         // 从相册或相机拍摄
         wx.chooseMedia({
@@ -373,7 +373,7 @@ Page({
             }
         });
     },
-    previewImg(e: any) {
+    previewImg(e: unknown) {
         const arrname = e.target.dataset.arrname;
         const index = e.target.dataset.index;
         const { [`${arrname}ImgArr`]: imgArr } = this.data;
@@ -390,7 +390,7 @@ Page({
         });
     },
 
-    deleteImg(e: any) {
+    deleteImg(e: unknown) {
         // const { imgPreview } = this.data
         const index = e.target.dataset.index;
         const arrname = e.target.dataset.arrname;
@@ -404,7 +404,7 @@ Page({
         });
     },
 
-    setInputData(e: any) {
+    setInputData(e: unknown) {
         this.setData({
             [e.target.dataset.inputfield]: e.detail.value
         });
@@ -413,7 +413,7 @@ Page({
     joinArray(array: string[]) {
         return array.join('-');
     },
-    onChangeSwitch(e: any) {
+    onChangeSwitch(e: unknown) {
         const valueName = e.target.dataset.valuename;
 
         this.setData({
@@ -427,7 +427,7 @@ Page({
         }
     },
 
-    onClickSwitchText(e: any) {
+    onClickSwitchText(e: unknown) {
         const valueName = e.target.dataset.valuename;
         let textValue = e.target.dataset.textvalue;
         this.setData({
@@ -441,7 +441,7 @@ Page({
         });
     },
 
-    onPickerChange(e: { currentTarget: { dataset: { key: any } }; detail: { value: any } }) {
+    onPickerChange(e: { currentTarget: { dataset: { key: unknown } }; detail: { value: unknown } }) {
         const { key } = e?.currentTarget?.dataset;
         this.setData({
             [`${key}Visible`]: false,
@@ -450,14 +450,14 @@ Page({
         });
     },
 
-    onPickerCancel(e: { currentTarget: { dataset: { key: any } } }) {
+    onPickerCancel(e: { currentTarget: { dataset: { key: unknown } } }) {
         const { key } = e?.currentTarget?.dataset;
         this.setData({
             [`${key}Visible`]: false
         });
     },
 
-    showPicker(e: { currentTarget: { dataset: { mode: any } } }) {
+    showPicker(e: { currentTarget: { dataset: { mode: unknown } } }) {
         const { mode, key } = e?.currentTarget?.dataset;
 
         this.setData({
@@ -467,7 +467,7 @@ Page({
         });
     },
 
-    showPositionPicker(e: any) {
+    showPositionPicker(e: unknown) {
         const { mode, index } = e?.currentTarget?.dataset;
         this.setData({
             mode,
@@ -476,7 +476,7 @@ Page({
         })
     },
 
-    showInterruptPicker(e: any) {
+    showInterruptPicker(e: unknown) {
         const { mode, index } = e?.currentTarget?.dataset;
         this.setData({
             mode,
@@ -501,7 +501,7 @@ Page({
         this.hidePicker();
     },
 
-    onPositionConfirm(e: any) {
+    onPositionConfirm(e: unknown) {
         const { value } = e?.detail;
         let { positionTimeIndex, positionList } = this.data;
         positionList[positionTimeIndex].detectionTime = value;
@@ -510,7 +510,7 @@ Page({
         })
     },
 
-    onInterruptConfirm(e: any) {
+    onInterruptConfirm(e: unknown) {
         const { value } = e?.detail;
         let { interruptTimeIndex, interruptList } = this.data;
         interruptList[interruptTimeIndex].detectionTime = value;
@@ -574,7 +574,7 @@ Page({
             });
     },
 
-    touchstart(e: { touches: { x: any; y: any }[]; target: { dataset: { name: string } } }) {
+    touchstart(e: { touches: { x: unknown; y: unknown }[]; target: { dataset: { name: string } } }) {
         const name = e.target.dataset.name;
         if (this.data[`${name}DrawOk`]) {
             return;
@@ -589,7 +589,7 @@ Page({
         });
     },
 
-    touchmove(e: { touches: { x: any; y: any }[]; target: { dataset: { name: string } } }) {
+    touchmove(e: { touches: { x: unknown; y: unknown }[]; target: { dataset: { name: string } } }) {
         const name = e.target.dataset.name;
         if (this.data[`${name}DrawOk`]) {
             return;
@@ -852,7 +852,7 @@ Page({
                     exhaustAirBase64Arr: [] as (string | ArrayBuffer)[], // 排气图片base64数组
                     imgPreview: '', // 图片预览
 
-                    positionList: wellPostion as Record<any, any>[],
+                    positionList: wellPostion as Record<unknown, unknown>[],
                     interruptList: wellInterruptTemplate,
                     interruptTestPositionIndex: 0,
 

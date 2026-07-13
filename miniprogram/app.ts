@@ -17,7 +17,7 @@ App<IAppOption>({
         })
 
         wx.login({
-            success: (res) => {
+            success: (_res) => {
               return true
                 // if (!res.code) {
                 //     return;

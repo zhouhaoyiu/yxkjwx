@@ -5,7 +5,7 @@ Page({
      */
     data: {
         sendPage: 1,
-        sendInfo: [] as any[]
+        sendInfo: [] as GroupedRecordJobs[]
     },
     toast(option: ToastOptionsType) {
         Toast({
@@ -39,16 +39,16 @@ Page({
                     page: this.data.sendPage,
                     sendOpenId: openId,
                 },
-                success: res => {                    
+                success: (res: { data: RecordJob[] }) => {
                     if (res.data instanceof Array) {
                         let infoDate = new Set() as Set<string>;
                         res.data.forEach((ele: { jobDate: string }) => {
                             infoDate.add(String(ele.jobDate))
                         })
-                        let info: any[] = [];
+                        let info: GroupedRecordJobs[] = [];
                         infoDate.forEach((element) => {
-                            let jobInfo: any[] = [];
-                            (res.data as Array<any>).forEach((item: { jobDate: string }) => {
+                            let jobInfo: RecordJob[] = [];
+                            res.data.forEach((item) => {
                                 if (item.jobDate === element) {
                                     jobInfo.push(item);
                                 }
@@ -73,7 +73,7 @@ Page({
         }
     },
 
-    goDetails(e: any) {
+    goDetails(e: MiniEvent<Record<string, never>, { jobuuid: string }>) {
         wx.navigateTo({
             url: "/pages/recordDetails/recordDetails?jobUuid=" + e.currentTarget.dataset.jobuuid,
         });

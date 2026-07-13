@@ -12,7 +12,7 @@ Page({
         zyfzr: "",
         jhry: "",
         zyry: "",
-        nProtectiveMeasureGroups: [] as unknown as [Boolean, Boolean],
+        nProtectiveMeasureGroups: [] as unknown as [boolean, boolean],
         spfzr: "",
         spfzrBase64: "",
         spfzrInfo: "",
@@ -24,7 +24,6 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad(opt: Record<string, string>) {
-        const openId = wx.getStorageSync("openId");
         this.setData({
             workUuid: opt.workUuid,
         })
@@ -35,26 +34,28 @@ Page({
                 workUuid: this.data.workUuid
             },
             method: "GET",
-            success: (_res: any) => {
-                let protectiveMeasureGroups = JSON.parse(_res.data[0].protectiveMeasureGroups);
-                let step1: Boolean = protectiveMeasureGroups.includes("step1") || false;
-                let step2: Boolean = protectiveMeasureGroups.includes("step2") || false;
-                let nProtectiveMeasureGroups: [Boolean, Boolean] = [step1, step2];
-                if (_res.data[0].status !== 0) {
+            success: (_res: { data: WorkJobPayload[] }) => {
+                const item = _res.data[0];
+                if (!item) return;
+                let protectiveMeasureGroups = JSON.parse(item.protectiveMeasureGroups);
+                let step1: boolean = protectiveMeasureGroups.includes("step1") || false;
+                let step2: boolean = protectiveMeasureGroups.includes("step2") || false;
+                let nProtectiveMeasureGroups: [boolean, boolean] = [step1, step2];
+                if (item.status !== 0) {
                     wx.hideShareMenu({});
                 };
                 this.setData({
-                    workDate: _res.data[0].workDate,
-                    workList: JSON.parse(_res.data[0].workList),
-                    zyfzr: _res.data[0].zyfzr,
-                    jhry: _res.data[0].jhry,
-                    zyry: _res.data[0].zyry,
+                    workDate: item.workDate,
+                    workList: JSON.parse(item.workList),
+                    zyfzr: item.zyfzr,
+                    jhry: item.jhry,
+                    zyry: item.zyry,
                     nProtectiveMeasureGroups: nProtectiveMeasureGroups,
-                    spfzr: _res.data[0].spfzr,
-                    spfzrBase64: _res.data[0].spfzrBase64,
-                    spfzrInfo: _res.data[0].spfzrInfo,
-                    status: _res.data[0].status,
-                    verifyDate: _res.data[0].verifyDate
+                    spfzr: item.spfzr,
+                    spfzrBase64: item.spfzrBase64,
+                    spfzrInfo: item.spfzrInfo,
+                    status: item.status,
+                    verifyDate: item.verifyDate
                 })
             }
         })

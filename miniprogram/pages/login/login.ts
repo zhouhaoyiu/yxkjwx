@@ -7,7 +7,7 @@ Page({
     data: {
         pin: ""
     },
-    setInputData(e: any) {
+    setInputData(e: MiniEvent<{ value: string }, { inputfield: string }>) {
         this.setData({
             [e.target.dataset.inputfield]: e.detail.value
         });
@@ -33,7 +33,7 @@ Page({
         //     });
         // }
     },
-    onGetPhoneNumber(e: any) {
+    onGetPhoneNumber(e: WechatMiniprogram.ButtonGetPhoneNumber) {
         console.log(e);
     },
     toast(option: ToastOptionsType) {

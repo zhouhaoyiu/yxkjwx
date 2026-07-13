@@ -3,14 +3,14 @@ Page({
      * 页面的初始数据
      */
     data: {
-        jobUuid: 0,
-        info: {},
+        jobUuid: "",
+        info: {} as Record<string, unknown>,
     },
 
     /**
      * 生命周期函数--监听页面加载
      */
-    onLoad(opt: any) {
+    onLoad(opt: Record<string, string>) {
         wx.hideShareMenu({});
         const that = this;
         this.setData({
@@ -22,17 +22,21 @@ Page({
             data: {
                 jobUuid: this.data.jobUuid,
             },
-            success(res: any) {              
-                res.data[0].positionList = JSON.parse(res.data[0].positionList)
-                res.data[0].interruptList = JSON.parse(res.data[0].interruptList)
+            success(res: { data: RecordJob[] }) {
+                const item = res.data[0];
+                if (!item) return;
                 that.setData({
-                    info: res.data[0],
+                    info: {
+                        ...item,
+                        positionList: JSON.parse(item.positionList),
+                        interruptList: JSON.parse(item.interruptList),
+                    },
                 });
             },
         });
     },
 
-    previewImgByBase64(e: any) {
+    previewImgByBase64(e: MiniEvent<Record<string, never>, { imgname: string }>) {
         const imgname = e.currentTarget.dataset.imgname as string;
         // @ts-ignore
         const base64 = "data:image/jpeg;base64," + this.data.info[imgname];

@@ -1,5 +1,5 @@
-import Toast, { ToastOptionsType } from "tdesign-miniprogram/toast/index";
 // @ts-nocheck
+import Toast, { ToastOptionsType } from "tdesign-miniprogram/toast/index";
 Page({
     /**
      * 页面的初始数据
@@ -8,15 +8,15 @@ Page({
         tabBarIndex: 0,
         sendPage: 1,
         verifyPage: 1,
-        sendInfo: [] as any,
-        verifyInfo: [] as any,
+        sendInfo: [] as unknown,
+        verifyInfo: [] as unknown,
     },
-    changeTabBar(e: any) {
+    changeTabBar(e: unknown) {
         this.setData({
             tabBarIndex: e.detail.value,
         });
     },
-    goDetails(e: any) {
+    goDetails(e: unknown) {
         wx.navigateTo({
             url: "/pages/workDetails/workDetails?workUuid=" + e.currentTarget.dataset.workuuid,
         });
@@ -54,16 +54,16 @@ Page({
                     page: this.data.sendPage,
                     sendOpenId: openId,
                 },
-                success(res: any) {
+                success(res: unknown) {
                     if (res.data instanceof Array) {
                         let infoDate = new Set() as Set<string>;
                         res.data.forEach((element: { workDate: string }) => {
                             infoDate.add(String(element.workDate));
                         });
 
-                        let info: { workDate: string; workInfo: any[] }[] = [];
+                        let info: { workDate: string; workInfo: unknown[] }[] = [];
                         infoDate.forEach((element) => {
-                            let workInfo: any[] = [];
+                            let workInfo: unknown[] = [];
                             res.data.forEach((item: { workDate: string }) => {
                                 if (item.workDate === element) {
                                     workInfo.push(item);
@@ -94,7 +94,7 @@ Page({
                     page: this.data.verifyPage,
                     verifyOpenId: openId,
                 },
-                success(res: any) {
+                success(res: unknown) {
                     if (res.data instanceof Array) {
                         if (res.data) {
                             let infoDate = new Set() as Set<string>;
@@ -102,9 +102,9 @@ Page({
                                 infoDate.add(String(element.workDate));
                             });
 
-                            let info: { workDate: string; workInfo: any[] }[] = [];
+                            let info: { workDate: string; workInfo: unknown[] }[] = [];
                             infoDate.forEach((element) => {
-                                let workInfo: any[] = [];
+                                let workInfo: unknown[] = [];
                                 res.data.forEach((item: { workDate: string }) => {
                                     if (item.workDate === element) {
                                         workInfo.push(item);
@@ -179,16 +179,16 @@ Page({
                     page: this.data[pageName],
                     [this.data.tabBarIndex == 0 ? "sendOpenId" : "verifyOpenId"]: openId,
                 },
-                success(res: any) {
+                success(res: unknown) {
                     if (res.data instanceof Array) {
                         let infoDate = new Set() as Set<string>;
                         res.data.forEach((element: { workDate: unknown }) => {
                             infoDate.add(String(element.workDate));
                         });
 
-                        let info: { workDate: string; workInfo: any[] }[] = [];
+                        let info: { workDate: string; workInfo: unknown[] }[] = [];
                         infoDate.forEach((element) => {
-                            let workInfo: any[] = [];
+                            let workInfo: unknown[] = [];
                             res.data.forEach((item: { workDate: string }) => {
                                 if (item.workDate === element) {
                                     workInfo.push(item);
@@ -260,7 +260,7 @@ Page({
                             ? that.data.sendInfo
                             : (that.data.verifyInfo as Array<{
                                 workDate: string;
-                                workInfo: any[];
+                                workInfo: unknown[];
                             }>);
 
                     res.data.forEach((element: { workDate: string }) => {
