@@ -1,3 +1,4 @@
+import { request } from "../../utils/api";
 Page({
     /**
      * 页面的初始数据
@@ -16,9 +17,9 @@ Page({
         this.setData({
             jobUuid: opt.jobUuid,
         });
-        wx.request({
+        request({
             method: "GET",
-            url: "https://zhouhaoyiu.oicp.vip/recordJob/getInfoByRecordJobUuid",
+            url: "/recordJob/getInfoByRecordJobUuid",
             data: {
                 jobUuid: this.data.jobUuid,
             },

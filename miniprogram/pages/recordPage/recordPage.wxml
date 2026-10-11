@@ -1,4 +1,6 @@
 <scroll-view class="page" scroll-y="false">
+    <view class="work-heading"><text class="eyebrow">太原供水 · 现场作业</text><view class="work-title">有限空间记录</view><text class="draft-state">{{draftState}}</text></view>
+    <view wx:if="{{submitting}}" class="submit-mask">正在保存记录…</view>
     <view class="box">
         <t-cell required title="作业时间" hover note="{{dateText || '年 月 日'}}" arrow data-mode="date" data-key="dateText" bindtap="showPicker" class="test" t-class="pannel-item" t-class-note="{{dateText ? 'sub-text' : 'empty'}}" />
         <t-cell arrow required hover class="test" t-class="pannel-item" title="关联申请表" note="{{unionWork}}" bind:click="onUnionWorkPicker"></t-cell>

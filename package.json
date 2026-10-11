@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
+    "test": "node --test tests/*.test.cjs",
     "lint": "oxlint --deny typescript/no-explicit-any miniprogram typings/index.d.ts",
     "type-check": "tsc --noEmit"
   },

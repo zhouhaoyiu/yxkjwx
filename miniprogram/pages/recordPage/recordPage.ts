@@ -1,4 +1,6 @@
 // @ts-nocheck
+import { request } from "../../utils/api";
+import { attachDraft } from "../../utils/draft";
 import Toast from 'tdesign-miniprogram/toast/index';
 const width = wx.getSystemInfoSync().windowWidth;
 const wellPostion = [
@@ -102,6 +104,9 @@ Page({
      * 页面的初始数据
      */
     data: {
+        submitting: false,
+        draftState: "",
+        jobUuid: "",
         uuid: '',
 
         unionWork: "",
@@ -151,11 +156,11 @@ Page({
         longitude: 0, //首次加载的经度
 
         // 安全选项
-        riskFactorsValue: true, // 危险因素
-        safetyDisclosureValue: true, // 安全交底
-        inspectionEquipmentValue: true, // 检测设备情况
-        safetyProtectionValue: true, // 安全防护设备
-        emerRescueValue: true, // 应急救援装备
+        riskFactorsValue: false, // 危险因素
+        safetyDisclosureValue: false, // 安全交底
+        inspectionEquipmentValue: false, // 检测设备情况
+        safetyProtectionValue: false, // 安全防护设备
+        emerRescueValue: false, // 应急救援装备
         otherInfo: '', // 其他补充措施
 
         ventilationStartsTime: "", //  通风开始
@@ -221,8 +226,8 @@ Page({
 
     onUnionWorkPicker() {
         const openId = wx.getStorageSync("openId");
-        wx.request({
-            url: "https://zhouhaoyiu.oicp.vip/workJob/getUnionWork",
+        request({
+            url: "/workJob/getUnionWork",
             method: "GET",
             data: {
                 sendOpenId: openId,
@@ -442,7 +447,8 @@ Page({
     },
 
     onPickerChange(e: { currentTarget: { dataset: { key: unknown } }; detail: { value: unknown } }) {
-        const { key } = e?.currentTarget?.dataset;
+        if (!e?.currentTarget?.dataset) return;
+        const { key } = e.currentTarget.dataset;
         this.setData({
             [`${key}Visible`]: false,
             [`${key}Value`]: e.detail.value,
@@ -451,14 +457,16 @@ Page({
     },
 
     onPickerCancel(e: { currentTarget: { dataset: { key: unknown } } }) {
-        const { key } = e?.currentTarget?.dataset;
+        if (!e?.currentTarget?.dataset) return;
+        const { key } = e.currentTarget.dataset;
         this.setData({
             [`${key}Visible`]: false
         });
     },
 
     showPicker(e: { currentTarget: { dataset: { mode: unknown } } }) {
-        const { mode, key } = e?.currentTarget?.dataset;
+        if (!e?.currentTarget?.dataset) return;
+        const { mode, key } = e.currentTarget.dataset;
 
         this.setData({
             mode,
@@ -468,7 +476,8 @@ Page({
     },
 
     showPositionPicker(e: unknown) {
-        const { mode, index } = e?.currentTarget?.dataset;
+        if (!e?.currentTarget?.dataset) return;
+        const { mode, index } = e.currentTarget.dataset;
         this.setData({
             mode,
             positionTimeVisible: true,
@@ -477,7 +486,8 @@ Page({
     },
 
     showInterruptPicker(e: unknown) {
-        const { mode, index } = e?.currentTarget?.dataset;
+        if (!e?.currentTarget?.dataset) return;
+        const { mode, index } = e.currentTarget.dataset;
         this.setData({
             mode,
             interruptTimeVisible: true,
@@ -493,7 +503,8 @@ Page({
     },
 
     onConfirm(e: { detail: { value: string } }) {
-        const { value } = e?.detail;
+        if (!e?.detail) return;
+        const { value } = e.detail;
         const { dateTimekey } = this.data;
         this.setData({
             [dateTimekey]: value
@@ -502,7 +513,8 @@ Page({
     },
 
     onPositionConfirm(e: unknown) {
-        const { value } = e?.detail;
+        if (!e?.detail) return;
+        const { value } = e.detail;
         let { positionTimeIndex, positionList } = this.data;
         positionList[positionTimeIndex].detectionTime = value;
         this.setData({
@@ -511,7 +523,8 @@ Page({
     },
 
     onInterruptConfirm(e: unknown) {
-        const { value } = e?.detail;
+        if (!e?.detail) return;
+        const { value } = e.detail;
         let { interruptTimeIndex, interruptList } = this.data;
         interruptList[interruptTimeIndex].detectionTime = value;
         this.setData({
@@ -536,6 +549,9 @@ Page({
     },
 
     onLoad() {
+        if (!wx.getStorageSync("sessionToken")) { wx.reLaunch({ url: "/pages/login/login" }); return; }
+        this.draft = attachDraft(this, "record");
+        if (!this.data.jobUuid) this.setData({ jobUuid: Date.now().toString(36) + Math.random().toString(36).slice(2) + Math.random().toString(36).slice(2) });
         this.getTabBar().setData({
             selected: 1
         });
@@ -664,6 +680,7 @@ Page({
     },
 
     submitJob() {
+        if (this.data.submitting) return;
         const openId = wx.getStorageSync("openId");
         if (!this.data.dateText) {
             this.handleToast({
@@ -779,7 +796,8 @@ Page({
 
             gasDetectionBase64Arr: this.data.gasDetectionBase64Arr.toString(),
             signBoardBase64Arr: this.data.signBoardBase64Arr.toString(),
-            exhaustBase64Arr: this.data.exhaustAirBase64Arr.toString(),
+            exhaustAirBase64Arr: this.data.exhaustAirBase64Arr.toString(),
+            jobUuid: this.data.jobUuid,
 
             xcfzr: this.data.xcfzr,
             xcfzrBase64: this.data.xcfzrBase64,
@@ -790,18 +808,27 @@ Page({
             unionWorkUuid: this.data.unionWorkUuid,
             unionMissionCId: this.data.unionMissionCId
         };
-        wx.request({
-            // url: 'https://zhouhaoyiu.oicp.vip/Job/addJob',
-            url: "https://zhouhaoyiu.oicp.vip/recordJob/addRecordJob",
+        this.draft?.save();
+        this.setData({ submitting: true });
+        request({
+            // The request ID is retained with the draft until the server confirms it.
+            url: "/recordJob/addRecordJob",
             method: 'POST',
             data: data,
             success: res => {
+                this.setData({ submitting: false });
+                if (res.statusCode !== 200 || res.data !== 1) {
+                    this.handleToast({ message: "提交失败，草稿已保留", theme: "fail" });
+                    return;
+                }
+                this.draft?.clear();
                 this.handleToast({
                     message: res.data == 1 ? '提交成功' : '提交失败',
                     theme: res.data == 1 ? 'success' : 'fail'
                 });
                 this.setData({
                     xcfzr: '',
+                    jobUuid: Date.now().toString(36) + Math.random().toString(36).slice(2) + Math.random().toString(36).slice(2),
                     xcfzrHasDraw: false,
                     xcfzrDrawOk: false, // 现场负责人签字完成
                     xcfzrDrawShow: false,
@@ -826,11 +853,11 @@ Page({
                     jobPosition: '', // 作业地点
 
                     // 安全选项
-                    riskFactorsValue: true, // 危险因素
-                    safetyDisclosureValue: true, // 安全交底
-                    inspectionEquipmentValue: true, // 检测设备情况
-                    safetyProtectionValue: true, // 安全防护设备
-                    emerRescueValue: true, // 应急救援装备
+                    riskFactorsValue: false, // 危险因素
+                    safetyDisclosureValue: false, // 安全交底
+                    inspectionEquipmentValue: false, // 检测设备情况
+                    safetyProtectionValue: false, // 安全防护设备
+                    emerRescueValue: false, // 应急救援装备
                     otherInfo: '', // 其他补充措施
 
                     ventilationStartsTime: "", //  通风开始
@@ -866,10 +893,12 @@ Page({
                     unionMissionList: "",
 
                 });
+                this.draft?.resume();
             },
             fail: res => {
+                this.setData({ submitting: false });
                 this.handleToast({
-                    message: res.data,
+                    message: "连接失败，草稿已保留",
                     theme: 'fail'
                 });
             }
@@ -877,6 +906,8 @@ Page({
     },
 
 
+    onHide() { this.draft?.save(); },
+    onUnload() { this.draft?.dispose(); },
     setInterruptInputData(e) {
         let value = e.detail.value;
         const key = e.target.dataset.key;

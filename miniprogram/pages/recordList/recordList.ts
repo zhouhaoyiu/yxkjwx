@@ -1,3 +1,4 @@
+import { request } from "../../utils/api";
 import Toast, { ToastOptionsType } from "tdesign-miniprogram/toast";
 Page({
     /**
@@ -32,9 +33,9 @@ Page({
         const openId = wx.getStorageSync("openId");
         const that = this;
         try {
-            wx.request({
+            request({
                 method: "GET",
-                url: "https://zhouhaoyiu.oicp.vip/recordJob/getSendRecordJobByPage",
+                url: "/recordJob/getSendRecordJobByPage",
                 data: {
                     page: this.data.sendPage,
                     sendOpenId: openId,

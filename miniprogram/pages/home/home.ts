@@ -1,3 +1,4 @@
+import { request } from "../../utils/api";
 import Toast, { ToastOptionsType } from "tdesign-miniprogram/toast";
 
 // pages/home/home.ts
@@ -41,7 +42,8 @@ Page({
     },
 
     showWorkDatePicker(e: { currentTarget: { dataset: { mode: string; }; }; }) {
-        const { mode } = e?.currentTarget?.dataset;
+        if (!e?.currentTarget?.dataset) return;
+        const { mode } = e.currentTarget.dataset;
 
         this.setData({
             mode,
@@ -50,7 +52,8 @@ Page({
     },
 
     onConfirm(e: { detail: { value: string | number } }) {
-        const { value } = e?.detail;
+        if (!e?.detail) return;
+        const { value } = e.detail;
         const { mode } = this.data;
 
         this.setData({
@@ -167,8 +170,8 @@ Page({
             }
         }
 
-        wx.request({
-            url: "https://zhouhaoyiu.oicp.vip/workJob/addWorkJob",
+        request({
+            url: "/workJob/addWorkJob",
             method: "POST",
             data: {
                 workDate: this.data.dateText,

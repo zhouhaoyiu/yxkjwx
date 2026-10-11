@@ -1,4 +1,5 @@
 // @ts-nocheck
+import { request } from "../../utils/api";
 import Toast, { ToastOptionsType } from "tdesign-miniprogram/toast/index";
 Page({
     /**
@@ -46,10 +47,10 @@ Page({
             selected: 2,
         });
         try {
-            wx.request({
+            request({
                 method: "GET",
-                // url: "https://zhouhaoyiu.oicp.vip/Job/getSendJobByPage",
-                url: "https://zhouhaoyiu.oicp.vip/workJob/getSendWorkJobByPage",
+                // url: "/Job/getSendJobByPage",
+                url: "/workJob/getSendWorkJobByPage",
                 data: {
                     page: this.data.sendPage,
                     sendOpenId: openId,
@@ -86,10 +87,10 @@ Page({
                 },
             });
 
-            wx.request({
+            request({
                 method: "GET",
-                // url: "https://zhouhaoyiu.oicp.vip/Job/getVerifyJobByPage",
-                url: "https://zhouhaoyiu.oicp.vip/workJob/getVerifyWorkJobByPage",
+                // url: "/Job/getVerifyJobByPage",
+                url: "/workJob/getVerifyWorkJobByPage",
                 data: {
                     page: this.data.verifyPage,
                     verifyOpenId: openId,
@@ -163,16 +164,16 @@ Page({
         });
         const url =
             // this.data.tabBarIndex == 0
-            //     ? "https://zhouhaoyiu.oicp.vip/Job/getSendJobByPage"
-            //     : "https://zhouhaoyiu.oicp.vip/Job/getVerifyJobByPage";
+            //     ? "/Job/getSendJobByPage"
+            //     : "/Job/getVerifyJobByPage";
             this.data.tabBarIndex == 0
-                ? "https://zhouhaoyiu.oicp.vip/workJob/getSendWorkJobByPage"
-                : "https://zhouhaoyiu.oicp.vip/workJob/getVerifyWorkJobByPage";
+                ? "/workJob/getSendWorkJobByPage"
+                : "/workJob/getVerifyWorkJobByPage";
         wx.showLoading({
             title: "加载中",
         });
         try {
-            wx.request({
+            request({
                 method: "GET",
                 url: url,
                 data: {
@@ -223,16 +224,16 @@ Page({
         const pageName = this.data.tabBarIndex == 0 ? "sendPage" : "verifyPage";
         const url =
             // this.data.tabBarIndex == 0
-            //     ? "https://zhouhaoyiu.oicp.vip/Job/getSendJobByPage"
-            //     : "https://zhouhaoyiu.oicp.vip/Job/getVerifyJobByPage";
+            //     ? "/Job/getSendJobByPage"
+            //     : "/Job/getVerifyJobByPage";
             this.data.tabBarIndex == 0
-                ? "https://zhouhaoyiu.oicp.vip/workJob/getSendWorkJobByPage"
-                : "https://zhouhaoyiu.oicp.vip/workJob/getVerifyWorkJobByPage";
+                ? "/workJob/getSendWorkJobByPage"
+                : "/workJob/getVerifyWorkJobByPage";
         const that = this;
         this.setData({
             [pageName]: this.data[pageName] + 1,
         });
-        wx.request({
+        request({
             url: url,
             method: "GET",
             data: {

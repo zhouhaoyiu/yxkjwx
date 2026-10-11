@@ -1,98 +1,28 @@
-import Toast, { ToastOptionsType } from "tdesign-miniprogram/toast/index";
-
+import { request } from "../../utils/api";
 Page({
-    /**
-     * 页面的初始数据
-     */
-    data: {
-        pin: ""
-    },
+    data: { username: "", password: "", submitting: false, error: "" },
     setInputData(e: MiniEvent<{ value: string }, { inputfield: string }>) {
-        this.setData({
-            [e.target.dataset.inputfield]: e.detail.value
-        });
+        const field = e.target.dataset.inputfield;
+        if (field === "username" || field === "password") this.setData({ [field]: e.detail.value });
     },
     wxLogin() {
-        // wx.getUserProfile({
-        //     desc: "用于完善用户资料",
-        //     success: (res) => {
-        //         console.log(res);
-        //         wx.switchTab({
-        //             url: "/pages/home/home",
-        //         });
-        //     },
-        // });
-        // if (this.data.pin == "tygscbyx") {
-            wx.switchTab({
-                url: "/pages/recordPage/recordPage"
-            });
-            wx.setStorageSync("login", true);
-        // } else {
-        //     this.handleToast({
-        //         message: `pin码错误`
-        //     });
-        // }
-    },
-    onGetPhoneNumber(e: WechatMiniprogram.ButtonGetPhoneNumber) {
-        console.log(e);
-    },
-    toast(option: ToastOptionsType) {
-        Toast({
-            context: this,
-            selector: "#t-toast",
-            ...option
+        if (this.data.submitting) return;
+        if (!this.data.username.trim() || !this.data.password) { this.setData({ error: "请输入账号和密码" }); return; }
+        this.setData({ submitting: true, error: "" });
+        request<{ token: string; id: string; role: string }>({
+            url: "/auth/login", method: "POST",
+            data: { username: this.data.username.trim(), password: this.data.password },
+            success: res => {
+                if (res.statusCode !== 200 || !res.data.token) { this.setData({ error: "登录失败，请核对账号或稍后重试" }); return; }
+                wx.setStorageSync("sessionToken", res.data.token);
+                wx.setStorageSync("openId", res.data.id);
+                wx.setStorageSync("role", res.data.role);
+                wx.setStorageSync("login", true);
+                this.setData({ password: "" });
+                wx.switchTab({ url: "/pages/recordPage/recordPage" });
+            },
+            fail: () => this.setData({ error: "连接失败，请检查网络" }),
+            complete: () => this.setData({ submitting: false }),
         });
     },
-
-    handleToast(message: string | ToastOptionsType) {
-        this.toast({
-            message: typeof message === "string" ? message : message.message
-        });
-    },
-    /**
-     * 生命周期函数--监听页面加载
-     */
-    onLoad() {
-        const login = wx.getStorageSync("login") || false;
-        if (login) {
-            wx.switchTab({
-                url: "/pages/recordPage/recordPage"
-            });
-        }
-    },
-
-    /**
-     * 生命周期函数--监听页面初次渲染完成
-     */
-    onReady() {},
-
-    /**
-     * 生命周期函数--监听页面显示
-     */
-    onShow() {},
-
-    /**
-     * 生命周期函数--监听页面隐藏
-     */
-    onHide() {},
-
-    /**
-     * 生命周期函数--监听页面卸载
-     */
-    onUnload() {},
-
-    /**
-     * 页面相关事件处理函数--监听用户下拉动作
-     */
-    onPullDownRefresh() {},
-
-    /**
-     * 页面上拉触底事件的处理函数
-     */
-    onReachBottom() {},
-
-    /**
-     * 用户点击右上角分享
-     */
-    onShareAppMessage() {}
 });

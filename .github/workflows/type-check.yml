@@ -19,3 +19,4 @@ jobs:
       - run: pnpm --config.trust-lockfile=true install --frozen-lockfile
       - run: pnpm run lint
       - run: pnpm run type-check
+      - run: pnpm test

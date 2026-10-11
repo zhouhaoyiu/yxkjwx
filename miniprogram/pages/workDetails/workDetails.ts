@@ -1,3 +1,4 @@
+import { request } from "../../utils/api";
 // pages/workDetails/workDetails.ts
 Page({
 
@@ -28,8 +29,8 @@ Page({
             workUuid: opt.workUuid,
         })
 
-        wx.request({
-            url: "https://zhouhaoyiu.oicp.vip/workJob/getInfoByWorkJobUuid",
+        request({
+            url: "/workJob/getInfoByWorkJobUuid",
             data: {
                 workUuid: this.data.workUuid
             },

@@ -1,17 +1,11 @@
-<!--pages/login/login.wxml-->
 <view class="page">
-    <view class="logo">
-        <image class="logoImage" src="../../image/tygs.jpg" mode="scaleToFill" lazy-load="false" binderror="" bindload="">
-        </image>
-    </view>
+    <image class="logo" src="../../image/tygs.jpg" mode="aspectFit" />
+    <text class="eyebrow">太原供水</text>
+    <view class="heading">有限空间作业</view>
     <view class="loginBox">
-        <view style="display: flex;justify-content: center;flex-direction: column;">
-            <text style="font-size: 32rpx;padding-left: 60rpx;">登录代码</text>
-            <t-input value="{{userName}}" label="slot" data-inputfield="pin" onchange="setInputData" placeholder="请输入登录代码" />
-        </view>
-        <!-- <t-input value="{{passWord}}" label="密码" placeholder="请输入密码" /> -->
-        <!-- <button class="authbtn" open-type="getPhoneNumber" type="primary" bindgetphonenumber="onGetPhoneNumber">获取手机号码</button> -->
-        <t-button t-class="external-class" bindtap="wxLogin" theme="primary" block disabled="{{disabled}}" content="登录"></t-button>
+        <t-input value="{{username}}" label="账号" data-inputfield="username" onchange="setInputData" placeholder="工作账号" />
+        <t-input value="{{password}}" label="密码" type="password" data-inputfield="password" onchange="setInputData" placeholder="密码" />
+        <view class="error" wx:if="{{error}}">{{error}}</view>
+        <t-button bindtap="wxLogin" theme="primary" block disabled="{{submitting}}" loading="{{submitting}}">登录</t-button>
     </view>
 </view>
-<t-toast id="t-toast" />

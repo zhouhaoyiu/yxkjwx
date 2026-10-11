@@ -1,4 +1,5 @@
 // @ts-nocheck
+import { request } from "../../utils/api";
 import Toast from "tdesign-miniprogram/toast/index";
 const width = wx.getSystemInfoSync().windowWidth;
 Page({
@@ -18,7 +19,8 @@ Page({
         spfzrSrc: null,
         spfzrBase64: null,
         spfzrInfo: "",
-        showDialog: false
+        showDialog: false,
+        submitting: false
     },
     touchstart(e: {
         touches: { x: unknown; y: unknown }[];
@@ -106,72 +108,30 @@ Page({
         });
     },
 
-    refuse() {
-        const openId = wx.getStorageSync("openId")
-        if (!this.data.spfzr) {
-            this.handleToast({
-                message: `请输入审批人`,
-            });
-            return;
+    refuse() { this.review(2); },
+    accept() { this.review(1); },
+    review(status: number) {
+        if (this.data.submitting) return;
+        if (!this.data.spfzr || !this.data.spfzrBase64 || !this.data.spfzrDrawOk) {
+            this.handleToast("请填写审批人并完成签字"); return;
         }
-        if (this.data.spfzrBase64 == null || !this.data.spfzrDrawOk) {
-            this.handleToast({
-                message: `请审批人完成签字`,
-            });
+        if (status === 2 && !this.data.spfzrInfo.trim()) {
+            this.handleToast("请填写驳回原因"); return;
         }
-        wx.request({
-            url: "https://zhouhaoyiu.oicp.vip/workJob/verifyWorkJob",
-            // url: "https://zhouhaoyiu.oicp.vip/Job/verifyJob",
-            method: "POST",
-            data: {
-                workUuid: this.data.workUuid,
-                status: 2,
-                spfzr: this.data.spfzr,
-                spfzrBase64: this.data.spfzrBase64,
-                spfzrInfo: this.data.spfzrInfo,
-                verifyOpenId: openId,
-                verifyDate: new Date().toLocaleDateString().split('/').join('-')
-            }
-        })
-        wx.switchTab({
-            url: "/pages/home/home"
-        })
-    },
-    accept() {
-        const openId = wx.getStorageSync("openId")
-        if (!this.data.spfzr) {
-            this.handleToast({
-                message: `请输入审批人`,
-            });
-            return;
-        }
-        if (this.data.spfzrBase64 == null || !this.data.spfzrDrawOk) {
-            this.handleToast({
-                message: `请审批人完成签字`,
-            });
-        }
-
-        wx.request({
-            url: "https://zhouhaoyiu.oicp.vip/workJob/verifyWorkJob",
-            method: "POST",
-            data: {
-                workUuid: this.data.workUuid,
-                status: 1,
-                spfzr: this.data.spfzr,
-                spfzrBase64: this.data.spfzrBase64,
-                spfzrInfo: this.data.spfzrInfo,
-                verifyOpenId: openId,
-                verifyDate: new Date().toLocaleDateString().split('/').join('-')
+        this.setData({ submitting: true });
+        request({
+            url: "/workJob/verifyWorkJob", method: "POST",
+            data: { workUuid: this.data.workUuid, status, spfzr: this.data.spfzr,
+                spfzrBase64: this.data.spfzrBase64, spfzrInfo: this.data.spfzrInfo },
+            success: res => {
+                if (res.statusCode === 200 && res.data === 1) {
+                    this.handleToast("审批已保存");
+                    this.setData({ showDialog: true });
+                } else this.handleToast(res.statusCode === 409 ? "此申请已被审批，请刷新" : "审批未保存，请重试");
             },
-            success(res) {
-                if (res.data == 1) {
-                    that.handleToast("审批成功")
-                }
-            }
-        })
-        // wx.switchTab({
-        //     url: "/pages/home/home"
-        // })
+            fail: () => this.handleToast("网络连接失败，签字已保留"),
+            complete: () => this.setData({ submitting: false }),
+        });
     },
 
     toast(option: ToastOptionsType) {
@@ -198,14 +158,18 @@ Page({
             workUuid: opt.workUuid,
         });
         wx.hideShareMenu({})
-        wx.request({
+        request({
             method: "GET",
-            // url: "https://zhouhaoyiu.oicp.vip/Job/getInfoByJobUuid",
-            url: "https://zhouhaoyiu.oicp.vip/workJob/getInfoByWorkJobUuid",
+            // url: "/Job/getInfoByJobUuid",
+            url: "/workJob/getInfoByWorkJobUuid",
             data: {
                 workUuid: this.data.workUuid
             },
             success(res: unknown) {
+                if (res.statusCode !== 200 || !Array.isArray(res.data) || !res.data[0]) {
+                    that.handleToast("申请不存在或无权查看");
+                    return;
+                }
                 if (res.data[0].spfzr) {
                     that.setData({
                         showDialog: true,
